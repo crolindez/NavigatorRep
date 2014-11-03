@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:key="server"
+        android:defaultValue="LittleNav"
+        android:title="@string/select_server"
+        android:dialogTitle="@string/select_server"
+        android:entries="@array/server_list"
+        android:entryValues="@array/server_names" />
+</PreferenceScreen>
