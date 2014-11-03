@@ -27,7 +27,7 @@ public class SearchActivity extends Activity {
         setContentView(R.layout.layout_search);
         
     	SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-    	String server = sharedPref.getString("server", "");
+    	String  server = sharedPref.getString("server", "");
     	if (server.matches("Navision"))
     	{
     		NavisionTool.changeConn("jdbc:jtds:sqlserver://192.0.0.102:1855/EIS", "sa", "Advising,2007");
