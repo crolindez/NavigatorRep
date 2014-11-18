@@ -21,7 +21,6 @@ public class NavisionTool
 	public static final int LOADER_PRODUCT_BOM = 3;
 	public static final int LOADER_PRODUCT_INFO = 4;
 	public static final String LAUNCH_REFERENCE = "es.carlosrolindez.navisiontool.LAUNCH_REFERENCE";
-	public static final String LAUNCH_DESCRIPTION = "es.carlosrolindez.navisiontool.LAUNCH_DESCRIPTION";
 	public static final String QUERY = "QUERY";
 	
 	

@@ -1,20 +1,20 @@
 package es.carlosrolindez.navigator;
 
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
 
 
-public class SearchActivity extends Activity {
+
+public class SearchActivity extends FragmentActivity {
 	
 	private SearchFragment searchFragment;
 
@@ -57,8 +57,8 @@ public class SearchActivity extends Activity {
 		    
 	    	Log.e("Activity handleIntent:","Intent Action Search"); 
 
-	        FragmentManager fm = getFragmentManager();
-	        searchFragment = (SearchFragment) fm.findFragmentById(R.id.fragment_container);
+//	        FragmentManager fm = getSupportFragmentManager();
+//	        searchFragment = (SearchFragment) fm.findFragmentById(R.id.fragment_container);
 
  //           if (searchFragment==null) 
             {
@@ -68,8 +68,7 @@ public class SearchActivity extends Activity {
             	bundle.putInt("LOADER_MODE", NavisionTool.LOADER_PRODUCT_SEARCH);
             	searchFragment.setArguments(bundle);  
             	// Add the fragment to the 'fragment_container' FrameLayout
-            	getFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, searchFragment).commit();    
+            	getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchFragment).commit();    
             }
   	    }
 

@@ -1,15 +1,17 @@
 package es.carlosrolindez.navigator;
 
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.content.AsyncTaskLoader;
+
+
+
 
 public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 	private ArrayList<Product> productList;
@@ -81,10 +83,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 						product.reference = result.getString(1);
 						product.description = result.getString(2) + result.getString(3);	
 						product.stock = NavisionTool.queryStock(product.reference);
-	//					product.stock="10.0";
 						product.cost = result.getString(4);
-	//					product.hasBOM = false;
-	//					product.inBOM = false;
 						product.hasBOM = !(result.getString(5).isEmpty());
 		    			product.inBOM = NavisionTool.queryInBOM(product.reference);
 						productList.add(product);

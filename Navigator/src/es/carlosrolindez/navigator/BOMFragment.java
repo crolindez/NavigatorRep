@@ -1,11 +1,7 @@
 package es.carlosrolindez.navigator;
 
-
-
 import java.util.ArrayList;
 
-import android.app.SearchManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -24,7 +20,10 @@ import android.widget.Toast;
 
 
 
-public class SearchFragment extends Fragment implements LoaderCallbacks<ArrayList<Product>> 
+
+
+
+public class BOMFragment extends Fragment implements LoaderCallbacks<ArrayList<Product>> 
 {
 //	private ArrayList<Product> productList;
 	private ListView list;
@@ -33,16 +32,22 @@ public class SearchFragment extends Fragment implements LoaderCallbacks<ArrayLis
 	private int loaderMode;
 //	private final String PRODUCT_LIST_KEY = "ProductListKey";	
 	
-	 @Override
-	    public void onCreate(Bundle savedInstanceState) {
-	        super.onCreate(savedInstanceState);
+	public static BOMFragment newInstance(String filter,int lm) {
+		BOMFragment  fragment = new BOMFragment();
+		fragment.loaderMode = lm;
+		fragment.query = filter;
+		return fragment;
+	}
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 //	    	setRetainInstance(true);
-	    	Bundle bundle=getArguments();
-		    query = bundle.getString(SearchManager.QUERY);
-	    	Log.e("Fragment OnCreate:", "query: "+query);  
-		    loaderMode = bundle.getInt("LOADER_MODE");
-	    	Log.e("Fragment OnCreate:", "loaderMode: "+loaderMode);  
-	    }
+//    	Bundle bundle=getArguments();
+//	    query = bundle.getString(SearchManager.QUERY);
+//    	Log.e("Fragment OnCreate:", "query: "+query);  
+//	    loaderMode = bundle.getInt("LOADER_MODE");
+//    	Log.e("Fragment OnCreate:", "loaderMode: "+loaderMode);  
+	}
 	 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, 
@@ -90,21 +95,6 @@ public class SearchFragment extends Fragment implements LoaderCallbacks<ArrayLis
     	    lm.restartLoader(loaderMode, searchString, this);	     	
         }
     }
-    
-	OnItemClickListener onItemClickListener = new OnItemClickListener() 
-	{
-		@Override
-    	public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
-    	{ 			
-	    	Intent intent = new Intent (view.getContext(), InfoActivity.class);
-	        Product product = (Product)parent.getItemAtPosition(position);
-        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, product.reference);        	
-        	startActivity(intent);
-        	
-//        	Toast.makeText(view.getContext(), "List Item", Toast.LENGTH_SHORT).show();
-    	}
-	};
-    
     
 /*    public void onSaveInstanceState(Bundle savedState) {
     	ArrayList<Product> productList;
@@ -163,5 +153,19 @@ public class SearchFragment extends Fragment implements LoaderCallbacks<ArrayLis
 		listAdapter.showResultSet(null);
 	}
 	
+	OnItemClickListener onItemClickListener = new OnItemClickListener() 
+	{
+		@Override
+    	public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
+    	{ 			
+	    /*	Intent intent = new Intent (view.getContext(), ProductListBomActivity.class);
+	        ProductList productList = (ProductList)parent.getItemAtPosition(position);
+        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, productList.reference);        	
+        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, productList.description);
+        	startActivity(intent);*/
+        	
+        	Toast.makeText(view.getContext(), "List Item", Toast.LENGTH_SHORT).show();
+    	}
+	};
 
 }
