@@ -8,5 +8,17 @@
     <string name="action_search">Buscar referencia</string>
     <string name="stock">Stock</string>
     <string name="orderpoint">P.P.</string>
+    <string name="cost">Cost</string>
+    <string name="hand_working">M.O.</string>
+    <string name="in_production">En prod.</string>
+    <string name="purchase">Comprado</string>
+    <string name="in_planned_production">Prod. Planif.</string>
+    <string name="consumed">Cosumido</string>
+    <string name="transfer">Transfer.</string>
+    <string name="sale">Venta</string>
+    <string name="future_consume">En Planif.</string>
+    <string name="state">Estado</string>
+    <string name="income">Aportaciones</string>
+    <string name="outcome">Consumos</string>
 
 </resources>
