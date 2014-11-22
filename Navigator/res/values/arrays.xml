@@ -2,11 +2,11 @@
 <resources>
     <string-array name="server_list">
         <item >Navision</item>
-        <item >LittleNav</item>
+        <item >Emulator</item>
     </string-array>
     <string-array name="server_names">
         <item >Navision</item>
-        <item >LittleNav</item>
+        <item >Emulator</item>
     </string-array>
    
 </resources>

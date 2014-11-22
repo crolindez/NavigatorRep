@@ -23,24 +23,28 @@ public class NavisionTool
 	public static final String LAUNCH_REFERENCE = "es.carlosrolindez.navisiontool.LAUNCH_REFERENCE";
 	public static final String QUERY = "QUERY";
 	
+	public static final int MODE_EMULATOR = 0;
+	public static final int MODE_REAL = 1;
 	
-    static String connString;
-    static String username;
-    static String password;
-    static Connection conn;
+	
+    private static String connString;
+    private static String username;
+    private static String password;
+    private static Connection conn;
+    private static int mode;
 
 	static {
 		conn = null;
+		mode = MODE_REAL;
 		connString = "jdbc:jtds:sqlserver://192.168.1.4:1433/LittleNavision";
 		username = "sa";
 		password = "Julia2009";
 	}
 	
-	static public void changeConn(String newConnString,String newUserName,String newPassword)
+	static public void changeMode(int newMode)
 	{
-		connString=newConnString;
-		username=newUserName;
-		password=newPassword;
+		mode = newMode;
+
 	}
 	
 	
@@ -55,6 +59,9 @@ public class NavisionTool
 			}
 	    	conn = null;
 	    }
+
+		if (mode == MODE_EMULATOR) return null;
+		
 	    
 	    try 
 	    {

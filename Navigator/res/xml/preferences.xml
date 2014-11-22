@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <ListPreference
         android:key="server"
-        android:defaultValue="LittleNav"
+        android:defaultValue="Emulator"
         android:title="@string/select_server"
         android:dialogTitle="@string/select_server"
         android:entries="@array/server_list"

@@ -30,11 +30,11 @@ public class SearchActivity extends FragmentActivity {
     	String  server = sharedPref.getString("server", "");
     	if (server.matches("Navision"))
     	{
-    		NavisionTool.changeConn("jdbc:jtds:sqlserver://192.0.0.102:1855/EIS", "sa", "Advising,2007");
+    		NavisionTool.changeMode(NavisionTool.MODE_REAL);
     	}
     	else
     	{
-    		NavisionTool.changeConn("jdbc:jtds:sqlserver://192.168.1.4:1433/LittleNavision", "sa", "Julia2009") ;   		
+    		NavisionTool.changeMode(NavisionTool.MODE_EMULATOR);  		
     	}
     
 	    Intent myIntent = getIntent();
