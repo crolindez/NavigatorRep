@@ -3,57 +3,298 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
 	android:orientation="vertical" >
-	
-    <LinearLayout 
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:padding="3dp"
+        android:text="@string/state"
+        android:textColor="@color/white" 
+        android:textStyle="bold|italic" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@color/blue"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/stock"
+            android:textColor="@color/white" 
+            android:textStyle="bold|italic" />
+        <TextView
+            android:id="@+id/general_info_stock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/stock" />
+	    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@color/blue"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/orderpoint"
+            android:textColor="@color/white"
+            android:textStyle="bold|italic"  />
+        <TextView
+            android:id="@+id/general_info_pp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/orderpoint" />
+    </LinearLayout>
+	<LinearLayout 
         android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:orientation="horizontal"
 	    android:layout_weight="1" >
-
-       	<EditText
-	        android:id="@+id/general_info_stock"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"  
-	        android:ems="10"
-	        android:hint="hola"
-	        android:inputType="numberDecimal" />
-	    <EditText
-	        android:id="@+id/general_info_pp"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"  
-	        android:ems="10"
-	        android:hint="hola"
-	        android:inputType="numberDecimal" />
-	</LinearLayout>
-	
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@color/blue"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/cost"
+            android:textColor="@color/white"
+            android:textStyle="bold|italic"  />
+        <TextView
+            android:id="@+id/general_info_cost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/cost"  />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@color/blue"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/hand_working"
+            android:textColor="@color/white"
+            android:textStyle="bold|italic"  />
+        <TextView
+            android:id="@+id/general_info_handworkcost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/hand_working" />
+    </LinearLayout>
+        
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/green"
+        android:gravity="center"
+        android:padding="3dp"
+        android:text="@string/income"
+        android:textColor="@color/white" 
+        android:textStyle="bold|italic" />
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/purchase"
+            android:textColor="@color/white" 
+            android:textStyle="bold|italic" />
+        <TextView
+            android:id="@+id/general_info_purchase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/purchase" />
+	    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/in_production"
+            android:textColor="@color/white"
+            android:textStyle="bold|italic"  />
+        <TextView
+            android:id="@+id/general_info_in_production"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/in_production" />
+    </LinearLayout>
     <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:weightSum="4"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/in_planned_production"
+            android:textColor="@color/white"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/general_info_in_planned_produccions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/in_planned_production" />
+	</LinearLayout>    
+        
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/red"
+        android:gravity="center"
+        android:padding="3dp"
+        android:text="@string/outcome"
+        android:textColor="@color/white" 
+        android:textStyle="bold|italic" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/sale"
+            android:textColor="@color/white" 
+            android:textStyle="bold|italic" />
+        <TextView
+            android:id="@+id/general_info_sales"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/sale" />
+	    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/consumed"
+            android:textColor="@color/white"
+            android:textStyle="bold|italic"  />
+        <TextView
+            android:id="@+id/general_info_used_in_production"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/consumed" />
+    </LinearLayout>
+	<LinearLayout 
         android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:orientation="horizontal"
 	    android:layout_weight="1" >
-
-	    <EditText
-	        android:id="@+id/general_info_cost"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"        
-	        android:ems="10"
-	        android:hint="hola"
-	        android:inputType="numberDecimal" />
-	
-	    <EditText
-	        android:id="@+id/general_info_handworkcost"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:ems="10"
-	        android:layout_weight="1"        
-	        android:hint="hola"
-	        android:inputType="numberDecimal" >
-		</EditText>
-		
-	</LinearLayout>
-
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/transfer"
+            android:textColor="@color/white"
+            android:textStyle="bold|italic"  />
+        <TextView
+            android:id="@+id/general_info_transfer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/transfer"  />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/future_consume"
+            android:textColor="@color/white"
+            android:textStyle="bold|italic"  />
+        <TextView
+            android:id="@+id/general_info_used_in_planned_produccions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/future_consume" />
+    </LinearLayout>
+    
+    
 </LinearLayout>
