@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
@@ -19,8 +18,7 @@ public class SearchActivity extends FragmentActivity {
 	private SearchFragment searchFragment;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-    	Log.e("Activity OnCreate: ","Before Super");   
+    protected void onCreate(Bundle savedInstanceState) { 
     	super.onCreate(savedInstanceState);
 
 	    PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
@@ -43,8 +41,7 @@ public class SearchActivity extends FragmentActivity {
     }
 
 	@Override
-	protected void onNewIntent(Intent intent) {
-    	Log.e("Activity OnNewIntent:","First line");     
+	protected void onNewIntent(Intent intent) { 
 	    setIntent(intent);
 
 	    handleIntent(intent);
@@ -55,14 +52,12 @@ public class SearchActivity extends FragmentActivity {
 	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) 
 	    {
 		    
-	    	Log.e("Activity handleIntent:","Intent Action Search"); 
 
 //	        FragmentManager fm = getSupportFragmentManager();
 //	        searchFragment = (SearchFragment) fm.findFragmentById(R.id.fragment_container);
 
  //           if (searchFragment==null) 
             {
-    	    	Log.e("Activity handleIntent:","new searchFragment"); 
             	searchFragment = new SearchFragment();
             	Bundle bundle = intent.getExtras();
             	bundle.putInt("LOADER_MODE", NavisionTool.LOADER_PRODUCT_SEARCH);

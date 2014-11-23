@@ -3,6 +3,7 @@ package es.carlosrolindez.navigator;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
 
 
@@ -13,21 +14,29 @@ class InfoFragmentAdapter extends FragmentPagerAdapter {
 
     private int mCount;
     private String query;
+    BOMFragment inUseFragment;
+    BOMFragment bomFragment;
+    BOMFragment infoFragment;
 
     public InfoFragmentAdapter(FragmentManager fm,String filter) {
         super(fm);
-        mCount = 2;
+        mCount = 3;
         query = filter;
+        inUseFragment = BOMFragment.newInstance(query,NavisionTool.LOADER_PRODUCT_IN_USE);
+        infoFragment = BOMFragment.newInstance(query,NavisionTool.LOADER_PRODUCT_INFO);
+        bomFragment = BOMFragment.newInstance(query,NavisionTool.LOADER_PRODUCT_BOM);
+        
     }
 
     @Override
     public Fragment getItem(int position) {
+    	Log.e("getItme","page:" + position); 
     	switch (position) 
     	{
-    		case 0: return BOMFragment.newInstance(query,NavisionTool.LOADER_PRODUCT_IN_USE);
-//    		case 2: return InfoFragment.newInstance(query,NavisionTool.LOADER_PRODUCT_IN_USE);
-    		case 1:
-    		default:	return BOMFragment.newInstance(query,NavisionTool.LOADER_PRODUCT_BOM);
+    		case 0: 	Log.e("Loader In use","started"); return inUseFragment;
+    		case 1:		Log.e("Loader Info","started"); return infoFragment;
+    		case 2: 	
+    		default:	Log.e("Loader BOM","started"); return bomFragment;
     			
     	}
         
@@ -43,9 +52,10 @@ class InfoFragmentAdapter extends FragmentPagerAdapter {
       	switch (position) 
     	{
     		case 0: return "InBOM";
+    		case 1: return "Info";
     		case 2: return "BOM";
-    		case 1:
-    		default:	return "Info";
+
+    		default:	return "Navigator";
     			
     	}
     }

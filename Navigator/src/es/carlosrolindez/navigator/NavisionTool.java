@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import android.util.Log;
 
 
 
@@ -16,10 +15,10 @@ import android.util.Log;
 public class NavisionTool 
 {
 	
-	public static final int LOADER_PRODUCT_SEARCH = 1;
-	public static final int LOADER_PRODUCT_IN_USE = 2;
-	public static final int LOADER_PRODUCT_BOM = 3;
-	public static final int LOADER_PRODUCT_INFO = 4;
+	public static final int LOADER_PRODUCT_SEARCH = 3;
+	public static final int LOADER_PRODUCT_IN_USE = 0;
+	public static final int LOADER_PRODUCT_BOM = 2;
+	public static final int LOADER_PRODUCT_INFO = 1;
 	public static final String LAUNCH_REFERENCE = "es.carlosrolindez.navisiontool.LAUNCH_REFERENCE";
 	public static final String QUERY = "QUERY";
 	
@@ -39,6 +38,11 @@ public class NavisionTool
 		connString = "jdbc:jtds:sqlserver://192.168.1.4:1433/LittleNavision";
 		username = "sa";
 		password = "Julia2009";
+	}
+	
+	static public int readMode()
+	{
+		return mode;
 	}
 	
 	static public void changeMode(int newMode)
@@ -99,6 +103,7 @@ public class NavisionTool
 	static public ResultSet queryList(String filterString)
 	{
 	    Statement stmt;
+
 		try 
 		{
 			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
@@ -118,6 +123,8 @@ public class NavisionTool
 	static public ResultSet queryListBOM(String filterString)
 	{
 	    Statement stmt;
+	    
+
 		try 
 		{
 			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
@@ -242,7 +249,7 @@ public class NavisionTool
 	    Statement stmt;
 		try 
 		{
-			Log.e("stocking ", filterString);
+//			Log.e("stocking ", filterString);
 			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			
             String headSqlString = "SELECT sum([Quantity]) FROM  [EIS$Item Ledger Entry] WHERE  ([Item No_] = '";
@@ -252,18 +259,18 @@ public class NavisionTool
 		    if (result.isBeforeFirst())
 		    {
 		    	result.next();
-		    	Log.e("stocking", " ok");
+//		    	Log.e("stocking", " ok");
 		    	return (result.getString(1));
 		    }
 		    else
 		    {
-		    	Log.e("stocking", " void");
+//		    	Log.e("stocking", " void");
 		    	return "0.0";
 		    }
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-    	Log.e("stocking", " exception");
+//   	Log.e("stocking", " exception");
 		return null;
 	}
 

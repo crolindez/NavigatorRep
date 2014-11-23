@@ -7,8 +7,8 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 
-import com.viewpagerindicator.CirclePageIndicator;
-import com.viewpagerindicator.PageIndicator;
+import com.viewpagerindicator.TabPageIndicator;
+
 
 
 
@@ -18,7 +18,7 @@ import com.viewpagerindicator.PageIndicator;
 public class InfoActivity extends FragmentActivity {
     private InfoFragmentAdapter mAdapter;
     private ViewPager mPager;
-    private PageIndicator mIndicator;
+    private TabPageIndicator mIndicator;
 
     
     
@@ -27,7 +27,9 @@ public class InfoActivity extends FragmentActivity {
     	Log.e("Activity OnCreate: ","Before Super");   
     	super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.simple_circles);
+  //      setContentView(R.layout.simple_circles);
+        setContentView(R.layout.simple_tabs);
+
         
         Intent myIntent = getIntent();
 	    String reference = myIntent.getStringExtra(NavisionTool.LAUNCH_REFERENCE);	  
@@ -37,8 +39,13 @@ public class InfoActivity extends FragmentActivity {
         mPager = (ViewPager)findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
 
-        mIndicator = (CirclePageIndicator)findViewById(R.id.indicator);
-        mIndicator.setViewPager(mPager);		
+        mIndicator = (TabPageIndicator)findViewById(R.id.indicator);
+        mIndicator.setViewPager(mPager);	
+        mIndicator.setCurrentItem(1);
+        
+      	getActionBar().setTitle(reference);       
+        
+        
 	/*	String reference;
 		    
     	Log.e("Activity handleIntent:","Intent Action Search"); 

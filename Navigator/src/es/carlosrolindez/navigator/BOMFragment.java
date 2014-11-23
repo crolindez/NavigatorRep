@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 
 
+
+
 public class BOMFragment extends Fragment implements LoaderCallbacks<ArrayList<Product>> 
 {
 //	private ArrayList<Product> productList;
@@ -36,6 +38,7 @@ public class BOMFragment extends Fragment implements LoaderCallbacks<ArrayList<P
 		BOMFragment  fragment = new BOMFragment();
 		fragment.loaderMode = lm;
 		fragment.query = filter;
+		Log.e("New Frament:", "loaderMode: " + lm + " query: " + filter);  
 		return fragment;
 	}
 	@Override
@@ -87,7 +90,7 @@ public class BOMFragment extends Fragment implements LoaderCallbacks<ArrayList<P
     	
 //        if (productList==null)
         {
-        	Log.e("Fragment OnActivityCreated:", "Loader lauched");  
+    		Log.e("Fragment OnActivityCreated:","loaderMode: " + loaderMode + " query: " + query);  
     		LoaderManager lm = getLoaderManager();  
     		getActivity().findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);  
     	    Bundle searchString = new Bundle();
@@ -115,14 +118,58 @@ public class BOMFragment extends Fragment implements LoaderCallbacks<ArrayList<P
 	
 	@Override
 	public void onLoadFinished(Loader<ArrayList<Product>> loader,ArrayList<Product> productList)
-	{
-    	Log.e("Fragment OnLoadFinished:", "Generic");  
-		switch(loader.getId())
+	{   		
+    	Log.e("Fragment OnLoadFinished", "loaderMode: " + loaderMode + " ID: " + loader.getId());  		
+    	switch(loader.getId())
 		{	
-			case NavisionTool.LOADER_PRODUCT_SEARCH:
+			case NavisionTool.LOADER_PRODUCT_INFO:
+		    	Log.e("Fragment OnLoadFinished:", "PRODUCT_INFO");  
+				getActivity().findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+			    if (productList==null)
+			    {	
+			    	LayoutInflater inflater = getActivity().getLayoutInflater();
+			    	View layout = inflater.inflate(R.layout.toast_layout,(ViewGroup) getActivity().findViewById(R.id.toast_layout_root));
+	
+			    	TextView text = (TextView) layout.findViewById(R.id.text_layout);
+			    	text.setText("SQL server not found");
+	
+			    	Toast toast = new Toast(getActivity().getApplicationContext());
+			    	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+			    	toast.setDuration(Toast.LENGTH_LONG);
+			    	toast.setView(layout);
+			    	toast.show();			    	
+			    }
+			    else
+			    {
+			    	listAdapter.showResultSet(productList);
+			    }
+				break;
+				
 			case NavisionTool.LOADER_PRODUCT_BOM:
+
+		    	Log.e("Fragment OnLoadFinished:", "PRODUCT_BOM");  
+				getActivity().findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+			    if (productList==null)
+			    {	
+			    	LayoutInflater inflater = getActivity().getLayoutInflater();
+			    	View layout = inflater.inflate(R.layout.toast_layout,(ViewGroup) getActivity().findViewById(R.id.toast_layout_root));
+	
+			    	TextView text = (TextView) layout.findViewById(R.id.text_layout);
+			    	text.setText("SQL server not found");
+	
+			    	Toast toast = new Toast(getActivity().getApplicationContext());
+			    	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+			    	toast.setDuration(Toast.LENGTH_LONG);
+			    	toast.setView(layout);
+			    	toast.show();			    	
+			    }
+			    else
+			    {
+			    	listAdapter.showResultSet(productList);
+			    }
+				break;
 			case NavisionTool.LOADER_PRODUCT_IN_USE:
-		    	Log.e("Fragment OnLoadFinished:", "PRODUCT");  
+		    	Log.e("Fragment OnLoadFinished:", "PRODUCT_IN_USE");  
 				getActivity().findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 			    if (productList==null)
 			    {	

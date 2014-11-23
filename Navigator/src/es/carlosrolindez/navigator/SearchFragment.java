@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,20 +33,17 @@ public class SearchFragment extends Fragment implements LoaderCallbacks<ArrayLis
 //	private final String PRODUCT_LIST_KEY = "ProductListKey";	
 	
 	 @Override
-	    public void onCreate(Bundle savedInstanceState) {
-	        super.onCreate(savedInstanceState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 //	    	setRetainInstance(true);
-	    	Bundle bundle=getArguments();
-		    query = bundle.getString(SearchManager.QUERY);
-	    	Log.e("Fragment OnCreate:", "query: "+query);  
-		    loaderMode = bundle.getInt("LOADER_MODE");
-	    	Log.e("Fragment OnCreate:", "loaderMode: "+loaderMode);  
-	    }
+    	Bundle bundle=getArguments();
+	    query = bundle.getString(SearchManager.QUERY);
+	    loaderMode = bundle.getInt("LOADER_MODE");
+    }
 	 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, 
         Bundle savedInstanceState) {
-    	Log.e("Fragment OnCreateView:", "Inflater");  
 
         
  /*   	if (savedInstanceState != null) {
@@ -81,8 +77,7 @@ public class SearchFragment extends Fragment implements LoaderCallbacks<ArrayLis
         list.setOnItemClickListener(onItemClickListener);    
     	
 //        if (productList==null)
-        {
-        	Log.e("Fragment OnActivityCreated:", "Loader lauched");  
+        { 
     		LoaderManager lm = getLoaderManager();  
     		getActivity().findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);  
     	    Bundle searchString = new Bundle();
@@ -126,13 +121,12 @@ public class SearchFragment extends Fragment implements LoaderCallbacks<ArrayLis
 	@Override
 	public void onLoadFinished(Loader<ArrayList<Product>> loader,ArrayList<Product> productList)
 	{
-    	Log.e("Fragment OnLoadFinished:", "Generic");  
 		switch(loader.getId())
 		{	
 			case NavisionTool.LOADER_PRODUCT_SEARCH:
 			case NavisionTool.LOADER_PRODUCT_BOM:
 			case NavisionTool.LOADER_PRODUCT_IN_USE:
-		    	Log.e("Fragment OnLoadFinished:", "PRODUCT");  
+
 				getActivity().findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 			    if (productList==null)
 			    {	
