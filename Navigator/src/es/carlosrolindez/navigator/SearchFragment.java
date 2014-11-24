@@ -56,7 +56,7 @@ public class SearchFragment extends Fragment implements LoaderCallbacks<ArrayLis
         	Log.e("Fragment OnCreateView:", "No Instance " + query);
         }*/
     	
-        return inflater.inflate(R.layout.list_layout, container, false);  
+        return inflater.inflate(R.layout.bom_layout, container, false);  
        
 
         

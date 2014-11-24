@@ -19,13 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
-
-
-
-
-
-public class BOMFragment extends Fragment implements LoaderCallbacks<ArrayList<Product>> 
+public class InUseFragment extends Fragment implements LoaderCallbacks<ArrayList<Product>> 
 {
 //	private ArrayList<Product> productList;
 	private ListView list;
@@ -34,8 +28,8 @@ public class BOMFragment extends Fragment implements LoaderCallbacks<ArrayList<P
 //	private int loaderMode;
 //	private final String PRODUCT_LIST_KEY = "ProductListKey";	
 	
-	public static BOMFragment newInstance(String filter/*,int lm*/) {
-		BOMFragment  fragment = new BOMFragment();
+	public static InUseFragment newInstance(String filter/*,int lm*/) {
+		InUseFragment  fragment = new InUseFragment();
 //		fragment.loaderMode = lm;
 		fragment.query = filter;
 		return fragment;
@@ -67,24 +61,24 @@ public class BOMFragment extends Fragment implements LoaderCallbacks<ArrayList<P
         	Log.e("Fragment OnCreateView:", "No Instance " + query);
         }*/
 	  
-    	return  inflater.inflate(R.layout.bom_layout, container, false);    
+    	return  inflater.inflate(R.layout.in_use_layout, container, false);    
     }
 
     @Override    
     public void onActivityCreated(Bundle savedInstanceState) {	
     	super.onActivityCreated(savedInstanceState);
     	
- 	    list=(ListView)getActivity().findViewById(R.id.bom_list);    	
+ 	    list=(ListView)getActivity().findViewById(R.id.in_use_list);    	
 	    listAdapter = new CrListAdapter(getActivity()/*,productList*/);
 	    list.setAdapter(listAdapter);
 	    list.setOnItemClickListener(onItemClickListener);    
 //      if (productList==null)
         {
        		LoaderManager lm = getLoaderManager();  
-       		getActivity().findViewById(R.id.bom_loadingPanel).setVisibility(View.VISIBLE);  
+       		getActivity().findViewById(R.id.in_use_loadingPanel).setVisibility(View.VISIBLE);  
        	    Bundle searchString = new Bundle();
        	    searchString.putString(NavisionTool.QUERY, query);  	    
-       	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_BOM, searchString, this);	     	
+       	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_IN_USE, searchString, this);	     	
         }    	
          
    
@@ -109,55 +103,28 @@ public class BOMFragment extends Fragment implements LoaderCallbacks<ArrayList<P
 	
 	@Override
 	public void onLoadFinished(Loader<ArrayList<Product>> loader,ArrayList<Product> productList)
-	{   			
- //   	switch(loader.getId())
-/*		{	
-			case NavisionTool.LOADER_PRODUCT_INFO:
-		    	Log.e("Fragment OnLoadFinished:", "PRODUCT_INFO");  
-				getActivity().findViewById(R.id.bom_loadingPanel).setVisibility(View.GONE);
-			    if (productList==null)
-			    {	
-			    	LayoutInflater inflater = getActivity().getLayoutInflater();
-			    	View layout = inflater.inflate(R.layout.toast_layout,(ViewGroup) getActivity().findViewById(R.id.toast_layout_root));
+	{   		
+    	Log.e("Fragment OnLoadFinished:", "PRODUCT_IN_USE");  
+		getActivity().findViewById(R.id.in_use_loadingPanel).setVisibility(View.GONE);
+	    if (productList==null)
+	    {	
+	    	LayoutInflater inflater = getActivity().getLayoutInflater();
+	    	View layout = inflater.inflate(R.layout.toast_layout,(ViewGroup) getActivity().findViewById(R.id.toast_layout_root));
+
+	    	TextView text = (TextView) layout.findViewById(R.id.text_layout);
+	    	text.setText("SQL server not found");
+
+	    	Toast toast = new Toast(getActivity().getApplicationContext());
+	    	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+	    	toast.setDuration(Toast.LENGTH_LONG);
+	    	toast.setView(layout);
+	    	toast.show();			    	
+	    }
+	    else
+	    {
+	    	listAdapter.showResultSet(productList);
+	    }
 	
-			    	TextView text = (TextView) layout.findViewById(R.id.text_layout);
-			    	text.setText("SQL server not found");
-	
-			    	Toast toast = new Toast(getActivity().getApplicationContext());
-			    	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-			    	toast.setDuration(Toast.LENGTH_LONG);
-			    	toast.setView(layout);
-			    	toast.show();			    	
-			    }
-			    else
-			    {
-			    	listAdapter.showResultSet(productList);
-			    }
-				break;
-				
-			case NavisionTool.LOADER_PRODUCT_BOM:
-*/
-		    	Log.e("Fragment OnLoadFinished:", "PRODUCT_BOM");  
-				getActivity().findViewById(R.id.bom_loadingPanel).setVisibility(View.GONE);
-			    if (productList==null)
-			    {	
-			    	LayoutInflater inflater = getActivity().getLayoutInflater();
-			    	View layout = inflater.inflate(R.layout.toast_layout,(ViewGroup) getActivity().findViewById(R.id.toast_layout_root));
-	
-			    	TextView text = (TextView) layout.findViewById(R.id.text_layout);
-			    	text.setText("SQL server not found");
-	
-			    	Toast toast = new Toast(getActivity().getApplicationContext());
-			    	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-			    	toast.setDuration(Toast.LENGTH_LONG);
-			    	toast.setView(layout);
-			    	toast.show();			    	
-			    }
-			    else
-			    {
-			    	listAdapter.showResultSet(productList);
-			    }
-//				break;
 	}
 	
 	@Override 
