@@ -16,14 +16,14 @@ class InfoFragmentAdapter extends FragmentPagerAdapter {
     private String query;
     InUseFragment inUseFragment;
     BOMFragment bomFragment;
-    BOMFragment infoFragment;
+    InfoFragment infoFragment;
 
     public InfoFragmentAdapter(FragmentManager fm,String filter) {
         super(fm);
-        mCount = 2;
+        mCount = 3;
         query = filter;
         inUseFragment = InUseFragment.newInstance(query);
-//        infoFragment = BOMFragment.newInstance(query);
+        infoFragment = InfoFragment.newInstance(query);
         bomFragment = BOMFragment.newInstance(query);
         
     }
@@ -34,8 +34,8 @@ class InfoFragmentAdapter extends FragmentPagerAdapter {
     	switch (position) 
     	{
     		case 0: 	Log.e("Loader In use","started"); return inUseFragment;
- //   		case 1:		Log.e("Loader Info","started"); return infoFragment;
- //   		case 2: 	
+    		case 1:		Log.e("Loader Info","started"); return infoFragment;
+    		case 2: 	
     		default:	Log.e("Loader BOM","started"); return bomFragment;
     			
     	}
@@ -52,7 +52,7 @@ class InfoFragmentAdapter extends FragmentPagerAdapter {
       	switch (position) 
     	{
     		case 0: 	return "InBOM";
-//    		case 1: 	return "Info";
+    		case 1: 	return "Info";
     		case 2: 
     		default:	return "BOM";
 

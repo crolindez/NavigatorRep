@@ -35,9 +35,9 @@ public class NavisionTool
 	static {
 		conn = null;
 		mode = MODE_REAL;
-		connString = "jdbc:jtds:sqlserver://192.168.1.4:1433/LittleNavision";
+		connString = "jdbc:jtds:sqlserver://192.0.0.102:1855/EIS";
 		username = "sa";
-		password = "Julia2009";
+		password = "Advising,2007";
 	}
 	
 	static public int readMode()
@@ -274,5 +274,49 @@ public class NavisionTool
 		return null;
 	}
 
-
+	static public String queryHandWorkCost(String filterString)
+	{
+		return null;
+	}
+	
+	static public String queryOrderPoint(String filterString)
+	{
+		return null;
+	}
+	
+	static public String queryInPlannedProduction(String filterString)
+	{
+		return null;
+	}
+	
+	static public String queryInProduction(String filterString)
+	{
+		return null;
+	}
+	
+	static public String queryPurchase(String filterString)
+	{
+		return null;
+	}
+	
+	static public String queryTransfer(String filterString)
+	{
+		return null;
+	}
+	
+	static public String querySale(String filterString)
+	{
+		return null;
+	}
+	
+	static public String queryUsedInPlannedProduction(String filterString)
+	{
+		return null;
+	}
+	
+	static public String queryUsedInProduction(String filterString)
+	{
+		return null;
+	}
+	
 }

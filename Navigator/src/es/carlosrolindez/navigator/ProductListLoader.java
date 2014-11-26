@@ -78,7 +78,6 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 		 		break;
 
     		case NavisionTool.LOADER_PRODUCT_SEARCH:
-    		default:
     			product = new Product(); 
     			product.reference = "50312";
 				product.description = "iSelect 2,5 pulgadas niquel";	
@@ -96,6 +95,27 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				product.hasBOM = true;
     			product.inBOM = true;
 				productList.add(product);	    				
+				break;
+    		case NavisionTool.LOADER_PRODUCT_INFO:
+    		default:
+		    	product = new Product(); 	
+		    	product.reference = filterString;
+		    	
+				product.stock ="222";
+				product.cost = "40,3";
+				product.handWorkCost = "2,3";
+		    	product.orderPoint = "100";
+		    	
+		    	product.inPlannedProduction = "200";
+		    	product.inProduction = "150";
+		    	product.purchase = "500";
+		    	
+		    	product.transfer = "13";
+		    	product.sale = "25";
+		    	product.usedInPlannedProduction = "150";
+		    	product.usedInProduction = "255";
+		    	
+				productList.add(product);
 				break;
 	    	}		    	
 
@@ -148,7 +168,6 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				 		break;
 	
 		    		case NavisionTool.LOADER_PRODUCT_SEARCH:
-		    		default:
 	    				result = NavisionTool.queryList(filterString);	    			
 		      			while(result.next())
 						{					
@@ -162,7 +181,31 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 							productList.add(product);
 						}
 						break;
-			    	}		    	
+		    		case NavisionTool.LOADER_PRODUCT_INFO:
+		    		default:
+	    				result = NavisionTool.queryList(filterString);	    			
+						{					
+					    	product = new Product(); 	
+					    	product.reference = filterString;
+					    	
+							product.stock = NavisionTool.queryStock(filterString);
+							product.cost = NavisionTool.queryCost(filterString);
+							product.handWorkCost = NavisionTool.queryHandWorkCost(filterString);
+					    	product.orderPoint = NavisionTool.queryOrderPoint(filterString);
+					    	
+					    	product.inPlannedProduction = NavisionTool.queryInPlannedProduction(filterString);
+					    	product.inProduction = NavisionTool.queryInProduction(filterString);
+					    	product.purchase = NavisionTool.queryPurchase(filterString);
+					    	
+					    	product.transfer = NavisionTool.queryTransfer(filterString);
+					    	product.sale = NavisionTool.querySale(filterString);
+					    	product.usedInPlannedProduction = NavisionTool.queryUsedInPlannedProduction(filterString);
+					    	product.usedInProduction = NavisionTool.queryUsedInProduction(filterString);
+					    	
+							productList.add(product);
+						}
+						break;
+				    }		    	
 	
 	     	
 				} catch (SQLException e) {

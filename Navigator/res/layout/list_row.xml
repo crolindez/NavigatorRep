@@ -19,8 +19,7 @@
         android:paddingLeft="1dip"
         android:rotation="180"     
     	android:src="@drawable/arrow" /> 
-    
-    
+     
     <!-- Reference Number -->
     <TextView
         android:id="@+id/reference_list"
@@ -35,7 +34,6 @@
         android:typeface="sans"    
         android:textSize="15sp"
         android:textStyle="bold" />
-
 
     <!-- Quantity in BOOM -->
     <TextView

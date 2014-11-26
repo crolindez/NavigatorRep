@@ -22,7 +22,7 @@ public class SearchActivity extends FragmentActivity {
     	super.onCreate(savedInstanceState);
 
 	    PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-        setContentView(R.layout.layout_search);
+        setContentView(R.layout.search_layout);
         
     	SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
     	String  server = sharedPref.getString("server", "");

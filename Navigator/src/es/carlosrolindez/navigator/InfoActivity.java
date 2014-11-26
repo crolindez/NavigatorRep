@@ -41,7 +41,7 @@ public class InfoActivity extends FragmentActivity {
 
         mIndicator = (TabPageIndicator)findViewById(R.id.indicator);
         mIndicator.setViewPager(mPager);	
-        mIndicator.setCurrentItem(1);
+        mIndicator.setCurrentItem(2);
         
       	getActionBar().setTitle(reference);       
         

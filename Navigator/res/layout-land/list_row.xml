@@ -34,7 +34,7 @@
         android:typeface="sans"    
         android:textSize="15sp"
         android:textStyle="bold" />
- 
+     
     <!-- Quantity in BOOM -->
     <TextView
         android:id="@+id/quantity_list"
@@ -86,7 +86,7 @@
     <!-- arrow to explode BOOM -->
     <ImageButton
         android:id="@+id/arrowRight_list"
-        android:contentDescription="Despiece"
+        android:contentDescription=""
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_height="48dp"
@@ -104,12 +104,11 @@
         android:layout_toRightOf="@id/reference_list" 
         android:layout_centerVertical="true"
         android:textColor="#040404"
-        android:text="Módulo de electrónica iSelect"
+        android:text=""
         android:paddingRight="1dip" 
         android:typeface="sans"    
         android:textSize="15sp"
         android:textStyle="italic" />
-        
         
 
 </RelativeLayout>
