@@ -39,9 +39,9 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
     		case NavisionTool.LOADER_PRODUCT_IN_USE:
     			product = new Product(); 	
 				product.reference = "50302";
-				product.description = "iSelect 2,5 pulgadas blanco";	
+				product.description = "iSelect 2.5 pulgadas blanco";	
 				product.stock = "333";
-				product.cost = "20,3";
+				product.cost = "20.3";
 				product.hasBOM = true;
     			product.inBOM = true;
 				productList.add(product);	 
@@ -51,7 +51,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				product.reference = "50304";
 				product.description = "iSelect 5 pulgadas blanco";	
 				product.stock = "222";
-				product.cost = "40,3";
+				product.cost = "40.3";
 				product.hasBOM = true;
     			product.inBOM = true;
 				productList.add(product);	    				
@@ -60,9 +60,9 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
     		case NavisionTool.LOADER_PRODUCT_BOM:
     			product = new Product(); 	
     			product.reference = "50342";
-				product.description = "iSelect 2,5 pulgadas cromo";	
+				product.description = "iSelect 2.5 pulgadas cromo";	
 				product.stock = "333";
-				product.cost = "20,3";
+				product.cost = "20.3";
 				product.hasBOM = true;
     			product.inBOM = true;
 				productList.add(product);	    				
@@ -71,7 +71,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				product.reference = "50344";
 				product.description = "iSelect 5 pulgadas cromo";	
 				product.stock = "222";
-				product.cost = "40,3";
+				product.cost = "40.3";
 				product.hasBOM = true;
     			product.inBOM = true;
 				productList.add(product);	    				
@@ -80,9 +80,9 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
     		case NavisionTool.LOADER_PRODUCT_SEARCH:
     			product = new Product(); 
     			product.reference = "50312";
-				product.description = "iSelect 2,5 pulgadas niquel";	
+				product.description = "iSelect 2.5 pulgadas niquel";	
 				product.stock = "333";
-				product.cost = "20,3";
+				product.cost = "20.3";
 				product.hasBOM = true;
     			product.inBOM = true;
 				productList.add(product);	    				
@@ -91,7 +91,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				product.reference = "50314";
 				product.description = "iSelect 5 pulgadas niquel";	
 				product.stock = "222";
-				product.cost = "40,3";
+				product.cost = "40.3";
 				product.hasBOM = true;
     			product.inBOM = true;
 				productList.add(product);	    				
@@ -102,8 +102,8 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 		    	product.reference = filterString;
 		    	
 				product.stock ="222";
-				product.cost = "40,3";
-				product.handWorkCost = "2,3";
+				product.cost = "40.3";
+				product.handWorkCost = "2.3";
 		    	product.orderPoint = "100";
 		    	
 		    	product.inPlannedProduction = "200";

@@ -3,7 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
 	android:orientation="vertical" >
-
+	
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:padding="3dp"
+        android:text="@string/state"
+        android:textColor="@color/white" 
+        android:textStyle="bold|italic" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -105,7 +115,7 @@
         android:gravity="center"
         android:padding="3dp"
         android:text="@string/income"
-        android:textColor="@color/white" 
+        android:textColor="@color/black" 
         android:textStyle="bold|italic" />
 	<LinearLayout
         android:layout_width="match_parent"
@@ -121,7 +131,7 @@
             android:gravity="center"
             android:padding="3dp"
             android:text="@string/purchase"
-            android:textColor="@color/white" 
+            android:textColor="@color/black"
             android:textStyle="bold|italic" />
         <TextView
             android:id="@+id/general_info_purchase"
@@ -141,7 +151,7 @@
             android:gravity="center"
             android:padding="3dp"
             android:text="@string/in_production"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textStyle="bold|italic"  />
         <TextView
             android:id="@+id/general_info_in_production"
@@ -157,7 +167,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:weightSum="4"
         android:orientation="horizontal" >
 
         <TextView
@@ -169,7 +178,7 @@
             android:gravity="center"
             android:padding="3dp"
             android:text="@string/in_planned_production"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textStyle="bold|italic" />
 
         <TextView
