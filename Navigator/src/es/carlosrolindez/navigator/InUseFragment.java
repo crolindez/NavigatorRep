@@ -2,6 +2,7 @@ package es.carlosrolindez.navigator;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -138,14 +139,15 @@ public class InUseFragment extends Fragment implements LoaderCallbacks<ArrayList
 		@Override
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
     	{ 			
-	    /*	Intent intent = new Intent (view.getContext(), ProductListBomActivity.class);
-	        ProductList productList = (ProductList)parent.getItemAtPosition(position);
-        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, productList.reference);        	
-        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, productList.description);
-        	startActivity(intent);*/
+	    	Intent intent = new Intent (view.getContext(), InfoActivity.class);
+	        Product product = (Product)parent.getItemAtPosition(position);
+        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, product.reference);        	
+        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);        	
+        	startActivity(intent);
         	
-        	Toast.makeText(view.getContext(), "List Item", Toast.LENGTH_SHORT).show();
+//        	Toast.makeText(view.getContext(), "List Item", Toast.LENGTH_SHORT).show();
     	}
 	};
+    
 
 }

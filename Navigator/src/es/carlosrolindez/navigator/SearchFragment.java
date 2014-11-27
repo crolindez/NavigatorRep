@@ -94,6 +94,7 @@ public class SearchFragment extends Fragment implements LoaderCallbacks<ArrayLis
 	    	Intent intent = new Intent (view.getContext(), InfoActivity.class);
 	        Product product = (Product)parent.getItemAtPosition(position);
         	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, product.reference);        	
+        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);        	
         	startActivity(intent);
         	
 //        	Toast.makeText(view.getContext(), "List Item", Toast.LENGTH_SHORT).show();

@@ -32,7 +32,8 @@ public class InfoActivity extends FragmentActivity {
 
         
         Intent myIntent = getIntent();
-	    String reference = myIntent.getStringExtra(NavisionTool.LAUNCH_REFERENCE);	  
+	    String reference = myIntent.getStringExtra(NavisionTool.LAUNCH_REFERENCE);	  	    
+	    String description = myIntent.getStringExtra(NavisionTool.LAUNCH_DESCRIPTION);	  
 
         mAdapter = new InfoFragmentAdapter(getSupportFragmentManager(),reference);
 
@@ -43,7 +44,7 @@ public class InfoActivity extends FragmentActivity {
         mIndicator.setViewPager(mPager);	
         mIndicator.setCurrentItem(1);
         
-      	getActionBar().setTitle(reference);       
+      	getActionBar().setTitle(reference + " " + description);       
         
         
 	/*	String reference;
@@ -74,14 +75,14 @@ public class InfoActivity extends FragmentActivity {
 	
 	
 	
-    @Override
+/*    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.search, menu);
         
 
 	    return super.onCreateOptionsMenu(menu);
-    }
+    }*/
 
     
 

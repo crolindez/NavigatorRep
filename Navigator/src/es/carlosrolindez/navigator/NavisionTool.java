@@ -19,7 +19,10 @@ public class NavisionTool
 	public static final int LOADER_PRODUCT_IN_USE = 0;
 	public static final int LOADER_PRODUCT_BOM = 2;
 	public static final int LOADER_PRODUCT_INFO = 1;
-	public static final String LAUNCH_REFERENCE = "es.carlosrolindez.navisiontool.LAUNCH_REFERENCE";
+	
+	public static final String LAUNCH_REFERENCE = "es.carlosrolindez.navisiontool.LAUNCH_REFERENCE";	
+	public static final String LAUNCH_DESCRIPTION = "es.carlosrolindez.navisiontool.LAUNCH_DESCRIPTION";
+	
 	public static final String QUERY = "QUERY";
 	
 	public static final int MODE_EMULATOR = 0;
