@@ -142,7 +142,8 @@ public class InUseFragment extends Fragment implements LoaderCallbacks<ArrayList
 	    	Intent intent = new Intent (view.getContext(), InfoActivity.class);
 	        Product product = (Product)parent.getItemAtPosition(position);
         	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, product.reference);        	
-        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);        	
+        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);      
+        	intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_FULL);
         	startActivity(intent);
         	
 //        	Toast.makeText(view.getContext(), "List Item", Toast.LENGTH_SHORT).show();

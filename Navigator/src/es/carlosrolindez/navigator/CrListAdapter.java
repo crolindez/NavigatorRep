@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -111,25 +112,27 @@ public class CrListAdapter extends BaseAdapter {
 		inBoom.setOnClickListener(new OnClickListener() 
 		{
 			@Override
-			public void onClick(View v) {
-/*		    	Intent intent = new Intent (v.getContext(), ProductListInBomActivity.class);
+			public void onClick(View v) 
+			{
+		    	Intent intent = new Intent (v.getContext(), InfoActivity.class);
 	        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, product.reference);        	
-	        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);
-	        	v.getContext().startActivity(intent);
-*/			}
+	        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);  
+	        	intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_IN_USE);
+	        	v.getContext().startActivity(intent);	        	
+			}
 		});
 		
 		hasBoom.setOnClickListener(new OnClickListener() 
 		{
 			@Override
-			public void onClick(View v) {
-	
-/*		    	Intent intent = new Intent (v.getContext(), ProductListBomActivity.class);
+			public void onClick(View v) 
+			{
+		    	Intent intent = new Intent (v.getContext(), InfoActivity.class);
 	        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, product.reference);        	
-	        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);
-	        	v.getContext().startActivity(intent);
-	  				
-*/			}
+	        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);  
+	        	intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_BOM);
+	        	v.getContext().startActivity(intent);	     
+			}
 
 		});
 

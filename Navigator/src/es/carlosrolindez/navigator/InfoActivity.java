@@ -5,15 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Menu;
 
 import com.viewpagerindicator.TabPageIndicator;
-
-
-
-
-
-
 
 public class InfoActivity extends FragmentActivity {
     private InfoFragmentAdapter mAdapter;
@@ -26,64 +19,51 @@ public class InfoActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
     	Log.e("Activity OnCreate: ","Before Super");   
     	super.onCreate(savedInstanceState);
-
-  //      setContentView(R.layout.simple_circles);
-        setContentView(R.layout.simple_tabs);
-
         
         Intent myIntent = getIntent();
 	    String reference = myIntent.getStringExtra(NavisionTool.LAUNCH_REFERENCE);	  	    
-	    String description = myIntent.getStringExtra(NavisionTool.LAUNCH_DESCRIPTION);	  
-
-        mAdapter = new InfoFragmentAdapter(getSupportFragmentManager(),reference);
-
-        mPager = (ViewPager)findViewById(R.id.pager);
-        mPager.setAdapter(mAdapter);
-
-        mIndicator = (TabPageIndicator)findViewById(R.id.indicator);
-        mIndicator.setViewPager(mPager);	
-        mIndicator.setCurrentItem(1);
-        
-      	getActionBar().setTitle(reference + " " + description);       
-        
-        
-	/*	String reference;
-		    
-    	Log.e("Activity handleIntent:","Intent Action Search"); 
-    	
-        FragmentManager fm = getFragmentManager();
-//        searchFragment = (SearchFragment) fm.findFragmentById(R.id.fragment_container);
-
-
-	      
-//  	actionBar = getActionBar();
-//   	actionBar.setTitle("BOM of " + reference);
-             
-	    inBOMFragment = new InBOMFragment();
-	    bomFragment = new BOMFragment();
-	    infoFragment = new InfoFragment();
+	    String description = myIntent.getStringExtra(NavisionTool.LAUNCH_DESCRIPTION);	
+	    int infoMode = myIntent.getIntExtra(NavisionTool.LAUNCH_INFO_MODE,NavisionTool.INFO_MODE_FULL);
 	    
-    	Bundle bundle = intent.getExtras();       
-    	bundle.putInt("LOADER_MODE", NavisionTool.LOADER_PRODUCT_BOM);
-    	inBOMFragment.setArguments(bundle);  
-    	// Add the fragment to the 'fragment_container' FrameLayout
-    	getFragmentManager().beginTransaction()
-            .replace(R.id.fragment_container, inBOMFragment).commit();    
-	*/
+ 
+
+	    switch (infoMode)
+	    {
+	    case NavisionTool.INFO_MODE_FULL:
+	    default:
+	        setContentView(R.layout.simple_tabs);
+	        
+	        mAdapter = new InfoFragmentAdapter(getSupportFragmentManager(),reference);
+	
+	        mPager = (ViewPager)findViewById(R.id.pager);
+	        mPager.setAdapter(mAdapter);
+	
+	        mIndicator = (TabPageIndicator)findViewById(R.id.indicator);
+	        mIndicator.setViewPager(mPager);	
+	        mIndicator.setCurrentItem(1);
+	        
+	      	getActionBar().setTitle(reference + " " + description);    
+	        break;
+	        
+	    case NavisionTool.INFO_MODE_BOM:
+	        setContentView(R.layout.single_frame_layout);	 
+	        
+	        BOMFragment bomFragment = BOMFragment.newInstance(reference);
+	    	
+	        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, bomFragment).commit(); 
+	      	getActionBar().setTitle("BOM " + reference);    
+	        break;
+	        
+	    case NavisionTool.INFO_MODE_IN_USE:
+	        setContentView(R.layout.single_frame_layout);	 
+	        
+	        InUseFragment inUseFragment = InUseFragment.newInstance(reference);
+	    	
+	        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, inUseFragment).commit();    
+	      	getActionBar().setTitle(reference + " used in:");    
+	        break;
+	        
+	    
+	    }
 	}
-	
-	
-	
-	
-/*    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.search, menu);
-        
-
-	    return super.onCreateOptionsMenu(menu);
-    }*/
-
-    
-
 }

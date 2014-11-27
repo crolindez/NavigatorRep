@@ -22,6 +22,11 @@ public class NavisionTool
 	
 	public static final String LAUNCH_REFERENCE = "es.carlosrolindez.navisiontool.LAUNCH_REFERENCE";	
 	public static final String LAUNCH_DESCRIPTION = "es.carlosrolindez.navisiontool.LAUNCH_DESCRIPTION";
+	public static final String LAUNCH_INFO_MODE = "es.carlosrolindez.navisiontool.LAUNCH_INFO_MODE";
+	
+	public static final int INFO_MODE_IN_USE = 0;
+	public static final int INFO_MODE_FULL = 1;
+	public static final int INFO_MODE_BOM = 2;
 	
 	public static final String QUERY = "QUERY";
 	
