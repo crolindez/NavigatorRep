@@ -257,7 +257,6 @@ public class NavisionTool
 	    Statement stmt;
 		try 
 		{
-//			Log.e("stocking ", filterString);
 			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			
             String headSqlString = "SELECT sum([Quantity]) FROM  [EIS$Item Ledger Entry] WHERE  ([Item No_] = '";
@@ -267,24 +266,43 @@ public class NavisionTool
 		    if (result.isBeforeFirst())
 		    {
 		    	result.next();
-//		    	Log.e("stocking", " ok");
 		    	return (result.getString(1));
 		    }
 		    else
 		    {
-//		    	Log.e("stocking", " void");
 		    	return "0.0";
 		    }
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-//   	Log.e("stocking", " exception");
 		return null;
 	}
 
 	static public String queryHandWorkCost(String filterString)
 	{
+	    Statement stmt;
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			
+            String headSqlString = "SELECT sum([Output Quantity]) AS [Cantidad] FROM  [EIS$Capacity Ledger Entry] WHERE  ([Item No_] = '";
+    	    String tailSqlSring = "' ) AND  ([Location Code]='01') GROUP BY [Item No_]";
+		    
+		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
+		    if (result.isBeforeFirst())
+		    {
+		    	result.next();
+		    	return (result.getString(1));
+		    }
+		    else
+		    {
+		    	return "0.0";
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
+
 	}
 	
 	static public String queryOrderPoint(String filterString)

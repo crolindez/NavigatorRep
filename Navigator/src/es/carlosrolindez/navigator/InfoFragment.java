@@ -12,8 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -97,22 +96,34 @@ public class InfoFragment extends Fragment implements LoaderCallbacks<ArrayList<
 	
 	private void showProductGeneralInfo(ArrayList<Product> productList)
 	{
+		final Product product;
+		float stockValue;
+		
+	    if (productList == null) return;
+
+		TextView stock = (TextView)getActivity().findViewById(R.id.general_info_stock);
+		product = productList.get(0);
+		
+		stockValue = Float.parseFloat(product.stock);
+		//stock.setText(String.format("%,6.2f un.",stockValue));
+		stock.setText(product.stock);
+	
 		
 	}
 	
-	OnItemClickListener onItemClickListener = new OnItemClickListener() 
+/*	OnItemClickListener onItemClickListener = new OnItemClickListener() 
 	{
 		@Override
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
     	{ 			
-	    /*	Intent intent = new Intent (view.getContext(), ProductListBomActivity.class);
+	    	Intent intent = new Intent (view.getContext(), ProductListBomActivity.class);
 	        ProductList productList = (ProductList)parent.getItemAtPosition(position);
         	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, productList.reference);        	
         	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, productList.description);
-        	startActivity(intent);*/
+        	startActivity(intent);
         	
         	Toast.makeText(view.getContext(), "List Item", Toast.LENGTH_SHORT).show();
     	}
 	};
-
+*/
 }
