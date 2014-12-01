@@ -25,12 +25,14 @@ public class Product implements Parcelable{
 	public String transfer;
 	public String usedInPlannedProduction;
 	
+	public int itemMode;
+	
 	
 	
 	
 	Product (String reference, String description, String quantity, String stock, String cost, boolean[] boolArray,
 			String purchase, String inProduction, String inPlannedProduction, String sale, String usedInProduction,
-			String transfer, String usedInPlannedProduction)
+			String transfer, String usedInPlannedProduction, int itemMode)
 	{
         this.reference = reference;
         this.description = description;
@@ -48,6 +50,8 @@ public class Product implements Parcelable{
         this.usedInProduction = usedInProduction;
         this.transfer = transfer;
         this.usedInPlannedProduction = usedInPlannedProduction;
+        
+        this.itemMode = itemMode;
 	}
 	
 	public Product() {
@@ -67,6 +71,8 @@ public class Product implements Parcelable{
         this.usedInProduction = "";
         this.transfer = "";
         this.usedInPlannedProduction = "";
+    	
+        this.itemMode = NavisionTool.LOADER_PRODUCT_SEARCH;
 	}
 
 	@Override
@@ -94,6 +100,8 @@ public class Product implements Parcelable{
         parcel.writeString(usedInProduction);
         parcel.writeString(transfer);
         parcel.writeString(usedInPlannedProduction);
+
+        parcel.writeInt(itemMode);
     }
      
     public static final Parcelable.Creator<Product> CREATOR = new Creator<Product>() 
@@ -116,10 +124,12 @@ public class Product implements Parcelable{
             String usedInProduction = parcel.readString();
             String transfer = parcel.readString();
             String usedInPlannedProduction = parcel.readString();
-              
+
+            int itemMode = parcel.readInt();           
+            
             return new Product(reference, description, quantity, stock, cost, boolArray,
             		purchase, inProduction, inPlannedProduction, sale, usedInProduction,
-        			transfer, usedInPlannedProduction);
+        			transfer, usedInPlannedProduction, itemMode);
         }
  
         @Override

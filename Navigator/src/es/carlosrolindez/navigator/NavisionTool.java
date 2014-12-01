@@ -32,7 +32,8 @@ public class NavisionTool
 	
 	public static final int MODE_EMULATOR = 0;
 	public static final int MODE_REAL = 1;
-	
+
+	public static final String PRODUCT_LIST_KEY = "ListKey";
 	
     private static String connString;
     private static String username;

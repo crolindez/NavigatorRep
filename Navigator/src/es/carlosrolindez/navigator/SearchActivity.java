@@ -1,5 +1,7 @@
 package es.carlosrolindez.navigator;
 
+import java.util.ArrayList;
+
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -7,18 +9,33 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 
-public class SearchActivity extends FragmentActivity {
+public class SearchActivity extends FragmentActivity implements LoaderCallbacks<ArrayList<Product>>
+{
 	
 	private SearchFragment searchFragment;
+	private String query;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { 
+    	ArrayList<Product> productList;
+    	
     	super.onCreate(savedInstanceState);
 
 	    PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
@@ -34,40 +51,104 @@ public class SearchActivity extends FragmentActivity {
     	{
     		NavisionTool.changeMode(NavisionTool.MODE_EMULATOR);  		
     	}
-    
-	    Intent myIntent = getIntent();
-		handleIntent(myIntent);
-
+    	
+       	if (savedInstanceState != null) {
+       		Log.e("SearchActivity OnCreate","saved instance");
+        	productList = savedInstanceState.getParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY);
+        }
+        else
+        {	
+       		Log.e("SearchActivity OnCreate","NOT saved instance");
+        	productList=null;
+        }
+   
+	    Intent intent = getIntent();
+	    	    
+	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) 
+	    {
+		    query = intent.getStringExtra(SearchManager.QUERY);	  	    		    
+ //         if (searchFragment==null) 
+            {
+            	searchFragment = SearchFragment.newInstance(productList);
+            	getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchFragment).commit();    
+            }
+            if (productList==null)
+            { 
+    	   		Log.e("SearchActivity handleIntent","Launched loader");
+        		LoaderManager lm = getSupportLoaderManager();  
+        	    Bundle searchString = new Bundle();
+        	    searchString.putString(NavisionTool.QUERY, query);  	    
+        	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_SEARCH, searchString, this);	     	
+            }
+  /*          else
+            {
+    	   		Log.e("SearchActivity handleIntent","productList reused");
+    	   		
+        		findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+    	    	searchFragment.showResultSet(productList);	
+            }*/
+            
+  	    }
     }
 
 	@Override
 	protected void onNewIntent(Intent intent) { 
+   		Log.e("SearchActivity onNewIntent"," ");
 	    setIntent(intent);
-
-	    handleIntent(intent);
-	}
-	
-	private void handleIntent(Intent intent) 
-	{
+  		Log.e("SearchActivity handleIntent"," ");
 	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) 
 	    {
-		    
-
-//	        FragmentManager fm = getSupportFragmentManager();
-//	        searchFragment = (SearchFragment) fm.findFragmentById(R.id.fragment_container);
-
- //           if (searchFragment==null) 
+	   		Log.e("SearchActivity handleIntent","ACTION_SEARCH");
+		    query = intent.getStringExtra(SearchManager.QUERY);	  	    		    
+ //         if (searchFragment==null) 
             {
-            	searchFragment = new SearchFragment();
-            	Bundle bundle = intent.getExtras();
-            	bundle.putInt("LOADER_MODE", NavisionTool.LOADER_PRODUCT_SEARCH);
-            	searchFragment.setArguments(bundle);  
-            	// Add the fragment to the 'fragment_container' FrameLayout
+            	searchFragment = SearchFragment.newInstance(null);
             	getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchFragment).commit();    
             }
+
+	   		Log.e("SearchActivity handleIntent","Launched loader");
+    		LoaderManager lm = getSupportLoaderManager();  
+    	    Bundle searchString = new Bundle();
+    	    searchString.putString(NavisionTool.QUERY, query);  	    
+    	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_SEARCH, searchString, this);	     	
+
   	    }
 
 	}
+	
+/*	private void handleIntent(Intent intent) 
+	{
+   		Log.e("SearchActivity handleIntent"," ");
+	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) 
+	    {
+	   		Log.e("SearchActivity handleIntent","ACTION_SEARCH");
+	   		Intent myIntent = getIntent();
+		    query = myIntent.getStringExtra(SearchManager.QUERY);	  	    		    
+ //         if (searchFragment==null) 
+            {
+            	searchFragment = new SearchFragment();
+            	getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchFragment).commit();    
+            }
+            if (productList==null)
+            { 
+    	   		Log.e("SearchActivity handleIntent","Launched loader");
+        		LoaderManager lm = getSupportLoaderManager();  
+        	    Bundle searchString = new Bundle();
+        	    searchString.putString(NavisionTool.QUERY, query);  	    
+        	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_SEARCH, searchString, this);	     	
+            }
+            else
+            {
+    	   		Log.e("SearchActivity handleIntent","productList reused");
+    	   		
+        		findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+    	    	searchFragment.showResultSet(productList);	
+            }
+            
+  	    }
+
+	}*/
+	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -97,6 +178,55 @@ public class SearchActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
     
+    @Override
+    public void onSaveInstanceState(Bundle savedState) 
+    {
+        super.onSaveInstanceState(savedState);
 
+        savedState.putParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY, searchFragment.getProductList());
 
+    }   
+
+    
+	@Override
+	public Loader<ArrayList<Product>> onCreateLoader(int id, Bundle filter)
+	{
+   		Log.e("SearchActivity onCreateLoader"," ");
+		return new ProductListLoader(this,id,filter);
+	}
+	
+	@Override
+	public void onLoadFinished(Loader<ArrayList<Product>> loader,ArrayList<Product> productList)
+	{
+
+		findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+	    if (productList==null)
+	    {	
+	   		Log.e("SearchActivity onLoadFinished","productList null");
+	   		LayoutInflater inflater = getLayoutInflater();
+	    	View layout = inflater.inflate(R.layout.toast_layout,(ViewGroup) findViewById(R.id.toast_layout_root));
+
+	    	TextView text = (TextView) layout.findViewById(R.id.text_layout);
+	    	text.setText("SQL server not found");
+
+	    	Toast toast = new Toast(getApplicationContext());
+	    	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+	    	toast.setDuration(Toast.LENGTH_LONG);
+	    	toast.setView(layout);
+	    	toast.show();			    	
+	    }
+	    else
+	    {
+	   		Log.e("SearchActivity onLoadFinished","new productList");
+	    	searchFragment.showResultSet(productList);
+	    }
+    	searchFragment.showResultSet(productList);
+	}
+	
+	@Override 
+	public void onLoaderReset(Loader<ArrayList<Product>> loader)
+	{
+   		Log.e("SearchActivity onLoaderReset"," ");
+		searchFragment.showResultSet(null);
+	}
 }

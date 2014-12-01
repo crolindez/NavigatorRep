@@ -19,13 +19,9 @@ public class CrListAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 	private ArrayList<Product> mProductList;
 	
-	public CrListAdapter(Activity a/*,ArrayList<Product> productList*/)
+	public CrListAdapter(Activity activity)
 	{
-//		activity =  a;
-//		inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//		mProductList = productList;
-		mProductList = null;
-		inflater = (LayoutInflater)a.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 	
 	@Override
@@ -35,8 +31,6 @@ public class CrListAdapter extends BaseAdapter {
 			return 0;
 		else
 			return mProductList.size();
-
-
 	}
 	
 	@Override
@@ -135,8 +129,6 @@ public class CrListAdapter extends BaseAdapter {
 			}
 
 		});
-
-
 		
 		return localView;
 	}
@@ -145,8 +137,7 @@ public class CrListAdapter extends BaseAdapter {
 	public  void showResultSet(  ArrayList<Product> productList)
 	{
 	    mProductList = productList;
-	    notifyDataSetChanged();
-		
+	    notifyDataSetChanged();		
 	}
 	
 }

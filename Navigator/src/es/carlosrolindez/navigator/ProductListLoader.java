@@ -44,6 +44,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				product.cost = "20.3";
 				product.hasBOM = true;
     			product.inBOM = true;
+    			product.itemMode = NavisionTool.LOADER_PRODUCT_IN_USE;
 				productList.add(product);	 
 				
 				product = new Product(); 	 
@@ -54,6 +55,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				product.cost = "40.3";
 				product.hasBOM = true;
     			product.inBOM = true;
+    			product.itemMode = NavisionTool.LOADER_PRODUCT_IN_USE;    			
 				productList.add(product);	    				
 				break;
 
@@ -65,6 +67,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				product.cost = "20.3";
 				product.hasBOM = true;
     			product.inBOM = true;
+    			product.itemMode = NavisionTool.LOADER_PRODUCT_BOM;    			
 				productList.add(product);	    				
 
 				product = new Product(); 	
@@ -74,6 +77,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				product.cost = "40.3";
 				product.hasBOM = true;
     			product.inBOM = true;
+    			product.itemMode = NavisionTool.LOADER_PRODUCT_BOM;    					
 				productList.add(product);	    				
 		 		break;
 
@@ -85,6 +89,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				product.cost = "20.3";
 				product.hasBOM = true;
     			product.inBOM = true;
+    			product.itemMode = NavisionTool.LOADER_PRODUCT_SEARCH;
 				productList.add(product);	    				
 
 				product = new Product(); 
@@ -94,8 +99,10 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				product.cost = "40.3";
 				product.hasBOM = true;
     			product.inBOM = true;
-				productList.add(product);	    				
+    			product.itemMode = NavisionTool.LOADER_PRODUCT_SEARCH;
+    			productList.add(product);	    				
 				break;
+				
     		case NavisionTool.LOADER_PRODUCT_INFO:
     		default:
 		    	product = new Product(); 	
@@ -115,7 +122,9 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 		    	product.usedInPlannedProduction = "150";
 		    	product.usedInProduction = "255";
 		    	
-				productList.add(product);
+    			product.itemMode = NavisionTool.LOADER_PRODUCT_INFO;
+    			
+    			productList.add(product);
 				break;
 	    	}		    	
 
