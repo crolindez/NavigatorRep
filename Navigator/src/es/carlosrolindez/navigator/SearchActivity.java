@@ -181,10 +181,11 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     @Override
     public void onSaveInstanceState(Bundle savedState) 
     {
-        super.onSaveInstanceState(savedState);
 
-        savedState.putParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY, searchFragment.getProductList());
+      super.onSaveInstanceState(savedState);
 
+      savedState.putParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY, searchFragment.getProductList());
+      //testing
     }   
 
     
