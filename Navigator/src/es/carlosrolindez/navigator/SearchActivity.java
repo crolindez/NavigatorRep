@@ -30,14 +30,13 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	
 	private SearchFragment searchFragment;
 	private String query;
+	ArrayList<Product> productList;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { 
-    	ArrayList<Product> productList;
     	
     	super.onCreate(savedInstanceState);
-
 	    PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         setContentView(R.layout.search_layout);
         
@@ -69,8 +68,10 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 		    query = intent.getStringExtra(SearchManager.QUERY);	  	    		    
  //         if (searchFragment==null) 
             {
+           		Log.e("SearchActivity OnCreate","new searchFragment");
             	searchFragment = SearchFragment.newInstance(productList);
-            	getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchFragment).commit();    
+            	getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchFragment).commit();
+
             }
             if (productList==null)
             { 
@@ -80,13 +81,7 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
         	    searchString.putString(NavisionTool.QUERY, query);  	    
         	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_SEARCH, searchString, this);	     	
             }
-  /*          else
-            {
-    	   		Log.e("SearchActivity handleIntent","productList reused");
-    	   		
-        		findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-    	    	searchFragment.showResultSet(productList);	
-            }*/
+
             
   	    }
     }
@@ -182,10 +177,9 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     public void onSaveInstanceState(Bundle savedState) 
     {
 
-      super.onSaveInstanceState(savedState);
-
-      savedState.putParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY, searchFragment.getProductList());
-      //testing
+    	super.onSaveInstanceState(savedState);
+    	Log.e("SearchActivity onSaveInstanceState","saving instance list");
+    	savedState.putParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY, productList);
     }   
 
     
@@ -220,6 +214,7 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	    {
 	   		Log.e("SearchActivity onLoadFinished","new productList");
 	    	searchFragment.showResultSet(productList);
+	    	this.productList = productList;
 	    }
     	searchFragment.showResultSet(productList);
 	}

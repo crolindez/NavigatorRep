@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +21,12 @@ public class SearchFragment extends Fragment
 {
 	private ListView list;
 	private CrListAdapter listAdapter;
-	ArrayList<Product> productList;
+	private ArrayList<Product> productList;
 	
-	public static SearchFragment newInstance(ArrayList<Product> productList) 
+	public static SearchFragment newInstance(ArrayList<Product> localProductList) 
 	{
 		SearchFragment  fragment = new SearchFragment();
-		fragment.productList = productList;
+		fragment.productList = localProductList;
 		return fragment;
 	}
 
@@ -38,9 +39,6 @@ public class SearchFragment extends Fragment
 
     }
 	 
-	 public ArrayList<Product> getProductList() {
-	        return productList;
-	 } 
 	 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
@@ -58,6 +56,13 @@ public class SearchFragment extends Fragment
     	list=(ListView)getActivity().findViewById(R.id.list);    		
         list.setAdapter(listAdapter);
         list.setOnItemClickListener(onItemClickListener);    
+
+        if (productList!=null) 
+        {
+       		Log.e("SearchFragment onActivityCreated","productList");
+       		showResultSet(productList);
+        }
+        	
     }
     
 	OnItemClickListener onItemClickListener = new OnItemClickListener() 
@@ -77,7 +82,7 @@ public class SearchFragment extends Fragment
 	};
     
     
-    public void onSaveInstanceState(Bundle savedState) 
+/*    public void onSaveInstanceState(Bundle savedState) 
     {
     	ArrayList<Product> productList;
     	
@@ -87,13 +92,15 @@ public class SearchFragment extends Fragment
         savedState.putParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY, productList);
 
     }  
-    
+ */  
 	void showResultSet(ArrayList<Product> productListLoaded)
 	{
-
+   		Log.e("SearchFragment showResultSet"," ");
+		getActivity().findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 		if (productListLoaded == null) listAdapter.showResultSet(null);
 		else
 		{
+	   		Log.e("SearchFragment showResultSet","productList");
 			ArrayList<Product> localProductList = new ArrayList<Product>();
 			for (Product item : productListLoaded)
 			{
