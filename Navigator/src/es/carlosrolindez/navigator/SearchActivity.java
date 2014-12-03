@@ -30,7 +30,7 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	
 	private SearchFragment searchFragment;
 	private String query;
-	ArrayList<Product> productList;
+	private ArrayList<Product> productList;
 
 
     @Override
@@ -54,6 +54,9 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
        	if (savedInstanceState != null) {
        		Log.e("SearchActivity OnCreate","saved instance");
         	productList = savedInstanceState.getParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY);
+    		for (Product item : productList)
+    	   		Log.e("SearchActivity onCreate",item.description + " " + item.itemMode);
+     
         }
         else
         {	
@@ -90,7 +93,6 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	protected void onNewIntent(Intent intent) { 
    		Log.e("SearchActivity onNewIntent"," ");
 	    setIntent(intent);
-  		Log.e("SearchActivity handleIntent"," ");
 	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) 
 	    {
 	   		Log.e("SearchActivity handleIntent","ACTION_SEARCH");
@@ -180,6 +182,13 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     	super.onSaveInstanceState(savedState);
     	Log.e("SearchActivity onSaveInstanceState","saving instance list");
     	savedState.putParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY, productList);
+		for (Product item : productList)
+	   		Log.e("SearchActivity onSaveInstanceState",item.description + " " + item.itemMode);
+		
+		ArrayList<Product> localProductList = savedState.getParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY);
+		for (Product item : localProductList)
+	   		Log.e("SearchActivity onSavedInstanceState",item.description + " " + item.itemMode);
+ 
     }   
 
     
@@ -213,7 +222,6 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	    else
 	    {
 	   		Log.e("SearchActivity onLoadFinished","new productList");
-	    	searchFragment.showResultSet(productList);
 	    	this.productList = productList;
 	    }
     	searchFragment.showResultSet(productList);

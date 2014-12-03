@@ -106,6 +106,8 @@ public class SearchFragment extends Fragment
 			{
 				if (item.itemMode == NavisionTool.LOADER_PRODUCT_SEARCH)
 					localProductList.add(item);
+		   		Log.e("SearchFragment showResultSet",item.description + " " + item.itemMode);
+				
 			}
 			listAdapter.showResultSet(localProductList);		
 		}
