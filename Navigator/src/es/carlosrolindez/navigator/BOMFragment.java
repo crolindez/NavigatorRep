@@ -76,7 +76,7 @@ public class BOMFragment extends Fragment implements LoaderCallbacks<ArrayList<P
     	super.onActivityCreated(savedInstanceState);
     	
  	    list=(ListView)getActivity().findViewById(R.id.bom_list);    	
-	    listAdapter = new CrListAdapter(getActivity()/*,productList*/);
+	    listAdapter = new CrListAdapter(getActivity(),null);
 	    list.setAdapter(listAdapter);
 	    list.setOnItemClickListener(onItemClickListener);    
 //      if (productList==null)

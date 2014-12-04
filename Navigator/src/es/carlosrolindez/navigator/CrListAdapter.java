@@ -19,8 +19,9 @@ public class CrListAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 	private ArrayList<Product> mProductList;
 	
-	public CrListAdapter(Activity activity)
+	public CrListAdapter(Activity activity,ArrayList<Product> productList)
 	{
+		mProductList = productList;
 		inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 	

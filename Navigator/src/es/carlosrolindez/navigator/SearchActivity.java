@@ -51,33 +51,36 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     		NavisionTool.changeMode(NavisionTool.MODE_EMULATOR);  		
     	}
     	
-       	if (savedInstanceState != null) {
-       		Log.e("SearchActivity OnCreate","saved instance");
-        	productList = savedInstanceState.getParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY);
-    		for (Product item : productList)
-    	   		Log.e("SearchActivity onCreate",item.description + " " + item.itemMode);
-     
-        }
-        else
-        {	
-       		Log.e("SearchActivity OnCreate","NOT saved instance");
-        	productList=null;
-        }
-   
 	    Intent intent = getIntent();
 	    	    
 	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) 
 	    {
-		    query = intent.getStringExtra(SearchManager.QUERY);	  	    		    
+		    query = intent.getStringExtra(SearchManager.QUERY);	  	    
+	   
+		    if (savedInstanceState != null) {
+	       		Log.e("SearchActivity OnCreate","load instance");
+	        	productList = savedInstanceState.getParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY);
+	    		for (Product item : productList)
+	    	   		Log.e("SearchActivity onCreate",item.description + " " + item.itemMode);
+	    		searchFragment = (SearchFragment)getSupportFragmentManager().getFragment(savedInstanceState, "searchFragment");
+            	getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchFragment).commit();
+	     
+	        }
+	        else
+	        {	
+	       		Log.e("SearchActivity OnCreate","NOT saved instance");
+//	        	productList=null;
+//	        }
+	   		    
  //         if (searchFragment==null) 
-            {
+ //           {
            		Log.e("SearchActivity OnCreate","new searchFragment");
             	searchFragment = SearchFragment.newInstance(productList);
             	getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchFragment).commit();
 
-            }
-            if (productList==null)
-            { 
+ //           }
+  //          if (productList==null)
+  //          { 
     	   		Log.e("SearchActivity handleIntent","Launched loader");
         		LoaderManager lm = getSupportLoaderManager();  
         	    Bundle searchString = new Bundle();
@@ -178,8 +181,6 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     @Override
     public void onSaveInstanceState(Bundle savedState) 
     {
-
-    	super.onSaveInstanceState(savedState);
     	Log.e("SearchActivity onSaveInstanceState","saving instance list");
     	savedState.putParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY, productList);
 		for (Product item : productList)
@@ -188,8 +189,9 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 		ArrayList<Product> localProductList = savedState.getParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY);
 		for (Product item : localProductList)
 	   		Log.e("SearchActivity onSavedInstanceState",item.description + " " + item.itemMode);
- 
-    }   
+		getSupportFragmentManager().putFragment(savedState, "searchFragment", searchFragment);
+	   	super.onSaveInstanceState(savedState);
+	}   
 
     
 	@Override

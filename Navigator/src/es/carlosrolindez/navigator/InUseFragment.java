@@ -70,7 +70,7 @@ public class InUseFragment extends Fragment implements LoaderCallbacks<ArrayList
     	super.onActivityCreated(savedInstanceState);
     	
  	    list=(ListView)getActivity().findViewById(R.id.in_use_list);    	
-	    listAdapter = new CrListAdapter(getActivity()/*,productList*/);
+	    listAdapter = new CrListAdapter(getActivity(),null);
 	    list.setAdapter(listAdapter);
 	    list.setOnItemClickListener(onItemClickListener);    
 //      if (productList==null)

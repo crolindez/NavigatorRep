@@ -23,10 +23,10 @@ public class SearchFragment extends Fragment
 	private CrListAdapter listAdapter;
 	private ArrayList<Product> productList;
 	
-	public static SearchFragment newInstance(ArrayList<Product> localProductList) 
+	public static SearchFragment newInstance(ArrayList<Product> productList) 
 	{
 		SearchFragment  fragment = new SearchFragment();
-		fragment.productList = localProductList;
+		fragment.productList = productList;
 		return fragment;
 	}
 
@@ -43,7 +43,23 @@ public class SearchFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
     {
-        listAdapter = new CrListAdapter(getActivity());
+		ArrayList<Product> localProductList = new ArrayList<Product>();
+		
+		if (productList!=null)
+        {
+        	Log.e("SearchFragment onCreateView","productList");
+			for (Product item : productList)
+			{
+				if (item.itemMode == NavisionTool.LOADER_PRODUCT_SEARCH)
+					localProductList.add(item);
+		   		Log.e("SearchFragment showResultSet",item.description + " " + item.itemMode);
+				
+			}
+        	listAdapter = new CrListAdapter(getActivity(),localProductList);
+        }
+        else       	
+        	listAdapter = new CrListAdapter(getActivity(),null);
+        
     	
         return inflater.inflate(R.layout.list_layout, container, false);         
     }
@@ -55,7 +71,8 @@ public class SearchFragment extends Fragment
 		
     	list=(ListView)getActivity().findViewById(R.id.list);    		
         list.setAdapter(listAdapter);
-        list.setOnItemClickListener(onItemClickListener);    
+        list.setOnItemClickListener(onItemClickListener);  
+        
 
         if (productList!=null) 
         {
