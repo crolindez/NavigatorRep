@@ -13,19 +13,17 @@ import android.util.Log;
 class InfoFragmentAdapter extends FragmentPagerAdapter {
 
     private int mCount;
-    private String query;
     InUseFragment inUseFragment;
     BOMFragment bomFragment;
     InfoFragment infoFragment;
 
-    public InfoFragmentAdapter(FragmentManager fm,String filter) {
+    public InfoFragmentAdapter(FragmentManager fm,InUseFragment inUseFragment, InfoFragment infoFragment, BOMFragment bomFragment) 
+    {
         super(fm);
         mCount = 3;
-        query = filter;
-        inUseFragment = InUseFragment.newInstance(query);
-        infoFragment = InfoFragment.newInstance(query);
-        bomFragment = BOMFragment.newInstance(query);
-        
+        this.inUseFragment = inUseFragment;
+        this.infoFragment = infoFragment;
+        this.bomFragment = bomFragment;
     }
 
     @Override

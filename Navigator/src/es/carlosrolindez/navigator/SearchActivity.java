@@ -87,7 +87,6 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     	
       	searchFragment = SearchFragment.newInstance();
     	getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchFragment).commit();
-        setProgressBarIndeterminateVisibility(true);
 		LoaderManager lm = getSupportLoaderManager();  
 	    Bundle searchString = new Bundle();
 	    searchString.putString(NavisionTool.QUERY, query);  	    

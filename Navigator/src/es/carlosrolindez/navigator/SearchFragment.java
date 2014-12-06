@@ -28,16 +28,11 @@ public class SearchFragment extends Fragment
 		return fragment;
 	}
 
-
-	
 	 @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//	    	setRetainInstance(true);
-
     }
-	 
-	 
+	 	 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
     {
@@ -103,6 +98,5 @@ public class SearchFragment extends Fragment
 			}
 		}
 		listAdapter.showResultSet(productList);
-
 	}
 }
