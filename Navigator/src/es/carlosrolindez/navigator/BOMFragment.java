@@ -21,6 +21,7 @@ public class BOMFragment extends Fragment
 	public static BOMFragment newInstance() 
 	{
 		BOMFragment  fragment = new BOMFragment();
+		fragment.productList=null;
 		return fragment;
 	}
 	@Override
@@ -41,12 +42,11 @@ public class BOMFragment extends Fragment
 
     	if (savedInstanceState != null) 
         	productList = savedInstanceState.getParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY);
-        else
-        	productList=null;
-
    	
- 	    list=(ListView)getActivity().findViewById(R.id.bom_list);    	
+ 	    list=(ListView)getActivity().findViewById(R.id.bom_list);    
+
 	    listAdapter = new CrListAdapter(getActivity(),productList);
+
 	    list.setAdapter(listAdapter);
 	    list.setOnItemClickListener(onItemClickListener);   
  
@@ -90,7 +90,10 @@ public class BOMFragment extends Fragment
 					productList.add(item);
 			}
 		}
-		listAdapter.showResultSet(productList);
+
+		if (listAdapter!=null) 
+			listAdapter.showResultSet(productList);
+
 	}
 }
     

@@ -32,7 +32,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
     @Override
     protected void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
-        
+
     	requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     	requestWindowFeature(Window.FEATURE_PROGRESS);
 
@@ -43,11 +43,11 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 	    int infoMode = myIntent.getIntExtra(NavisionTool.LAUNCH_INFO_MODE,NavisionTool.INFO_MODE_FULL);
 	    
 	    if (savedInstanceState != null)
-	    {
+	    {   
 		    switch (infoMode)
 		    {
 		    case NavisionTool.INFO_MODE_FULL:
-		    default:
+		    default:  
 		    	inUseFragment = (InUseFragment)getSupportFragmentManager().getFragment(savedInstanceState, "inUseFragment");
 		    	infoFragment = (InfoFragment)getSupportFragmentManager().getFragment(savedInstanceState, "infoFragment");
 		    	bomFragment = (BOMFragment)getSupportFragmentManager().getFragment(savedInstanceState, "bomFragment");
@@ -69,7 +69,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		    	bomFragment = (BOMFragment)getSupportFragmentManager().getFragment(savedInstanceState, "bomFragment");
 		        setContentView(R.layout.single_frame_layout);	 
 		        
-		        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, bomFragment).commit(); 
+		        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, bomFragment).commit(); 
 		      	getActionBar().setTitle("BOM " + reference);    
 		        break;
 		        
@@ -77,7 +77,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		    	inUseFragment = (InUseFragment)getSupportFragmentManager().getFragment(savedInstanceState, "inUseFragment");
 		        setContentView(R.layout.single_frame_layout);	 
 		    	
-		        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, inUseFragment).commit();    
+		        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, inUseFragment).commit();    
 		      	getActionBar().setTitle(reference + " used in:");    
 		        break;
 		    }
@@ -85,7 +85,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 	    else
 	    {
 	    	setProgressBarIndeterminateVisibility(true);
-		    setProgressBarVisibility(true);
+		    setProgressBarVisibility(true);    
        	    
 	      	LoaderManager lm = getSupportLoaderManager();  
 	      	Bundle searchString = new Bundle();
@@ -117,9 +117,9 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		        break;
 		        
 		    case NavisionTool.INFO_MODE_BOM:
-		        setContentView(R.layout.single_frame_layout);	 
 		        
-		        BOMFragment bomFragment = BOMFragment.newInstance();
+		        setContentView(R.layout.single_frame_layout);	 
+		        bomFragment = BOMFragment.newInstance();
 		    	
 		        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, bomFragment).commit(); 
 		      	getActionBar().setTitle("BOM " + reference);   
@@ -129,9 +129,9 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		        break;
 		        
 		    case NavisionTool.INFO_MODE_IN_USE:
-		        setContentView(R.layout.single_frame_layout);	 
+				setContentView(R.layout.single_frame_layout);	 
 		        
-		        InUseFragment inUseFragment = InUseFragment.newInstance();
+		        inUseFragment = InUseFragment.newInstance();
 		    	
 		        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, inUseFragment).commit();    
 		      	getActionBar().setTitle(reference + " used in:");    
@@ -199,10 +199,12 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 				    {
 				    	bomFragment.showResultSet(productList);
 				    }
+				    break;
 				case NavisionTool.LOADER_PRODUCT_IN_USE:
 					{
 				    	inUseFragment.showResultSet(productList);			
 				    }
+					break;
 			}
 	    }
 	}

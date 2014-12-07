@@ -17,6 +17,7 @@ public class InfoFragment extends Fragment
 	public static InfoFragment newInstance() 
 	{
 		InfoFragment  fragment = new InfoFragment();
+		fragment.productList = null;
 		return fragment;
 	}
 	
@@ -38,8 +39,6 @@ public class InfoFragment extends Fragment
     	
     	if (savedInstanceState != null) 
         	productList = savedInstanceState.getParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY);
-        else
-        	productList=null;
 
 	    if (productList!=null) 
        		showResultSet(productList);
@@ -47,7 +46,7 @@ public class InfoFragment extends Fragment
     
 	public void showResultSet(ArrayList<Product> productListLoaded)
 	{
-		final Product product;
+		Product product = null;
 		float stockValue;
 	    
 		if (productListLoaded == null) 
@@ -59,17 +58,20 @@ public class InfoFragment extends Fragment
 	   		productList = new ArrayList<Product>();
 			for (Product item : productListLoaded)
 			{
-				if (item.itemMode == NavisionTool.LOADER_PRODUCT_BOM)
+				if (item.itemMode == NavisionTool.LOADER_PRODUCT_INFO)
+				{
 					productList.add(item);
+					product = item;
+				}
 			}
-			
-			TextView stock = (TextView)getActivity().findViewById(R.id.general_info_stock);
-			product = productList.get(0);
-			
-			stockValue = Float.parseFloat(product.stock);
-			//stock.setText(String.format("%,6.2f un.",stockValue));
-			stock.setText(product.stock);
-			
+			if (product != null && getActivity()!=null)
+			{
+				TextView stock = (TextView)getActivity().findViewById(R.id.general_info_stock);
+				stockValue = Float.parseFloat(product.stock);
+				//stock.setText(String.format("%,6.2f un.",stockValue));
+				stock.setText(product.stock);
+			}
+		
 
 		}
 	}

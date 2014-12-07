@@ -22,6 +22,7 @@ public class InUseFragment extends Fragment
 	public static InUseFragment newInstance() 
 	{
 		InUseFragment  fragment = new InUseFragment();
+		fragment.productList=null;
 		return fragment;
 	}
 	@Override
@@ -38,18 +39,15 @@ public class InUseFragment extends Fragment
     @Override    
     public void onActivityCreated(Bundle savedInstanceState) {	
     	super.onActivityCreated(savedInstanceState);
-    	
     	if (savedInstanceState != null) 
         	productList = savedInstanceState.getParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY);
-        else
-        	productList=null;
 
   	    list=(ListView)getActivity().findViewById(R.id.in_use_list);    	
 	    listAdapter = new CrListAdapter(getActivity(),productList);
 	    list.setAdapter(listAdapter);
 	    list.setOnItemClickListener(onItemClickListener);    
  
-	    if (productList==null)
+	    if (productList!=null)
        		showResultSet(productList);
    
     }
@@ -90,6 +88,8 @@ public class InUseFragment extends Fragment
 					productList.add(item);
 			}
 		}
-		listAdapter.showResultSet(productList);
+
+		if (listAdapter!=null) 
+			listAdapter.showResultSet(productList);
 	}
 }
