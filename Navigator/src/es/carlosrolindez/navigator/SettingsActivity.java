@@ -12,7 +12,7 @@ public class SettingsActivity extends Activity
 
 	        // Display the fragment as the main content.
 	        getFragmentManager().beginTransaction()
-	                .replace(android.R.id.content, new SettingsFragment())
+	                .add(android.R.id.content, new SettingsFragment())
 	                .commit();
 	    }
 }
