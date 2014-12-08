@@ -286,7 +286,7 @@ public class NavisionTool
 		{
 			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			
-            String headSqlString = "SELECT sum([Output Quantity]) AS [Cantidad] FROM  [EIS$Capacity Ledger Entry] WHERE  ([Item No_] = '";
+            String headSqlString = "SELECT sum([Output Quantity]) FROM  [EIS$Capacity Ledger Entry] WHERE  ([Item No_] = '";
     	    String tailSqlSring = "' ) AND  ([Location Code]='01') GROUP BY [Item No_]";
 		    
 		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
@@ -308,41 +308,209 @@ public class NavisionTool
 	
 	static public String queryOrderPoint(String filterString)
 	{
+	    Statement stmt;
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			
+            String headSqlString = "SELECT [Reorder Point] FROM  [EIS$Item] WHERE  ([No_] = '";
+    	    String tailSqlSring = "' )";
+		    
+		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
+		    if (result.isBeforeFirst())
+		    {
+		    	result.next();
+		    	return (result.getString(1));
+		    }
+		    else
+		    {
+		    	return "0.0";
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
 	static public String queryInPlannedProduction(String filterString)
 	{
+	    Statement stmt;
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+
+            String headSqlString = "SELECT sum([Remaining Quantity]) FROM  [EIS$Prod_ Order Line] WHERE  ([Item No_] = '";
+    	    String tailSqlSring = "' ) AND ([Status]='2')";
+		    
+		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
+		    if (result.isBeforeFirst())
+		    {
+		    	result.next();
+		    	return (result.getString(1));
+		    }
+		    else
+		    {
+		    	return "0.0";
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
 	static public String queryInProduction(String filterString)
 	{
+	    Statement stmt;
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+
+            String headSqlString = "SELECT sum([Remaining Quantity]) FROM  [EIS$Prod_ Order Line] WHERE  ([Item No_] = '";
+    	    String tailSqlSring = "' ) AND ([Status]='3')";
+		    
+		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
+		    if (result.isBeforeFirst())
+		    {
+		    	result.next();
+		    	return (result.getString(1));
+		    }
+		    else
+		    {
+		    	return "0.0";
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
 	static public String queryPurchase(String filterString)
-	{
-		return null;
+	{       	   
+		Statement stmt;
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+
+            String headSqlString = "SELECT sum([Outstanding Quantity]) FROM  [EIS$Purchase Line] WHERE  ([No_] = '";
+    	    String tailSqlSring = "' ) AND ([Document Type]='1')";
+		    
+		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
+		    if (result.isBeforeFirst())
+		    {
+		    	result.next();
+		    	return (result.getString(1));
+		    }
+		    else
+		    {
+		    	return "0.0";
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;	    
 	}
 	
 	static public String queryTransfer(String filterString)
 	{
-		return null;
+		Statement stmt;
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+
+            String headSqlString = "SELECT sum([EIS$Transfer Line].[Quantity]) FROM  [EIS$Transfer Line], [EIS$Transfer Header] WHERE  ([EIS$Transfer Line].[Document No_] = [EIS$Transfer Header].[No_]) AND  ([EIS$Transfer Line].[Item No_] = '";
+    	    String tailSqlSring = "' ) AND ([EIS$Transfer Header].[Status] = 0) ";
+		    
+		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
+		    if (result.isBeforeFirst())
+		    {
+		    	result.next();
+		    	return (result.getString(1));
+		    }
+		    else
+		    {
+		    	return "0.0";
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;	    
 	}
 	
 	static public String querySale(String filterString)
 	{
-		return null;
+		Statement stmt;
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+
+            String headSqlString = "SELECT sum([Outstanding Quantity]) FROM  [EIS$Sales Line] WHERE  ([No_] = '";
+    	    String tailSqlSring = "' ) AND ([Location Code]='01') AND ([Document Type]='1')";
+		    
+		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
+		    if (result.isBeforeFirst())
+		    {
+		    	result.next();
+		    	return (result.getString(1));
+		    }
+		    else
+		    {
+		    	return "0.0";
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;	    
 	}
 	
 	static public String queryUsedInPlannedProduction(String filterString)
 	{
+	    Statement stmt;
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+
+            String headSqlString = "SELECT sum([Remaining Quantity]) FROM  [EIS$Prod_ Order Component] WHERE  ([Item No_] = '";
+    	    String tailSqlSring = "' ) AND ([Status]='2')";
+		    
+		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
+		    if (result.isBeforeFirst())
+		    {
+		    	result.next();
+		    	return (result.getString(1));
+		    }
+		    else
+		    {
+		    	return "0.0";
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
 	static public String queryUsedInProduction(String filterString)
 	{
+	    Statement stmt;
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+
+            String headSqlString = "SELECT sum([Remaining Quantity]) FROM  [EIS$Prod_ Order Component] WHERE  ([Item No_] = '";
+    	    String tailSqlSring = "' ) AND ([Status]='3')";
+		    
+		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
+		    if (result.isBeforeFirst())
+		    {
+		    	result.next();
+		    	return (result.getString(1));
+		    }
+		    else
+		    {
+		    	return "0.0";
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
