@@ -83,16 +83,15 @@ public class CrListAdapter extends BaseAdapter {
 		description.setText(product.description);
 		quantity.setText("");
 		
-		
+
 		if (stock != null) {
 			stockValue = Float.parseFloat(product.stock);
 			stock.setText(String.format("%,6.2f un.",stockValue));
 		}	
-
 		if (cost != null)
 		{
 			costValue = Float.parseFloat(product.cost);
-			cost.setText(String.format("%,6.2f €",costValue));	
+			cost.setText(String.format("%,6.2f €",costValue));
 		}
 		if (product.inBOM)
 			inBoom.setVisibility(View.VISIBLE);

@@ -9,7 +9,7 @@ import java.util.Locale;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
-
+import android.util.Log;
 
 
 
@@ -234,14 +234,15 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 						}
 						break;
 		    		case NavisionTool.LOADER_PRODUCT_INFO:
-		    		default:
-	    				result = NavisionTool.queryList(filterString);	    								
+		    		default: 								
 				    	product = new Product(); 	
 				    	product.reference = filterString;
 				    	
 						product.stock = NavisionTool.queryStock(filterString);
 						product.cost = NavisionTool.queryCost(filterString);
+						Log.e("handword","before");
 						product.handWorkCost = NavisionTool.queryHandWorkCost(filterString);
+						Log.e("handword","after" + product.handWorkCost);
 				    	product.orderPoint = NavisionTool.queryOrderPoint(filterString);
 				    	
 				    	product.inPlannedProduction = NavisionTool.queryInPlannedProduction(filterString);

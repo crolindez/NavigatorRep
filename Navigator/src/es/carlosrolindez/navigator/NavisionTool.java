@@ -11,7 +11,6 @@ import java.sql.Statement;
 
 
 
-
 public class NavisionTool 
 {
 	
@@ -282,18 +281,44 @@ public class NavisionTool
 	static public String queryHandWorkCost(String filterString)
 	{
 	    Statement stmt;
+	    float quantity;
+	    float duration;
 		try 
 		{
 			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-			
+
             String headSqlString = "SELECT sum([Output Quantity]) FROM  [EIS$Capacity Ledger Entry] WHERE  ([Item No_] = '";
-    	    String tailSqlSring = "' ) AND  ([Location Code]='01') GROUP BY [Item No_]";
+    	    String tailSqlSring = "' ) AND  ([Last Output Line]='1') GROUP BY [Item No_]";
 		    
 		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
 		    if (result.isBeforeFirst())
 		    {
 		    	result.next();
-		    	return (result.getString(1));
+		    	if (result.getString(1)==null) 
+		    		return "0.0";
+		    	else
+		    	{
+		    		quantity = Float.parseFloat(result.getString(1));
+		    		headSqlString = "SELECT sum([Quantity]) FROM  [EIS$Capacity Ledger Entry] WHERE  ([Item No_] = '";
+		    	    tailSqlSring = "' )GROUP BY [Item No_]";
+				    result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
+			    
+				    if (result.isBeforeFirst())
+				    {
+				    	result.next();
+				    	if (result.getString(1)==null) 
+				    		return "0.0";
+				    	else
+				    	{
+				    		duration = Float.parseFloat(result.getString(1));
+				    		return (String.format("%,6.2f €",0.318667*duration/quantity));
+				    	}
+				    }
+				    else
+				    {
+				    	return "0.0";
+				    }
+		    	}
 		    }
 		    else
 		    {
@@ -302,6 +327,7 @@ public class NavisionTool
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return null;
 
 	}
@@ -320,7 +346,10 @@ public class NavisionTool
 		    if (result.isBeforeFirst())
 		    {
 		    	result.next();
-		    	return (result.getString(1));
+		    	if (result.getString(1)==null) 
+		    		return "0.0";
+		    	else
+		    		return (result.getString(1));
 		    }
 		    else
 		    {
@@ -346,7 +375,10 @@ public class NavisionTool
 		    if (result.isBeforeFirst())
 		    {
 		    	result.next();
-		    	return (result.getString(1));
+		    	if (result.getString(1)==null) 
+		    		return "0.0";
+		    	else
+		    		return (result.getString(1));
 		    }
 		    else
 		    {
@@ -372,7 +404,10 @@ public class NavisionTool
 		    if (result.isBeforeFirst())
 		    {
 		    	result.next();
-		    	return (result.getString(1));
+		    	if (result.getString(1)==null) 
+		    		return "0.0";
+		    	else
+		    		return (result.getString(1));
 		    }
 		    else
 		    {
@@ -398,7 +433,10 @@ public class NavisionTool
 		    if (result.isBeforeFirst())
 		    {
 		    	result.next();
-		    	return (result.getString(1));
+		    	if (result.getString(1)==null) 
+		    		return "0.0";
+		    	else
+		    		return (result.getString(1));
 		    }
 		    else
 		    {
@@ -424,7 +462,10 @@ public class NavisionTool
 		    if (result.isBeforeFirst())
 		    {
 		    	result.next();
-		    	return (result.getString(1));
+		    	if (result.getString(1)==null) 
+		    		return "0.0";
+		    	else
+		    		return (result.getString(1));
 		    }
 		    else
 		    {
@@ -450,7 +491,10 @@ public class NavisionTool
 		    if (result.isBeforeFirst())
 		    {
 		    	result.next();
-		    	return (result.getString(1));
+		    	if (result.getString(1)==null) 
+		    		return "0.0";
+		    	else
+		    		return (result.getString(1));
 		    }
 		    else
 		    {
@@ -476,7 +520,10 @@ public class NavisionTool
 		    if (result.isBeforeFirst())
 		    {
 		    	result.next();
-		    	return (result.getString(1));
+		    	if (result.getString(1)==null) 
+		    		return "0.0";
+		    	else
+		    		return (result.getString(1));
 		    }
 		    else
 		    {
@@ -502,7 +549,10 @@ public class NavisionTool
 		    if (result.isBeforeFirst())
 		    {
 		    	result.next();
-		    	return (result.getString(1));
+		    	if (result.getString(1)==null) 
+		    		return "0.0";
+		    	else
+		    		return (result.getString(1));
 		    }
 		    else
 		    {
