@@ -60,6 +60,7 @@ public class CrListAdapter extends BaseAdapter {
 		final Product product;
 		float costValue;
 		float stockValue;
+		float quantityValue;
 		
 	    if (mProductList == null)
 	    	return null;
@@ -84,7 +85,8 @@ public class CrListAdapter extends BaseAdapter {
 		quantity.setText("");
 		
 
-		if (stock != null) {
+		if (stock != null) 
+		{
 			stockValue = Float.parseFloat(product.stock);
 			stock.setText(String.format("%,6.2f un.",stockValue));
 		}	
@@ -93,6 +95,13 @@ public class CrListAdapter extends BaseAdapter {
 			costValue = Float.parseFloat(product.cost);
 			cost.setText(String.format("%,6.2f €",costValue));
 		}
+		
+		if ((quantity != null) && (product.quantity != ""))
+		{
+			quantityValue = Float.parseFloat(product.quantity);
+			quantity.setText(String.format("%,6.2f un.",quantityValue));
+		}	
+			
 		if (product.inBOM)
 			inBoom.setVisibility(View.VISIBLE);
 		else

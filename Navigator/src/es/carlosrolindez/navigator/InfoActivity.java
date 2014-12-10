@@ -151,7 +151,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
     		getSupportFragmentManager().putFragment(savedState, "inUseFragment", inUseFragment);
     	if (infoFragment!=null)
     		getSupportFragmentManager().putFragment(savedState, "infoFragment", infoFragment);
-    	if (inUseFragment!=null)
+    	if (bomFragment!=null)
     		getSupportFragmentManager().putFragment(savedState, "bomFragment", bomFragment);
     	
 	   	super.onSaveInstanceState(savedState);
@@ -212,12 +212,12 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 	@Override 
 	public void onLoaderReset(Loader<ArrayList<Product>> loader)
 	{
-    	if (inUseFragment!=null)
+  /*  	if (inUseFragment!=null)
     		inUseFragment.showResultSet(null);			    	
     	if (infoFragment!=null)
     	   	infoFragment.showResultSet(null);
     	if (inUseFragment!=null)
-        	bomFragment.showResultSet(null);
+        	bomFragment.showResultSet(null);*/
 	}
 	
 }

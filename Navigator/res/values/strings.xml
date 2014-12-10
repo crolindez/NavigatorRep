@@ -20,5 +20,6 @@
     <string name="state">Estado</string>
     <string name="income">Aportaciones</string>
     <string name="outcome">Consumos</string>
+    <string name="price">Precio</string>
 
 </resources>

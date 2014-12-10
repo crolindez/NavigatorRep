@@ -563,5 +563,34 @@ public class NavisionTool
 		}
 		return null;
 	}
-	
+
+	static public String queryRetailPrice(String filterString)
+	{
+	    Statement stmt;
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+
+            String headSqlString = "SELECT max([Unit Price]) FROM  [EIS$Sales Price] WHERE  ([Item No_] = '";
+    	    String tailSqlSring = "' ) ";
+		    
+		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
+		    if (result.isBeforeFirst())
+		    {
+		    	result.next();
+		    	if (result.getString(1)==null) 
+		    		return "0.0";
+		    	else
+		    		return (result.getString(1));
+		    }
+		    else
+		    {
+		    	return "0.0";
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

@@ -11,6 +11,8 @@ public class Product implements Parcelable{
 	public String quantity;
 	public String stock;
 	public String cost;
+	public String price;
+	
 	public Boolean hasBOM;
 	
 	public String orderPoint;
@@ -30,7 +32,7 @@ public class Product implements Parcelable{
 	
 	
 	
-	Product (String reference, String description, String quantity, String stock, String cost, boolean[] boolArray,
+	Product (String reference, String description, String quantity, String stock, String cost, String price, boolean[] boolArray,
 			String purchase, String inProduction, String inPlannedProduction, String sale, String usedInProduction,
 			String transfer, String usedInPlannedProduction, int itemMode)
 	{
@@ -39,6 +41,7 @@ public class Product implements Parcelable{
         this.quantity = quantity;
         this.stock = description;
         this.cost = cost;
+        this.price = price;
         this.inBOM = boolArray[0];
         this.hasBOM = boolArray[1];   
         
@@ -60,6 +63,7 @@ public class Product implements Parcelable{
         this.quantity = "";
         this.stock = "";
         this.cost = "";
+        this.price = "";
         this.inBOM = false;
         this.hasBOM = false;        
         
@@ -90,6 +94,7 @@ public class Product implements Parcelable{
         parcel.writeString(quantity);
         parcel.writeString(stock);
         parcel.writeString(cost);
+        parcel.writeString(price);
         parcel.writeBooleanArray(boolArray);
 
         parcel.writeString(purchase);
@@ -114,6 +119,7 @@ public class Product implements Parcelable{
             String quantity = parcel.readString();
             String stock = parcel.readString();
             String cost = parcel.readString();
+            String price = parcel.readString();
             parcel.readBooleanArray(boolArray);
    
             String purchase = parcel.readString();
@@ -127,7 +133,7 @@ public class Product implements Parcelable{
 
             int itemMode = parcel.readInt();           
             
-            return new Product(reference, description, quantity, stock, cost, boolArray,
+            return new Product(reference, description, quantity, stock, cost, price, boolArray,
             		purchase, inProduction, inPlannedProduction, sale, usedInProduction,
         			transfer, usedInPlannedProduction, itemMode);
         }

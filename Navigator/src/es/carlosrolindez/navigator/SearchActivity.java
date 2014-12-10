@@ -162,6 +162,6 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	@Override 
 	public void onLoaderReset(Loader<ArrayList<Product>> loader)
 	{
-		searchFragment.showResultSet(null);
+//		searchFragment.showResultSet(null);
 	}
 }

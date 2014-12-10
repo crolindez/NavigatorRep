@@ -39,7 +39,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="3dp"
-            android:text="@string/stock" />
+            android:text="" />
 	    <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="3dp"
-            android:text="@string/orderpoint" />
+            android:text="" />
     </LinearLayout>
 	<LinearLayout 
         android:layout_width="match_parent"
@@ -85,7 +85,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="3dp"
-            android:text="@string/cost"  />
+            android:text=""  />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="3dp"
-            android:text="@string/hand_working" />
+            android:text="" />
     </LinearLayout>
         
     <TextView
@@ -142,7 +142,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="3dp"
-            android:text="@string/purchase" />
+            android:text="" />
 	    <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -162,7 +162,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="3dp"
-            android:text="@string/in_production" />
+            android:text="" />
     </LinearLayout>
     <LinearLayout 
         android:layout_width="match_parent"
@@ -190,8 +190,30 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="3dp"
-            android:text="@string/in_planned_production" />
-	</LinearLayout>    
+            android:text="" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/price"
+            android:textColor="@color/black"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/general_info_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="" />
+    </LinearLayout>    
         
     <TextView
         android:layout_width="match_parent"
@@ -227,7 +249,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="3dp"
-            android:text="@string/sale" />
+            android:text="" />
 	    <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -247,7 +269,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="3dp"
-            android:text="@string/consumed" />
+            android:text="" />
     </LinearLayout>
 	<LinearLayout 
         android:layout_width="match_parent"
@@ -273,7 +295,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="3dp"
-            android:text="@string/transfer"  />
+            android:text=""  />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -293,7 +315,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="3dp"
-            android:text="@string/future_consume" />
+            android:text="" />
     </LinearLayout>
     
     

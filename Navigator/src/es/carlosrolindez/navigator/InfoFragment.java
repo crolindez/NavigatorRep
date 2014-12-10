@@ -60,6 +60,7 @@ public class InfoFragment extends Fragment
 		float stockValue;
 		float orderPointValue;
 		float costValue;
+		float priceValue;
 		float purchaseValue;
 		float inProductionValue;
 		float inPlannedProductionValue;
@@ -96,10 +97,15 @@ public class InfoFragment extends Fragment
 				orderPointValue = Float.parseFloat(product.orderPoint);
 				orderPoint.setText(String.format("%,6.2f un.",orderPointValue));
 
-				Log.e("cost 3",product.cost);
+				Log.e("cost",product.cost);
 				TextView cost = (TextView)getActivity().findViewById(R.id.general_info_cost);
 				costValue = Float.parseFloat(product.cost);
 				cost.setText(String.format("%,6.2f €",costValue));
+
+				Log.e("price",product.price);
+				TextView price = (TextView)getActivity().findViewById(R.id.general_info_price);
+				priceValue = Float.parseFloat(product.price);
+				price.setText(String.format("%,6.2f €",priceValue));
 
 				Log.e("handWorkCost"," " + product.handWorkCost);
 				TextView handWorkCost = (TextView)getActivity().findViewById(R.id.general_info_handworkcost);

@@ -240,14 +240,13 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				    	
 						product.stock = NavisionTool.queryStock(filterString);
 						product.cost = NavisionTool.queryCost(filterString);
-						Log.e("handword","before");
 						product.handWorkCost = NavisionTool.queryHandWorkCost(filterString);
-						Log.e("handword","after" + product.handWorkCost);
 				    	product.orderPoint = NavisionTool.queryOrderPoint(filterString);
 				    	
 				    	product.inPlannedProduction = NavisionTool.queryInPlannedProduction(filterString);
 				    	product.inProduction = NavisionTool.queryInProduction(filterString);
 				    	product.purchase = NavisionTool.queryPurchase(filterString);
+				    	product.price = NavisionTool.queryRetailPrice(filterString);
 				    	
 				    	product.transfer = NavisionTool.queryTransfer(filterString);
 				    	product.sale = NavisionTool.querySale(filterString);
