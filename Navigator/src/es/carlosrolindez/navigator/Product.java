@@ -15,8 +15,8 @@ public class Product implements Parcelable{
 	
 	public Boolean hasBOM;
 	
-	public String orderPoint;
-	public String handWorkCost;
+//	public String orderPoint;
+//	public String handWorkCost;
 	
 	public String purchase;
 	public String inProduction;
@@ -39,7 +39,7 @@ public class Product implements Parcelable{
         this.reference = reference;
         this.description = description;
         this.quantity = quantity;
-        this.stock = description;
+        this.stock = stock;
         this.cost = cost;
         this.price = price;
         this.inBOM = boolArray[0];

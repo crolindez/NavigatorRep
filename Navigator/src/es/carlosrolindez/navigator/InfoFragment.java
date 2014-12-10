@@ -4,11 +4,9 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -58,7 +56,6 @@ public class InfoFragment extends Fragment
 	{
 		Product product = null;
 		float stockValue;
-		float orderPointValue;
 		float costValue;
 		float priceValue;
 		float purchaseValue;
@@ -87,61 +84,42 @@ public class InfoFragment extends Fragment
 			}
 			if (product != null && getActivity()!=null)
 			{
-				Log.e("stock",product.stock);
 				TextView stock = (TextView)getActivity().findViewById(R.id.general_info_stock);
 				stockValue = Float.parseFloat(product.stock);
 				stock.setText(String.format("%,6.2f un.",stockValue));
 
-				Log.e("orderPoint",product.orderPoint);
-				TextView orderPoint = (TextView)getActivity().findViewById(R.id.general_info_pp);
-				orderPointValue = Float.parseFloat(product.orderPoint);
-				orderPoint.setText(String.format("%,6.2f un.",orderPointValue));
-
-				Log.e("cost",product.cost);
 				TextView cost = (TextView)getActivity().findViewById(R.id.general_info_cost);
 				costValue = Float.parseFloat(product.cost);
 				cost.setText(String.format("%,6.2f €",costValue));
 
-				Log.e("price",product.price);
 				TextView price = (TextView)getActivity().findViewById(R.id.general_info_price);
 				priceValue = Float.parseFloat(product.price);
 				price.setText(String.format("%,6.2f €",priceValue));
 
-				Log.e("handWorkCost"," " + product.handWorkCost);
-				TextView handWorkCost = (TextView)getActivity().findViewById(R.id.general_info_handworkcost);
-				handWorkCost.setText(product.handWorkCost);
-
-				Log.e("purchase"," " + product.purchase);
 				TextView purchase = (TextView)getActivity().findViewById(R.id.general_info_purchase);
 				purchaseValue = Float.parseFloat(product.purchase);
 				purchase.setText(String.format("%,6.2f un.",purchaseValue));
 
-				Log.e("inProduction"," " + product.inProduction);
 				TextView inProduction = (TextView)getActivity().findViewById(R.id.general_info_in_production);
 				inProductionValue = Float.parseFloat(product.inProduction);
 				inProduction.setText(String.format("%,6.2f un.",inProductionValue));
 
-				Log.e("inPlannedProduction"," " + product.inPlannedProduction);
 				TextView inPlannedProduction = (TextView)getActivity().findViewById(R.id.general_info_in_planned_produccions);
 				inPlannedProductionValue = Float.parseFloat(product.inPlannedProduction);
 				inPlannedProduction.setText(String.format("%,6.2f un.",inPlannedProductionValue));
 
-				Log.e("sale"," " + product.sale);
 				TextView sale = (TextView)getActivity().findViewById(R.id.general_info_sales);
 				saleValue = Float.parseFloat(product.sale);
 				sale.setText(String.format("%,6.2f un.",saleValue));
 
-				Log.e("usedInProduction"," " + product.usedInProduction);
 				TextView usedInProduction = (TextView)getActivity().findViewById(R.id.general_info_used_in_production);
 				usedInProductionValue = Float.parseFloat(product.usedInProduction);
 				usedInProduction.setText(String.format("%,6.2f un.",usedInProductionValue));
 
-				Log.e("transfer"," " + product.transfer);
 				TextView transfer = (TextView)getActivity().findViewById(R.id.general_info_transfer);
 				transferValue = Float.parseFloat(product.transfer);
 				transfer.setText(String.format("%,6.2f un.",transferValue));
 
-				Log.e("usedInPlannedProduction"," " + product.usedInPlannedProduction);
 				TextView usedInPlannedProduction = (TextView)getActivity().findViewById(R.id.general_info_used_in_planned_produccions);
 				usedInPlannedProductionValue = Float.parseFloat(product.usedInPlannedProduction);
 				usedInPlannedProduction.setText(String.format("%,6.2f un.",usedInPlannedProductionValue));

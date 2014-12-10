@@ -40,26 +40,7 @@
             android:gravity="center"
             android:padding="3dp"
             android:text="" />
-	    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="@color/blue"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="@string/orderpoint"
-            android:textColor="@color/white"
-            android:textStyle="bold|italic"  />
-        <TextView
-            android:id="@+id/general_info_pp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="" />
+
     </LinearLayout>
 	<LinearLayout 
         android:layout_width="match_parent"
@@ -86,26 +67,6 @@
             android:gravity="center"
             android:padding="3dp"
             android:text=""  />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="@color/blue"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="@string/hand_working"
-            android:textColor="@color/white"
-            android:textStyle="bold|italic"  />
-        <TextView
-            android:id="@+id/general_info_handworkcost"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="" />
     </LinearLayout>
         
     <TextView

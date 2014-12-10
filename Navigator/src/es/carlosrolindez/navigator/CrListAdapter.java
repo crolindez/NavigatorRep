@@ -99,7 +99,7 @@ public class CrListAdapter extends BaseAdapter {
 		if ((quantity != null) && (product.quantity != ""))
 		{
 			quantityValue = Float.parseFloat(product.quantity);
-			quantity.setText(String.format("%,6.2f un.",quantityValue));
+			quantity.setText(String.format("x%,6.2f un.",quantityValue));
 		}	
 			
 		if (product.inBOM)
