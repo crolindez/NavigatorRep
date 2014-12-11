@@ -30,7 +30,7 @@ public class InfoFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, 
         Bundle savedInstanceState) 
     {
-    	return  inflater.inflate(R.layout.general_info_layout, container, false);    
+    	return  inflater.inflate(R.layout.general_info_enh_layout, container, false);    
     }
 
     @Override    
