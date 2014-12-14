@@ -12,6 +12,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SearchViewCompat;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -117,10 +119,11 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	    searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
 	    // Assumes current activity is the searchable activity
 	    searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-	    searchView.setIconifiedByDefault(true); // Do not iconify the widget; expand it by default
+	    searchView.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+	    searchView.setIconifiedByDefault(true); 
 	    return super.onCreateOptionsMenu(menu);
     }
-
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -128,13 +131,14 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-        	searchView.setIconified(true);
+    	    searchView.clearFocus();
  	    	Intent intent = new Intent (this, SettingsActivity.class);
         	startActivity(intent);               	
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
     
     @Override
     public void onSaveInstanceState(Bundle savedState) 
