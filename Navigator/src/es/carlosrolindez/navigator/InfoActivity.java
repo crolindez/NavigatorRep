@@ -33,8 +33,8 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
     protected void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
 
-    	requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-    	requestWindowFeature(Window.FEATURE_PROGRESS);
+//    	requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+//    	requestWindowFeature(Window.FEATURE_PROGRESS);
 
     	Intent myIntent = getIntent();
     	
@@ -84,8 +84,8 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 	    }
 	    else
 	    {
-	    	setProgressBarIndeterminateVisibility(true);
-		    setProgressBarVisibility(true);    
+//	    	setProgressBarIndeterminateVisibility(true);
+//		    setProgressBarVisibility(true);    
        	    
 	      	LoaderManager lm = getSupportLoaderManager();  
 	      	Bundle searchString = new Bundle();
@@ -112,7 +112,11 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		        
 		      	getActionBar().setTitle(reference + " " + description);    
 
-	       	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_INFO, searchString, this);	     	
+	       	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_INFO, searchString, this);	     
+
+	       	    bomFragment.showProgress(true);
+	       	    infoFragment.showProgress(true);
+	       	    inUseFragment.showProgress(true);
 
 		        break;
 		        
@@ -124,7 +128,10 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, bomFragment).commit(); 
 		      	getActionBar().setTitle("BOM " + reference);   
 	    
-	       	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_BOM, searchString, this);	     	
+	       	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_BOM, searchString, this);	  
+
+	       	    bomFragment.showProgress(true);
+
 		      	
 		        break;
 		        
@@ -136,7 +143,9 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, inUseFragment).commit();    
 		      	getActionBar().setTitle(reference + " used in:");    
     
-	       	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_IN_USE, searchString, this);	     	
+	       	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_IN_USE, searchString, this);	
+
+	       	    inUseFragment.showProgress(true);
 		      	
 		        break;
 		    }	        
@@ -166,9 +175,12 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 	@Override
 	public void onLoadFinished(Loader<ArrayList<Product>> loader,ArrayList<Product> productList)
 	{   			
-        setProgressBarIndeterminateVisibility(false);
-        setProgressBarVisibility(false);
-        
+//        setProgressBarIndeterminateVisibility(false);
+//        setProgressBarVisibility(false);
+		if (bomFragment!=null) bomFragment.showProgress(false);
+   	    if (infoFragment!=null) infoFragment.showProgress(false);
+   	    if (inUseFragment!=null) inUseFragment.showProgress(false);
+   	    
 	    if (productList==null)
 	    {	
 	   		LayoutInflater inflater = getLayoutInflater();

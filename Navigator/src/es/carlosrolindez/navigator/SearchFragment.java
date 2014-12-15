@@ -21,10 +21,14 @@ public class SearchFragment extends Fragment
 	private ListView list;
 	private CrListAdapter listAdapter;
 	private ArrayList<Product> productList;
+	private boolean progressAllowed;
+	private boolean progressPending;
 	
 	public static SearchFragment newInstance() 
 	{
 		SearchFragment  fragment = new SearchFragment();
+		fragment.progressAllowed = false;
+		fragment.progressPending = false;
 		return fragment;
 	}
 
@@ -53,8 +57,10 @@ public class SearchFragment extends Fragment
     	listAdapter = new CrListAdapter(getActivity(),productList);
         list.setAdapter(listAdapter);
         list.setOnItemClickListener(onItemClickListener);  
+	    
+        progressAllowed = true;
+        if (progressPending) showProgress (true);
         
-
         if (productList!=null) 
        		showResultSet(productList);
         	
@@ -84,6 +90,17 @@ public class SearchFragment extends Fragment
 
     }  
    
+    public void showProgress(boolean progress)
+	{
+    	if (progressAllowed)
+    	{
+        	if (progress)    getActivity().findViewById(R.id.loadingPanel_list).setVisibility(View.VISIBLE);
+        	else getActivity().findViewById(R.id.loadingPanel_list).setVisibility(View.GONE);
+        	progressPending = false;
+    	}
+    	else progressPending = progress;
+	}
+
 	void showResultSet(ArrayList<Product> productListLoaded)
 	{
 		if (productListLoaded == null) 

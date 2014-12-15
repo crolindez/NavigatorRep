@@ -18,11 +18,15 @@ public class InUseFragment extends Fragment
 	private ArrayList<Product> productList;
 	private ListView list;
 	private CrListAdapter listAdapter;
+	private boolean progressAllowed;
+	private boolean progressPending;	
 	
 	public static InUseFragment newInstance() 
 	{
 		InUseFragment  fragment = new InUseFragment();
 		fragment.productList=null;
+		fragment.progressAllowed = false;
+		fragment.progressPending = false;
 		return fragment;
 	}
 	@Override
@@ -45,7 +49,10 @@ public class InUseFragment extends Fragment
   	    list=(ListView)getActivity().findViewById(R.id.in_use_list);    	
 	    listAdapter = new CrListAdapter(getActivity(),productList);
 	    list.setAdapter(listAdapter);
-	    list.setOnItemClickListener(onItemClickListener);    
+	    list.setOnItemClickListener(onItemClickListener);  
+	    
+        progressAllowed = true;
+        if (progressPending) showProgress (true); 
  
 	    if (productList!=null)
        		showResultSet(productList);
@@ -74,6 +81,17 @@ public class InUseFragment extends Fragment
 	    super.onSaveInstanceState(savedState);
 	    savedState.putParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY, productList);
 	}    
+
+    public void showProgress(boolean progress)
+	{
+    	if (progressAllowed)
+    	{
+        	if (progress)    getActivity().findViewById(R.id.loadingPanel_inUseList).setVisibility(View.VISIBLE);
+        	else getActivity().findViewById(R.id.loadingPanel_inUseList).setVisibility(View.GONE);
+        	progressPending = false;
+    	}
+    	else progressPending = progress;
+	}
 
 	void showResultSet(ArrayList<Product> productListLoaded)
 	{

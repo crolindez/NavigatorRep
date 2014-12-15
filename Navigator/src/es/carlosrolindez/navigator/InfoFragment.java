@@ -13,11 +13,15 @@ import android.widget.TextView;
 public class InfoFragment extends Fragment
 {
 	private ArrayList<Product> productList;
-
+	private boolean progressAllowed;
+	private boolean progressPending;
+	
 	public static InfoFragment newInstance() 
 	{
 		InfoFragment  fragment = new InfoFragment();
 		fragment.productList = null;
+		fragment.progressAllowed = false;
+		fragment.progressPending = false;
 		return fragment;
 	}
 	
@@ -42,6 +46,9 @@ public class InfoFragment extends Fragment
 
 	    if (productList!=null) 
        		showResultSet(productList);
+	    
+	    progressAllowed = true;
+        if (progressPending) showProgress (true);
       }    	
    
     @Override
@@ -51,6 +58,16 @@ public class InfoFragment extends Fragment
 	    savedState.putParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY, productList);
 	}   
 
+    public void showProgress(boolean progress)
+	{
+    	if (progressAllowed )
+    	{
+        	if (progress) getActivity().findViewById(R.id.loadingPanel_general_info).setVisibility(View.VISIBLE);
+        	else getActivity().findViewById(R.id.loadingPanel_general_info).setVisibility(View.GONE);
+        	progressPending = false;
+    	}
+    	else progressPending = progress;
+	}
 
 	public void showResultSet(ArrayList<Product> productListLoaded)
 	{

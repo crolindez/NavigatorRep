@@ -17,11 +17,15 @@ public class BOMFragment extends Fragment
 	private ArrayList<Product> productList;
 	private ListView list;
 	private CrListAdapter listAdapter;
+	private boolean progressAllowed;
+	private boolean progressPending;
 	
 	public static BOMFragment newInstance() 
 	{
 		BOMFragment  fragment = new BOMFragment();
 		fragment.productList=null;
+		fragment.progressAllowed = false;
+		fragment.progressPending = false;
 		return fragment;
 	}
 	@Override
@@ -50,6 +54,9 @@ public class BOMFragment extends Fragment
 	    list.setAdapter(listAdapter);
 	    list.setOnItemClickListener(onItemClickListener);   
  
+        progressAllowed = true;
+        if (progressPending) showProgress (true);
+        
 	    if (productList!=null) 
        		showResultSet(productList);
     }
@@ -76,6 +83,17 @@ public class BOMFragment extends Fragment
 	    super.onSaveInstanceState(savedState);
 	    savedState.putParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY, productList);
 	}   
+
+    public void showProgress(boolean progress)
+	{
+    	if (progressAllowed)
+    	{
+        	if (progress)    getActivity().findViewById(R.id.loadingPanel_bomList).setVisibility(View.VISIBLE);
+        	else getActivity().findViewById(R.id.loadingPanel_bomList).setVisibility(View.GONE);
+        	progressPending = false;
+    	}
+    	else progressPending = progress;
+	}
 
 	void showResultSet(ArrayList<Product> productListLoaded)
 	{

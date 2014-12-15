@@ -37,8 +37,8 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     	
     	super.onCreate(savedInstanceState);
     	  	
-    	requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-    	requestWindowFeature(Window.FEATURE_PROGRESS);
+//    	requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+//    	requestWindowFeature(Window.FEATURE_PROGRESS);
  
 	    PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         setContentView(R.layout.search_layout);
@@ -98,15 +98,17 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	{
     	String query=intent.getStringExtra(SearchManager.QUERY);
    	   
-    	setProgressBarIndeterminateVisibility(true);
-	    setProgressBarVisibility(true);
+//    	setProgressBarIndeterminateVisibility(true);
+//	    setProgressBarVisibility(true);
     	
       	searchFragment = SearchFragment.newInstance();
+
     	getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchFragment).commit();
 		LoaderManager lm = getSupportLoaderManager();  
 	    Bundle searchString = new Bundle();
 	    searchString.putString(NavisionTool.QUERY, query);  	    
-	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_SEARCH, searchString, this);	     	
+	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_SEARCH, searchString, this);	
+	    searchFragment.showProgress(true);
     }
 
     @Override
@@ -157,9 +159,9 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	@Override
 	public void onLoadFinished(Loader<ArrayList<Product>> loader,ArrayList<Product> productList)
 	{
-        setProgressBarIndeterminateVisibility(false);
-        setProgressBarVisibility(false);
-        
+//        setProgressBarIndeterminateVisibility(false);
+//        setProgressBarVisibility(false);
+	    searchFragment.showProgress(false);
 	    if (productList==null)
 	    {	
 	   		LayoutInflater inflater = getLayoutInflater();
