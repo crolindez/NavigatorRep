@@ -61,6 +61,13 @@ public class CrListAdapter extends BaseAdapter {
 		float costValue;
 		float stockValue;
 		float quantityValue;
+	
+		float purchaseValue;
+		float inProductionValue;
+		float saleValue;
+		float usedInProductionValue;
+		float transferValue;		
+		float orderPointValue;
 		
 	    if (mProductList == null)
 	    	return null;
@@ -69,6 +76,7 @@ public class CrListAdapter extends BaseAdapter {
 		{
 			localView = inflater.inflate(R.layout.list_row, parent, false);
 		}
+		
 
 		TextView reference = (TextView)localView.findViewById(R.id.reference_list);
 		TextView description = (TextView)localView.findViewById(R.id.description_list);
@@ -84,15 +92,16 @@ public class CrListAdapter extends BaseAdapter {
 		description.setText(product.description);
 		quantity.setText("");
 		
-
+		
+	
+		stockValue = Float.parseFloat(product.stock);
 		if (stock != null) 
 		{
-			stockValue = Float.parseFloat(product.stock);
-			stock.setText(String.format("%,6.2f un.",stockValue));
+			stock.setText(String.format("%,6.1f un.",stockValue));
 		}	
+		costValue = Float.parseFloat(product.cost);
 		if (cost != null)
 		{
-			costValue = Float.parseFloat(product.cost);
 			cost.setText(String.format("%,6.2f €",costValue));
 		}
 		
@@ -101,6 +110,7 @@ public class CrListAdapter extends BaseAdapter {
 			quantityValue = Float.parseFloat(product.quantity);
 			quantity.setText(String.format("x%,6.2f",quantityValue));
 		}	
+	
 			
 		if (product.inBOM)
 			inBoom.setVisibility(View.VISIBLE);
@@ -111,7 +121,28 @@ public class CrListAdapter extends BaseAdapter {
 			hasBoom.setVisibility(View.VISIBLE);
 		else
 			hasBoom.setVisibility(View.INVISIBLE);
-		 
+	
+		if ((quantity != null) && (product.quantity != ""))
+			purchaseValue =  Float.parseFloat(product.purchase);
+		else
+			purchaseValue = 0;
+			
+			
+		inProductionValue =  Float.parseFloat(product.inProduction);
+		saleValue =  Float.parseFloat(product.sale);
+		usedInProductionValue =  Float.parseFloat(product.usedInProduction);
+		transferValue =  Float.parseFloat(product.transfer);
+		orderPointValue = Float.parseFloat(product.orderPoint);
+		
+		if ( (stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
+			localView.setBackground(localView.getResources().getDrawable(R.drawable.consume_bg));
+		else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
+			localView.setBackground(localView.getResources().getDrawable(R.drawable.stock_bg));			
+		else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue + orderPointValue))
+			localView.setBackground(localView.getResources().getDrawable(R.drawable.danger_bg));	
+			
+		
+		
 		inBoom.setOnClickListener(new OnClickListener() 
 		{
 			@Override

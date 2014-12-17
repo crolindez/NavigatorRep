@@ -15,7 +15,6 @@ public class Product implements Parcelable{
 	
 	public Boolean hasBOM;
 	
-//	public String orderPoint;
 //	public String handWorkCost;
 	
 	public String purchase;
@@ -26,6 +25,7 @@ public class Product implements Parcelable{
 	public String usedInProduction;
 	public String transfer;
 	public String usedInPlannedProduction;
+	public String orderPoint;
 	
 	public int itemMode;
 	
@@ -34,7 +34,7 @@ public class Product implements Parcelable{
 	
 	Product (String reference, String description, String quantity, String stock, String cost, String price, boolean[] boolArray,
 			String purchase, String inProduction, String inPlannedProduction, String sale, String usedInProduction,
-			String transfer, String usedInPlannedProduction, int itemMode)
+			String transfer, String usedInPlannedProduction, String ordenPoint,int itemMode)
 	{
         this.reference = reference;
         this.description = description;
@@ -53,6 +53,7 @@ public class Product implements Parcelable{
         this.usedInProduction = usedInProduction;
         this.transfer = transfer;
         this.usedInPlannedProduction = usedInPlannedProduction;
+        this.orderPoint = ordenPoint;
         
         this.itemMode = itemMode;
 	}
@@ -75,6 +76,7 @@ public class Product implements Parcelable{
         this.usedInProduction = "";
         this.transfer = "";
         this.usedInPlannedProduction = "";
+        this.orderPoint = "";
     	
         this.itemMode = NavisionTool.LOADER_PRODUCT_SEARCH;
 	}
@@ -105,6 +107,7 @@ public class Product implements Parcelable{
         parcel.writeString(usedInProduction);
         parcel.writeString(transfer);
         parcel.writeString(usedInPlannedProduction);
+        parcel.writeString(orderPoint);
 
         parcel.writeInt(itemMode);
     }
@@ -130,12 +133,13 @@ public class Product implements Parcelable{
             String usedInProduction = parcel.readString();
             String transfer = parcel.readString();
             String usedInPlannedProduction = parcel.readString();
+            String orderPoint = parcel.readString();
 
             int itemMode = parcel.readInt();           
             
             return new Product(reference, description, quantity, stock, cost, price, boolArray,
             		purchase, inProduction, inPlannedProduction, sale, usedInProduction,
-        			transfer, usedInPlannedProduction, itemMode);
+        			transfer, usedInPlannedProduction, orderPoint, itemMode);
         }
  
         @Override

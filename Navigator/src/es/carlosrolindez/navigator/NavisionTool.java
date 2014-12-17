@@ -116,9 +116,10 @@ public class NavisionTool
 		{
 			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 	
-		    String headSqlString = "SELECT TOP 1000 [No_],[Description],[Description 2],[Unit Cost],[Production BOM No_] FROM [EIS$Item] WHERE ([No_] like '%";
+		    String headSqlString = "SELECT TOP 1000 [No_],[Description],[Description 2],[Unit Cost],[Production BOM No_],[Reorder Point] FROM [EIS$Item] WHERE ([No_] Like '%";
 		    String middleSqlString = "%') or (UPPER([Description]+[Description 2]) like '%";
 		    String tailSqlSring = "%')  ORDER BY [No_]";
+		    
 		    
 		    ResultSet result = stmt.executeQuery(headSqlString + filterString + middleSqlString + filterString + tailSqlSring);
 		    return result;

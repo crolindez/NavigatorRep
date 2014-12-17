@@ -91,6 +91,7 @@
         	
 	
 	    <RelativeLayout
+	        android:id="@+id/stock_relative_layout"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_margin="3dp"
@@ -237,7 +238,7 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_margin="3dp"
-	        android:background="@drawable/outcome_bg"
+	        android:background="@drawable/income_bg"
 	        android:orientation="vertical" >
 	
 			<RelativeLayout

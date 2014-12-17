@@ -81,7 +81,8 @@ public class InfoFragment extends Fragment
 		float saleValue;
 		float usedInProductionValue;
 		float transferValue;
-		float usedInPlannedProductionValue;
+		float usedInPlannedProductionValue;		
+		float orderPointValue;
 
 		
 		if (productListLoaded == null) 
@@ -141,6 +142,14 @@ public class InfoFragment extends Fragment
 				usedInPlannedProductionValue = Float.parseFloat(product.usedInPlannedProduction);
 				usedInPlannedProduction.setText(String.format("%,6.2f un.",usedInPlannedProductionValue));
 
+				orderPointValue = Float.parseFloat(product.orderPoint);
+				
+				if ( (stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
+					getActivity().findViewById(R.id.stock_relative_layout).setBackground(getResources().getDrawable(R.drawable.consume_bg));
+				else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
+					getActivity().findViewById(R.id.stock_relative_layout).setBackground(getResources().getDrawable(R.drawable.stock_bg));
+				else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue + orderPointValue))
+					getActivity().findViewById(R.id.stock_relative_layout).setBackground(getResources().getDrawable(R.drawable.danger_bg));
 			}
 		
 
