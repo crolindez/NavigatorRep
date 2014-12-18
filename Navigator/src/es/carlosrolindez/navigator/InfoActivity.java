@@ -9,7 +9,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,12 +47,11 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		    {
 		    case NavisionTool.INFO_MODE_FULL:
 		    default:  
-		    	Log.e("InfoActivity_onCreate","savedInstance");
 		    	inUseFragment = (InUseFragment)getSupportFragmentManager().getFragment(savedInstanceState, "inUseFragment");
 		    	infoFragment = (InfoFragment)getSupportFragmentManager().getFragment(savedInstanceState, "infoFragment");
 		    	bomFragment = (BOMFragment)getSupportFragmentManager().getFragment(savedInstanceState, "bomFragment");
 		        setContentView(R.layout.simple_tabs);
-		        
+		        		        
 		        mAdapter = new InfoFragmentAdapter(getSupportFragmentManager(),inUseFragment,infoFragment,bomFragment);
 		
 		        mPager = (ViewPager)findViewById(R.id.pager);

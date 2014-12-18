@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,21 +28,18 @@ public class InfoFragment extends Fragment
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    	Log.e("InfoFragment_onCreate"," ");
 	}
 	 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, 
         Bundle savedInstanceState) 
     {
-    	Log.e("InfoFragment_onCreateView","Inflater");
     	return  inflater.inflate(R.layout.general_info_enh_layout, container, false);    
     }
 
     @Override    
     public void onActivityCreated(Bundle savedInstanceState) {	
     	super.onActivityCreated(savedInstanceState);
-    	Log.e("InfoFragment_onActivityCreated","beforeSavedInstance");
     	if (savedInstanceState != null) 
         	productList = savedInstanceState.getParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY);
 
