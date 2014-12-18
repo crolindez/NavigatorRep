@@ -140,6 +140,8 @@ public class CrListAdapter extends BaseAdapter {
 			localView.setBackground(localView.getResources().getDrawable(R.drawable.stock_bg));			
 		else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue + orderPointValue))
 			localView.setBackground(localView.getResources().getDrawable(R.drawable.danger_bg));	
+		else
+			localView.setBackground(localView.getResources().getDrawable(R.drawable.cost_bg));				
 			
 		
 		
