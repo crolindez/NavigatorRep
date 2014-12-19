@@ -97,18 +97,18 @@ public class CrListAdapter extends BaseAdapter {
 		stockValue = Float.parseFloat(product.stock);
 		if (stock != null) 
 		{
-			stock.setText(String.format("%,6.1f un.",stockValue));
+			stock.setText(String.format("%.1f un.",stockValue));
 		}	
 		costValue = Float.parseFloat(product.cost);
 		if (cost != null)
 		{
-			cost.setText(String.format("%,6.2f €",costValue));
+			cost.setText(String.format("%.2f €",costValue));
 		}
 		
 		if ((quantity != null) && (product.quantity != ""))
 		{
 			quantityValue = Float.parseFloat(product.quantity);
-			quantity.setText(String.format("x%,6.2f",quantityValue));
+			quantity.setText(String.format("x%.1f",quantityValue));
 		}	
 	
 			
