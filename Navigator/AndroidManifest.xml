@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="es.carlosrolindez.navigator"
-    android:versionCode="1"
-    android:versionName="Reborn" >
+    android:versionCode="2"
+    android:versionName="Graph" >
 
     <uses-sdk
         android:minSdkVersion="16"

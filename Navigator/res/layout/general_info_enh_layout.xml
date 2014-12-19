@@ -314,5 +314,13 @@
 			        android:textSize="16sp" />
 		    </RelativeLayout>			        
 		</LinearLayout>	   
+	   <LinearLayout
+	        android:id="@+id/graph_view_layout"
+	        android:layout_width="match_parent"
+			android:layout_height="250dip"
+	        android:orientation="vertical" >
+		</LinearLayout>	   
+	    	        	    		
 	</LinearLayout>
+     	
 </ScrollView>

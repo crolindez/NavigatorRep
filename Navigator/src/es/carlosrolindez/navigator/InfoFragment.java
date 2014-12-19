@@ -7,7 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GraphView.GraphViewData;
+import com.jjoe64.graphview.GraphViewSeries;
+import com.jjoe64.graphview.LineGraphView;
 
 
 public class InfoFragment extends Fragment
@@ -15,6 +21,7 @@ public class InfoFragment extends Fragment
 	private ArrayList<Product> productList;
 	private boolean progressAllowed;
 	private boolean progressPending;
+	private GraphView graphView; 
 	
 	public static InfoFragment newInstance() 
 	{
@@ -153,9 +160,29 @@ public class InfoFragment extends Fragment
 					getActivity().findViewById(R.id.stock_relative_layout).setBackground(getResources().getDrawable(R.drawable.stock_bg));
 				else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue + orderPointValue))
 					getActivity().findViewById(R.id.stock_relative_layout).setBackground(getResources().getDrawable(R.drawable.danger_bg));
+				
+				
+				GraphViewSeries exampleSeries = new GraphViewSeries(new GraphViewData[] {
+				    new GraphViewData(1, 2.0d)
+				    , new GraphViewData(2, 1.5d)
+				    , new GraphViewData(3, 2.5d)
+				    , new GraphViewData(4, 1.0d)
+				});
+				 
+				graphView = new LineGraphView(
+				    getActivity()     // context
+				    , "Consume" // heading
+				);
+				graphView.addSeries(exampleSeries); // data
+				 
+				LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.graph_view_layout);
+				layout.addView(graphView);
+				
 			}
 		
 
 		}
 	}
+	
+	
 }

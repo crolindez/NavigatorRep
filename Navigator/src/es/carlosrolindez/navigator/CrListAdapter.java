@@ -181,5 +181,6 @@ public class CrListAdapter extends BaseAdapter {
 	    mProductList = productList;
 	    notifyDataSetChanged();		
 	}
+
 	
 }
