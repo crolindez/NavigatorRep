@@ -11,6 +11,9 @@ import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -28,6 +31,9 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
     InfoFragment infoFragment;
     BOMFragment bomFragment;
     
+    private String reference;    
+    private String description;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
@@ -37,8 +43,8 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 
     	Intent myIntent = getIntent();
     	
-	    String reference = myIntent.getStringExtra(NavisionTool.LAUNCH_REFERENCE);	  	    
-	    String description = myIntent.getStringExtra(NavisionTool.LAUNCH_DESCRIPTION);	
+	    reference = myIntent.getStringExtra(NavisionTool.LAUNCH_REFERENCE);	  	    
+	    description = myIntent.getStringExtra(NavisionTool.LAUNCH_DESCRIPTION);	
 	    int infoMode = myIntent.getIntExtra(NavisionTool.LAUNCH_INFO_MODE,NavisionTool.INFO_MODE_FULL);
 	    
 	    if (savedInstanceState != null)
@@ -243,5 +249,42 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
     	if (inUseFragment!=null)
         	bomFragment.showResultSet(null);*/
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.info_activity_actions, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	/**
+	 * On selecting action bar icons
+	 * */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
+		// Take appropriate action for each action item click
+		switch (item.getItemId()) {
+		case R.id.action_in_use:
+	    	intent = new Intent (this, InfoActivity.class);
+        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference);        	
+        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, description);  
+    		intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_IN_USE);	    			
+        	startActivity(intent);	     
+
+			return true;
+		case R.id.action_bom:
+	    	intent = new Intent (this, InfoActivity.class);
+        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference);        	
+        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, description);  
+    		intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_BOM);	    			
+        	startActivity(intent);	     
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+    
+
 	
 }

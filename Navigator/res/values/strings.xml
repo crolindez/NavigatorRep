@@ -5,7 +5,9 @@
     <string name="action_settings">Settings</string>
     <string name="select_server">Elija un servidor</string>
     <string name="search_hint">Buscar una referencia</string>
-    <string name="action_search">Buscar referencia</string>
+    <string name="action_search">Buscar referencia</string>    
+    <string name="action_bom">BOM</string>    
+    <string name="action_in_use">In Use</string>
     <string name="stock">Stock</string>
     <string name="orderpoint">P.P.</string>
     <string name="cost">Coste</string>
