@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.GraphViewData;
@@ -41,7 +43,7 @@ public class InfoFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, 
         Bundle savedInstanceState) 
     {
-    	return  inflater.inflate(R.layout.general_info_enh_layout, container, false);    
+    	return inflater.inflate(R.layout.general_info_enh_layout, container, false);    
     }
 
     @Override    
@@ -70,8 +72,8 @@ public class InfoFragment extends Fragment
     	{
         	if (progress) getActivity().findViewById(R.id.loadingPanel_general_info).setVisibility(View.VISIBLE);
         	else getActivity().findViewById(R.id.loadingPanel_general_info).setVisibility(View.GONE);
-        	progressPending = false;
-    	}
+        	progressPending = false;     	   
+        }
     	else progressPending = progress;
 	}
 
@@ -161,6 +163,26 @@ public class InfoFragment extends Fragment
 				else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue + orderPointValue))
 					getActivity().findViewById(R.id.stock_relative_layout).setBackground(getResources().getDrawable(R.drawable.danger_bg));
 				
+	        	View stockLayout = getActivity().findViewById(R.id.stock_relative_layout);
+	        	stockLayout.setOnClickListener(new View.OnClickListener() {      
+	        	    @Override
+	        	    public void onClick(View v) 
+	        	    {
+	        	   		LayoutInflater inflater = getActivity().getLayoutInflater();
+	        	    	View layout = inflater.inflate(R.layout.toast_layout,(ViewGroup) getActivity().findViewById(R.id.toast_layout_root));
+
+	        	    	TextView text = (TextView) layout.findViewById(R.id.text_layout);
+	        	    	text.setText("Stock Pressed");
+
+	        	    	Toast toast = new Toast(getActivity().getApplicationContext());
+	        	    	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+	        	    	toast.setDuration(Toast.LENGTH_SHORT);
+	        	    	toast.setView(layout);
+	        	    	toast.show();		
+	        	    }
+
+	        	});
+	   				
 				
 				GraphViewSeries exampleSeries = new GraphViewSeries(new GraphViewData[] {
 				    new GraphViewData(1, 2.0d)

@@ -9,7 +9,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +40,6 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 	    String reference = myIntent.getStringExtra(NavisionTool.LAUNCH_REFERENCE);	  	    
 	    String description = myIntent.getStringExtra(NavisionTool.LAUNCH_DESCRIPTION);	
 	    int infoMode = myIntent.getIntExtra(NavisionTool.LAUNCH_INFO_MODE,NavisionTool.INFO_MODE_FULL);
-	    Log.e("InfoActivity",description + " " + infoMode);
 	    
 	    if (savedInstanceState != null)
 	    {   
@@ -68,7 +66,6 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		        
 		    case NavisionTool.INFO_MODE_BOM:
 		    case NavisionTool.INFO_MODE_BOM_QUICK:
-		    	Log.e("InfoActivity","saved");
 		    	bomFragment = (BOMFragment)getSupportFragmentManager().getFragment(savedInstanceState, "bomFragment");
 		        setContentView(R.layout.single_frame_layout);	 
 		        
@@ -126,7 +123,6 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		        
 		    case NavisionTool.INFO_MODE_BOM:
 		    case NavisionTool.INFO_MODE_BOM_QUICK:
-		    	Log.e("InfoActivity","load");
 		        setContentView(R.layout.single_frame_layout);	 
 		        bomFragment = BOMFragment.newInstance();
 		    	
@@ -137,7 +133,6 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 	       	    	lm.restartLoader(NavisionTool.LOADER_PRODUCT_BOM, searchString, this);	  
 	       	    else
 	       	    {
-			    	Log.e("InfoActivity","loading quick");
 	       	    	lm.restartLoader(NavisionTool.LOADER_PRODUCT_BOM_QUICK, searchString, this);	
 	       	    }
 	       	    bomFragment.showProgress(true);

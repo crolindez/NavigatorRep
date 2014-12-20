@@ -39,6 +39,7 @@
 		        android:layout_margin="3dp"
 		        android:background="@drawable/stock_bg"
 		        android:orientation="vertical" 
+		        android:clickable="true"
 		        android:baselineAligned="false" >
 
 		        <TextView

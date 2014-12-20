@@ -9,7 +9,6 @@ import java.util.Locale;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
 
 
 
@@ -32,7 +31,6 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 	{
 		Product product; 	
 		productList = new ArrayList<Product>();
-		Log.e("Loading","");
 		if (NavisionTool.readMode()==NavisionTool.MODE_EMULATOR)
 		{
 	    	switch (loaderMode)
@@ -78,7 +76,6 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 
     		case NavisionTool.LOADER_PRODUCT_BOM:
     		case NavisionTool.LOADER_PRODUCT_BOM_QUICK:
-    			Log.e("Loading","BOM "+ loaderMode);
     			product = new Product(); 	
     			product.reference = "50342";
 				product.description = "iSelect 2.5 pulgadas cromo";	
