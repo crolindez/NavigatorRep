@@ -9,6 +9,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 	    String reference = myIntent.getStringExtra(NavisionTool.LAUNCH_REFERENCE);	  	    
 	    String description = myIntent.getStringExtra(NavisionTool.LAUNCH_DESCRIPTION);	
 	    int infoMode = myIntent.getIntExtra(NavisionTool.LAUNCH_INFO_MODE,NavisionTool.INFO_MODE_FULL);
+	    Log.e("InfoActivity",description + " " + infoMode);
 	    
 	    if (savedInstanceState != null)
 	    {   
@@ -65,6 +67,8 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		        break;
 		        
 		    case NavisionTool.INFO_MODE_BOM:
+		    case NavisionTool.INFO_MODE_BOM_QUICK:
+		    	Log.e("InfoActivity","saved");
 		    	bomFragment = (BOMFragment)getSupportFragmentManager().getFragment(savedInstanceState, "bomFragment");
 		        setContentView(R.layout.single_frame_layout);	 
 		        
@@ -73,6 +77,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		        break;
 		        
 		    case NavisionTool.INFO_MODE_IN_USE:
+		    case NavisionTool.INFO_MODE_IN_USE_QUICK:
 		    	inUseFragment = (InUseFragment)getSupportFragmentManager().getFragment(savedInstanceState, "inUseFragment");
 		        setContentView(R.layout.single_frame_layout);	 
 		    	
@@ -120,21 +125,29 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		        break;
 		        
 		    case NavisionTool.INFO_MODE_BOM:
-		        
+		    case NavisionTool.INFO_MODE_BOM_QUICK:
+		    	Log.e("InfoActivity","load");
 		        setContentView(R.layout.single_frame_layout);	 
 		        bomFragment = BOMFragment.newInstance();
 		    	
 		        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, bomFragment).commit(); 
 		      	getActionBar().setTitle("BOM " + reference);   
 	    
-	       	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_BOM, searchString, this);	  
-
+	       	    if (infoMode==NavisionTool.INFO_MODE_BOM)
+	       	    	lm.restartLoader(NavisionTool.LOADER_PRODUCT_BOM, searchString, this);	  
+	       	    else
+	       	    {
+			    	Log.e("InfoActivity","loading quick");
+	       	    	lm.restartLoader(NavisionTool.LOADER_PRODUCT_BOM_QUICK, searchString, this);	
+	       	    }
 	       	    bomFragment.showProgress(true);
 
 		      	
 		        break;
 		        
 		    case NavisionTool.INFO_MODE_IN_USE:
+		    case NavisionTool.INFO_MODE_IN_USE_QUICK:
+		    	
 				setContentView(R.layout.single_frame_layout);	 
 		        
 		        inUseFragment = InUseFragment.newInstance();
@@ -142,7 +155,10 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, inUseFragment).commit();    
 		      	getActionBar().setTitle(reference + " used in:");    
     
-	       	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_IN_USE, searchString, this);	
+	       	    if (infoMode==NavisionTool.INFO_MODE_IN_USE)
+	       	    	lm.restartLoader(NavisionTool.LOADER_PRODUCT_IN_USE, searchString, this);	
+	       	    else
+	       	    	lm.restartLoader(NavisionTool.LOADER_PRODUCT_IN_USE_QUICK, searchString, this);		       	    	
 
 	       	    inUseFragment.showProgress(true);
 		      	
@@ -206,12 +222,14 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 				    }
 					break;
 					
-				case NavisionTool.LOADER_PRODUCT_BOM:
+				case NavisionTool.LOADER_PRODUCT_BOM:				
+				case NavisionTool.LOADER_PRODUCT_BOM_QUICK:
 				    {
 				    	bomFragment.showResultSet(productList);
 				    }
 				    break;
 				case NavisionTool.LOADER_PRODUCT_IN_USE:
+				case NavisionTool.LOADER_PRODUCT_IN_USE_QUICK:
 					{
 				    	inUseFragment.showResultSet(productList);			
 				    }

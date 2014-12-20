@@ -102,7 +102,7 @@ public class InUseFragment extends Fragment
 	   		productList = new ArrayList<Product>();
 			for (Product item : productListLoaded)
 			{
-				if (item.itemMode == NavisionTool.LOADER_PRODUCT_IN_USE)
+				if  (  (item.itemMode == NavisionTool.LOADER_PRODUCT_IN_USE) || (item.itemMode == NavisionTool.LOADER_PRODUCT_IN_USE_QUICK))
 					productList.add(item);
 			}
 		}

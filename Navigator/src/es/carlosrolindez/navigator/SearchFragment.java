@@ -110,7 +110,7 @@ public class SearchFragment extends Fragment
 	   		productList = new ArrayList<Product>();
 			for (Product item : productListLoaded)
 			{
-				if (item.itemMode == NavisionTool.LOADER_PRODUCT_SEARCH)
+				if (item.itemMode == NavisionTool.LOADER_PRODUCT_SEARCH_QUICK)
 					productList.add(item);
 			}
 		}

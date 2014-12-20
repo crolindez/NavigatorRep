@@ -91,9 +91,7 @@ public class CrListAdapter extends BaseAdapter {
 		reference.setText(product.reference);
 		description.setText(product.description);
 		quantity.setText("");
-		
-		
-	
+			
 		stockValue = Float.parseFloat(product.stock);
 		if (stock != null) 
 		{
@@ -122,28 +120,24 @@ public class CrListAdapter extends BaseAdapter {
 		else
 			hasBoom.setVisibility(View.INVISIBLE);
 	
-		if ((quantity != null) && (product.quantity != ""))
+		if ( (product.itemMode==NavisionTool.LOADER_PRODUCT_BOM) || (product.itemMode==NavisionTool.LOADER_PRODUCT_IN_USE) )
+		{	
 			purchaseValue =  Float.parseFloat(product.purchase);
-		else
-			purchaseValue = 0;
+			inProductionValue =  Float.parseFloat(product.inProduction);
+			saleValue =  Float.parseFloat(product.sale);
+			usedInProductionValue =  Float.parseFloat(product.usedInProduction);
+			transferValue =  Float.parseFloat(product.transfer);
+			orderPointValue = Float.parseFloat(product.orderPoint);
 			
-			
-		inProductionValue =  Float.parseFloat(product.inProduction);
-		saleValue =  Float.parseFloat(product.sale);
-		usedInProductionValue =  Float.parseFloat(product.usedInProduction);
-		transferValue =  Float.parseFloat(product.transfer);
-		orderPointValue = Float.parseFloat(product.orderPoint);
-		
-		if ( (stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
-			localView.setBackground(localView.getResources().getDrawable(R.drawable.consume_bg));
-		else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
-			localView.setBackground(localView.getResources().getDrawable(R.drawable.stock_bg));			
-		else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue + orderPointValue))
-			localView.setBackground(localView.getResources().getDrawable(R.drawable.danger_bg));	
-		else
-			localView.setBackground(localView.getResources().getDrawable(R.drawable.cost_bg));				
-			
-		
+			if ( (stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
+				localView.setBackground(localView.getResources().getDrawable(R.drawable.consume_bg));
+			else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
+				localView.setBackground(localView.getResources().getDrawable(R.drawable.stock_bg));			
+			else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue + orderPointValue))
+				localView.setBackground(localView.getResources().getDrawable(R.drawable.danger_bg));	
+			else
+				localView.setBackground(localView.getResources().getDrawable(R.drawable.cost_bg));				
+		}				
 		
 		inBoom.setOnClickListener(new OnClickListener() 
 		{
@@ -153,7 +147,12 @@ public class CrListAdapter extends BaseAdapter {
 		    	Intent intent = new Intent (v.getContext(), InfoActivity.class);
 	        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, product.reference);        	
 	        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);  
-	        	intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_IN_USE);
+	    		if ( (product.itemMode==NavisionTool.LOADER_PRODUCT_BOM_QUICK) 
+	    				|| (product.itemMode==NavisionTool.LOADER_PRODUCT_IN_USE_QUICK) 
+	    				|| (product.itemMode==NavisionTool.LOADER_PRODUCT_SEARCH_QUICK))
+		        	intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_IN_USE_QUICK);
+	    		else
+	    			intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_IN_USE);
 	        	v.getContext().startActivity(intent);	        	
 			}
 		});
@@ -166,7 +165,12 @@ public class CrListAdapter extends BaseAdapter {
 		    	Intent intent = new Intent (v.getContext(), InfoActivity.class);
 	        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, product.reference);        	
 	        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);  
-	        	intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_BOM);
+	    		if ( (product.itemMode==NavisionTool.LOADER_PRODUCT_BOM_QUICK) 
+	    				|| (product.itemMode==NavisionTool.LOADER_PRODUCT_IN_USE_QUICK) 
+	    				|| (product.itemMode==NavisionTool.LOADER_PRODUCT_SEARCH_QUICK))
+	    			intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_BOM_QUICK);
+	    		else
+	    			intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_BOM);	    			
 	        	v.getContext().startActivity(intent);	     
 			}
 

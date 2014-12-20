@@ -9,6 +9,7 @@ import java.util.Locale;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
+import android.util.Log;
 
 
 
@@ -31,11 +32,13 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 	{
 		Product product; 	
 		productList = new ArrayList<Product>();
+		Log.e("Loading","");
 		if (NavisionTool.readMode()==NavisionTool.MODE_EMULATOR)
 		{
 	    	switch (loaderMode)
 	    	{
-    		case NavisionTool.LOADER_PRODUCT_IN_USE:
+    		case NavisionTool.LOADER_PRODUCT_IN_USE:    		
+    		case NavisionTool.LOADER_PRODUCT_IN_USE_QUICK:
     			product = new Product(); 	
 				product.reference = "50302";
 				product.description = "iSelect 2.5 pulgadas blanco";	
@@ -50,7 +53,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 		    	product.quantity = "1.0";
 				product.hasBOM = true;
     			product.inBOM = true;
-    			product.itemMode = NavisionTool.LOADER_PRODUCT_IN_USE;
+    			product.itemMode = loaderMode;
 				productList.add(product);	 
 				
 				product = new Product(); 	 
@@ -69,11 +72,13 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				product.quantity = "1.5";
 				product.hasBOM = true;
     			product.inBOM = true;
-    			product.itemMode = NavisionTool.LOADER_PRODUCT_IN_USE;    			
+    			product.itemMode = loaderMode;    			
 				productList.add(product);	    				
 				break;
 
     		case NavisionTool.LOADER_PRODUCT_BOM:
+    		case NavisionTool.LOADER_PRODUCT_BOM_QUICK:
+    			Log.e("Loading","BOM "+ loaderMode);
     			product = new Product(); 	
     			product.reference = "50342";
 				product.description = "iSelect 2.5 pulgadas cromo";	
@@ -88,7 +93,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				product.quantity = "2.0";
 				product.hasBOM = true;
     			product.inBOM = true;
-    			product.itemMode = NavisionTool.LOADER_PRODUCT_BOM;    			
+    			product.itemMode = loaderMode;    			
 				productList.add(product);	    				
 
 				product = new Product(); 	
@@ -105,26 +110,19 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				product.cost = "40.3";
 				product.hasBOM = true;
     			product.inBOM = true;
-    			product.itemMode = NavisionTool.LOADER_PRODUCT_BOM;    					
+    			product.itemMode = loaderMode;    					
 				productList.add(product);	    				
 		 		break;
 
-    		case NavisionTool.LOADER_PRODUCT_SEARCH:
+    		case NavisionTool.LOADER_PRODUCT_SEARCH_QUICK:
     			product = new Product(); 
     			product.reference = "50312";
 				product.description = "iSelect 2.5 pulgadas niquel";	
 				product.stock = "333";
-		    	product.inProduction = "150";
-		    	product.purchase = "500";		    	
-		    	product.transfer = "13";
-		    	product.sale = "25";
-		    	product.usedInProduction = "255";	    					
-		    	product.orderPoint = "100";
-		    	product.quantity = "1.0";
 				product.cost = "20.3";
 				product.hasBOM = true;
     			product.inBOM = true;
-    			product.itemMode = NavisionTool.LOADER_PRODUCT_SEARCH;
+    			product.itemMode = loaderMode;
     			
 				productList.add(product);	    				
 
@@ -132,17 +130,10 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				product.reference = "50314";
 				product.description = "iSelect 5 pulgadas niquel";	
 				product.stock = "222";
-		    	product.inProduction = "150";
-		    	product.purchase = "500";		    	
-		    	product.transfer = "13";
-		    	product.sale = "25";
-		    	product.usedInProduction = "255";	    					
-		    	product.quantity = "1.0";
-		    	product.orderPoint = "100";
 				product.cost = "40.3";
 				product.hasBOM = true;
     			product.inBOM = true;
-    			product.itemMode = NavisionTool.LOADER_PRODUCT_SEARCH;
+    			product.itemMode = loaderMode;
     			productList.add(product);	    				
 				break;
 				
@@ -165,7 +156,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 		    	product.usedInProduction = "255";
 		    	product.orderPoint = "100";
 		    	
-    			product.itemMode = NavisionTool.LOADER_PRODUCT_INFO;
+    			product.itemMode = loaderMode;
     			productList.add(product);
 
     			product = new Product(); 	
@@ -234,7 +225,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				product.cost = "40.3";
 				product.hasBOM = true;
     			product.inBOM = true;
-    			product.itemMode = NavisionTool.LOADER_PRODUCT_BOM;    					
+    			product.itemMode = NavisionTool.LOADER_PRODUCT_BOM;    						
 				productList.add(product);	    				
 		 		break;
 
@@ -257,6 +248,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 			    	{
 	
 		    		case NavisionTool.LOADER_PRODUCT_IN_USE:
+		    		case NavisionTool.LOADER_PRODUCT_IN_USE_QUICK:
 		    			result = NavisionTool.queryListInBOM(filterString);
 					    while(result.next())
 					    {
@@ -265,24 +257,27 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 					    	product.quantity = result.getString(2);		
 					    	product.description = NavisionTool.queryDescription(product.reference);	
 							product.stock = NavisionTool.queryStock(product.reference);
-
-							product.inProduction = NavisionTool.queryInProduction(product.reference);
-					    	product.purchase = NavisionTool.queryPurchase(product.reference);
-					    	
-					    	product.transfer = NavisionTool.queryTransfer(product.reference);
-					    	product.sale = NavisionTool.querySale(product.reference);
-					    	product.usedInProduction = NavisionTool.queryUsedInProduction(product.reference);
-					    	product.orderPoint = NavisionTool.queryOrderPoint(product.reference);
-				
+							if (loaderMode == NavisionTool.LOADER_PRODUCT_IN_USE)
+							{
+								product.inProduction = NavisionTool.queryInProduction(product.reference);
+						    	product.purchase = NavisionTool.queryPurchase(product.reference);
+						    	
+						    	product.transfer = NavisionTool.queryTransfer(product.reference);
+						    	product.sale = NavisionTool.querySale(product.reference);
+						    	product.usedInProduction = NavisionTool.queryUsedInProduction(product.reference);
+						    	product.orderPoint = NavisionTool.queryOrderPoint(product.reference);
+					
+							}
 					    	product.cost = NavisionTool.queryCost(product.reference);
-					    	product.inBOM = true; //NavisionTool.queryInBOM(product.reference);
+					    	product.inBOM = NavisionTool.queryInBOM(product.reference);
 					    	product.hasBOM = true;
-			    			product.itemMode = NavisionTool.LOADER_PRODUCT_IN_USE;
+			    			product.itemMode = loaderMode;
 					    	productList.add(product);
 					    }
 						break;
 	
 		    		case NavisionTool.LOADER_PRODUCT_BOM:
+		    		case NavisionTool.LOADER_PRODUCT_BOM_QUICK:		    			
 		    			result = NavisionTool.queryListBOM(filterString);
 		      			while(result.next())
 						{					
@@ -291,24 +286,26 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 					    	product.description = result.getString(2) + result.getString(4);	
 					    	product.quantity = result.getString(3);		
 							product.stock = NavisionTool.queryStock(product.reference);
-
-					    	product.inProduction = NavisionTool.queryInProduction(product.reference);
-					    	product.purchase = NavisionTool.queryPurchase(product.reference);
-					    	
-					    	product.transfer = NavisionTool.queryTransfer(product.reference);
-					    	product.sale = NavisionTool.querySale(product.reference);
-					    	product.usedInProduction = NavisionTool.queryUsedInProduction(product.reference);
-					    	product.orderPoint = NavisionTool.queryOrderPoint(product.reference);
-					    	
+							if (loaderMode == NavisionTool.LOADER_PRODUCT_BOM)
+							{
+						    	product.inProduction = NavisionTool.queryInProduction(product.reference);
+						    	product.purchase = NavisionTool.queryPurchase(product.reference);
+						    	
+						    	product.transfer = NavisionTool.queryTransfer(product.reference);
+						    	product.sale = NavisionTool.querySale(product.reference);
+						    	product.usedInProduction = NavisionTool.queryUsedInProduction(product.reference);
+						    	product.orderPoint = NavisionTool.queryOrderPoint(product.reference);
+							}
+						    	
 							product.cost = NavisionTool.queryCost(product.reference);
 					    	product.inBOM = true;
-					    	product.hasBOM = true; //NavisionTool.queryHasBOM(product.reference);
-			    			product.itemMode = NavisionTool.LOADER_PRODUCT_BOM;
+					    	product.hasBOM = NavisionTool.queryHasBOM(product.reference);
+			    			product.itemMode = loaderMode;
 					    	productList.add(product);
 						}	    	
 				 		break;
 	
-		    		case NavisionTool.LOADER_PRODUCT_SEARCH:
+		    		case NavisionTool.LOADER_PRODUCT_SEARCH_QUICK:
 	    				result = NavisionTool.queryList(filterString);	    			
 		      			while(result.next())
 						{					
@@ -317,18 +314,9 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 							product.description = result.getString(2) + result.getString(3);	
 							product.stock = NavisionTool.queryStock(product.reference);
 							product.cost = result.getString(4);
-							product.orderPoint = result.getString(6);
-
-							product.inProduction = NavisionTool.queryInProduction(product.reference);
-					    	product.purchase = NavisionTool.queryPurchase(product.reference);
-					    	
-					    	product.transfer = NavisionTool.queryTransfer(product.reference);
-					    	product.sale = NavisionTool.querySale(product.reference);
-					    	product.usedInProduction = NavisionTool.queryUsedInProduction(product.reference);
-
-							product.hasBOM = true; //!(result.getString(5).isEmpty());
-			    			product.inBOM = true; //NavisionTool.queryInBOM(product.reference);
-			    			product.itemMode = NavisionTool.LOADER_PRODUCT_SEARCH;
+							product.hasBOM = !(result.getString(5).isEmpty());
+			    			product.inBOM = NavisionTool.queryInBOM(product.reference);
+			    			product.itemMode = loaderMode;
 							productList.add(product);
 						}
 						break;
@@ -370,7 +358,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 					    	product.transfer = NavisionTool.queryTransfer(product.reference);
 					    	product.sale = NavisionTool.querySale(product.reference);
 					    	product.usedInProduction = NavisionTool.queryUsedInProduction(product.reference);
-					    	product.inBOM = true; //NavisionTool.queryInBOM(product.reference);
+					    	product.inBOM = NavisionTool.queryInBOM(product.reference);
 					    	product.hasBOM = true;
 			    			product.itemMode = NavisionTool.LOADER_PRODUCT_IN_USE;
 					    	productList.add(product);
@@ -392,7 +380,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 					    	product.sale = NavisionTool.querySale(product.reference);
 					    	product.usedInProduction = NavisionTool.queryUsedInProduction(product.reference);
 					    	product.inBOM = true;
-					    	product.hasBOM = true; //NavisionTool.queryHasBOM(product.reference);
+					    	product.hasBOM = NavisionTool.queryHasBOM(product.reference);
 			    			product.itemMode = NavisionTool.LOADER_PRODUCT_BOM;
 					    	productList.add(product);
 						}	    					    

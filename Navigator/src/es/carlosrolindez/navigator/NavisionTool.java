@@ -14,10 +14,12 @@ import java.sql.Statement;
 public class NavisionTool 
 {
 	
-	public static final int LOADER_PRODUCT_SEARCH = 3;
+	public static final int LOADER_PRODUCT_SEARCH_QUICK = 3;
 	public static final int LOADER_PRODUCT_IN_USE = 0;
 	public static final int LOADER_PRODUCT_BOM = 2;
 	public static final int LOADER_PRODUCT_INFO = 1;
+	public static final int LOADER_PRODUCT_IN_USE_QUICK = 4;
+	public static final int LOADER_PRODUCT_BOM_QUICK = 5;
 	
 	public static final String LAUNCH_REFERENCE = "es.carlosrolindez.navisiontool.LAUNCH_REFERENCE";	
 	public static final String LAUNCH_DESCRIPTION = "es.carlosrolindez.navisiontool.LAUNCH_DESCRIPTION";
@@ -25,7 +27,9 @@ public class NavisionTool
 	
 	public static final int INFO_MODE_IN_USE = 0;
 	public static final int INFO_MODE_FULL = 1;
-	public static final int INFO_MODE_BOM = 2;
+	public static final int INFO_MODE_BOM = 2;		
+	public static final int INFO_MODE_IN_USE_QUICK = 3;
+	public static final int INFO_MODE_BOM_QUICK = 4;	
 	
 	public static final String QUERY = "QUERY";
 	

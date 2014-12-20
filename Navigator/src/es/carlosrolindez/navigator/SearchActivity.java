@@ -107,7 +107,7 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 		LoaderManager lm = getSupportLoaderManager();  
 	    Bundle searchString = new Bundle();
 	    searchString.putString(NavisionTool.QUERY, query);  	    
-	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_SEARCH, searchString, this);	
+	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_SEARCH_QUICK, searchString, this);	
 	    searchFragment.showProgress(true);
     }
 

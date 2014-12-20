@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,8 +105,11 @@ public class BOMFragment extends Fragment
 	   		productList = new ArrayList<Product>();
 			for (Product item : productListLoaded)
 			{
-				if (item.itemMode == NavisionTool.LOADER_PRODUCT_BOM)
+				if ((item.itemMode == NavisionTool.LOADER_PRODUCT_BOM) || (item.itemMode == NavisionTool.LOADER_PRODUCT_BOM_QUICK))
+				{
+					Log.e("BOM Item",item.description + " " + item.itemMode);
 					productList.add(item);
+				}
 			}
 		}
 
