@@ -71,7 +71,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		        break;
 		        
 		    case NavisionTool.INFO_MODE_BOM:
-		    case NavisionTool.INFO_MODE_BOM_QUICK:
+		    case NavisionTool.INFO_MODE_SEARCH_BOM:
 		    	bomFragment = (BOMFragment)getSupportFragmentManager().getFragment(savedInstanceState, "bomFragment");
 		        setContentView(R.layout.single_frame_layout);	 
 		        
@@ -80,7 +80,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		        break;
 		        
 		    case NavisionTool.INFO_MODE_IN_USE:
-		    case NavisionTool.INFO_MODE_IN_USE_QUICK:
+		    case NavisionTool.INFO_MODE_SERACH_IN_USE:
 		    	inUseFragment = (InUseFragment)getSupportFragmentManager().getFragment(savedInstanceState, "inUseFragment");
 		        setContentView(R.layout.single_frame_layout);	 
 		    	
@@ -128,7 +128,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		        break;
 		        
 		    case NavisionTool.INFO_MODE_BOM:
-		    case NavisionTool.INFO_MODE_BOM_QUICK:
+		    case NavisionTool.INFO_MODE_SEARCH_BOM:
 		        setContentView(R.layout.single_frame_layout);	 
 		        bomFragment = BOMFragment.newInstance();
 		    	
@@ -139,7 +139,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 	       	    	lm.restartLoader(NavisionTool.LOADER_PRODUCT_BOM, searchString, this);	  
 	       	    else
 	       	    {
-	       	    	lm.restartLoader(NavisionTool.LOADER_PRODUCT_BOM_QUICK, searchString, this);	
+	       	    	lm.restartLoader(NavisionTool.LOADER_PRODUCT_SEARCH_BOM, searchString, this);	
 	       	    }
 	       	    bomFragment.showProgress(true);
 
@@ -147,7 +147,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		        break;
 		        
 		    case NavisionTool.INFO_MODE_IN_USE:
-		    case NavisionTool.INFO_MODE_IN_USE_QUICK:
+		    case NavisionTool.INFO_MODE_SERACH_IN_USE:
 		    	
 				setContentView(R.layout.single_frame_layout);	 
 		        
@@ -159,7 +159,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 	       	    if (infoMode==NavisionTool.INFO_MODE_IN_USE)
 	       	    	lm.restartLoader(NavisionTool.LOADER_PRODUCT_IN_USE, searchString, this);	
 	       	    else
-	       	    	lm.restartLoader(NavisionTool.LOADER_PRODUCT_IN_USE_QUICK, searchString, this);		       	    	
+	       	    	lm.restartLoader(NavisionTool.LOADER_PRODUCT_SEARCH_IN_USE, searchString, this);		       	    	
 
 	       	    inUseFragment.showProgress(true);
 		      	
@@ -224,13 +224,13 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 					break;
 					
 				case NavisionTool.LOADER_PRODUCT_BOM:				
-				case NavisionTool.LOADER_PRODUCT_BOM_QUICK:
+				case NavisionTool.LOADER_PRODUCT_SEARCH_BOM:
 				    {
 				    	bomFragment.showResultSet(productList);
 				    }
 				    break;
 				case NavisionTool.LOADER_PRODUCT_IN_USE:
-				case NavisionTool.LOADER_PRODUCT_IN_USE_QUICK:
+				case NavisionTool.LOADER_PRODUCT_SEARCH_IN_USE:
 					{
 				    	inUseFragment.showResultSet(productList);			
 				    }

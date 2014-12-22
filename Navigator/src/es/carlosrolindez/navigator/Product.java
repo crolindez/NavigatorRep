@@ -78,7 +78,7 @@ public class Product implements Parcelable{
         this.usedInPlannedProduction = "";
         this.orderPoint = "";
     	
-        this.itemMode = NavisionTool.LOADER_PRODUCT_SEARCH_QUICK;
+        this.itemMode = NavisionTool.LOADER_PRODUCT_SEARCH;
 	}
 
 	@Override

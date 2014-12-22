@@ -104,7 +104,7 @@ public class BOMFragment extends Fragment
 	   		productList = new ArrayList<Product>();
 			for (Product item : productListLoaded)
 			{
-				if ((item.itemMode == NavisionTool.LOADER_PRODUCT_BOM) || (item.itemMode == NavisionTool.LOADER_PRODUCT_BOM_QUICK))
+				if (item.itemMode == NavisionTool.LOADER_PRODUCT_BOM)
 				{
 					productList.add(item);
 				}

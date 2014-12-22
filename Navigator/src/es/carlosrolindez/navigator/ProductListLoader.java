@@ -36,7 +36,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 	    	switch (loaderMode)
 	    	{
     		case NavisionTool.LOADER_PRODUCT_IN_USE:    		
-    		case NavisionTool.LOADER_PRODUCT_IN_USE_QUICK:
+    		case NavisionTool.LOADER_PRODUCT_SEARCH_IN_USE:
     			product = new Product(); 	
 				product.reference = "50302";
 				product.description = "iSelect 2.5 pulgadas blanco";	
@@ -75,7 +75,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				break;
 
     		case NavisionTool.LOADER_PRODUCT_BOM:
-    		case NavisionTool.LOADER_PRODUCT_BOM_QUICK:
+    		case NavisionTool.LOADER_PRODUCT_SEARCH_BOM:
     			product = new Product(); 	
     			product.reference = "50342";
 				product.description = "iSelect 2.5 pulgadas cromo";	
@@ -111,7 +111,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				productList.add(product);	    				
 		 		break;
 
-    		case NavisionTool.LOADER_PRODUCT_SEARCH_QUICK:
+    		case NavisionTool.LOADER_PRODUCT_SEARCH:
     			product = new Product(); 
     			product.reference = "50312";
 				product.description = "iSelect 2.5 pulgadas niquel";	
@@ -245,7 +245,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 			    	{
 	
 		    		case NavisionTool.LOADER_PRODUCT_IN_USE:
-		    		case NavisionTool.LOADER_PRODUCT_IN_USE_QUICK:
+		    		case NavisionTool.LOADER_PRODUCT_SEARCH_IN_USE:
 		    			result = NavisionTool.queryListInBOM(filterString);
 					    while(result.next())
 					    {
@@ -274,7 +274,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 						break;
 	
 		    		case NavisionTool.LOADER_PRODUCT_BOM:
-		    		case NavisionTool.LOADER_PRODUCT_BOM_QUICK:		    			
+		    		case NavisionTool.LOADER_PRODUCT_SEARCH_BOM:		    			
 		    			result = NavisionTool.queryListBOM(filterString);
 		      			while(result.next())
 						{					
@@ -302,7 +302,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 						}	    	
 				 		break;
 	
-		    		case NavisionTool.LOADER_PRODUCT_SEARCH_QUICK:
+		    		case NavisionTool.LOADER_PRODUCT_SEARCH:
 	    				result = NavisionTool.queryList(filterString);	    			
 		      			while(result.next())
 						{					

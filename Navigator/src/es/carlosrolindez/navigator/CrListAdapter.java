@@ -144,15 +144,23 @@ public class CrListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) 
 			{
-		    	Intent intent = new Intent (v.getContext(), InfoActivity.class);
-	        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, product.reference);        	
-	        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);  
-	    		if ( (product.itemMode==NavisionTool.LOADER_PRODUCT_BOM_QUICK) 
-	    				|| (product.itemMode==NavisionTool.LOADER_PRODUCT_IN_USE_QUICK) 
-	    				|| (product.itemMode==NavisionTool.LOADER_PRODUCT_SEARCH_QUICK))
-		        	intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_IN_USE_QUICK);
+				Intent intent;				
+	    		if ( (product.itemMode==NavisionTool.LOADER_PRODUCT_SEARCH_BOM) 
+	    				|| (product.itemMode==NavisionTool.LOADER_PRODUCT_SEARCH_IN_USE) 
+	    				|| (product.itemMode==NavisionTool.LOADER_PRODUCT_SEARCH))
+	    		{
+			    	intent = new Intent (v.getContext(), SearchActivity.class);
+		        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, product.reference);        	
+		        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);  
+				    intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_SERACH_IN_USE);
+	    		}
 	    		else
+	    		{
+			    	intent = new Intent (v.getContext(), InfoActivity.class);
+			    	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, product.reference);        	
+			    	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);  
 	    			intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_IN_USE);
+	    		}
 	        	v.getContext().startActivity(intent);	        	
 			}
 		});
@@ -162,16 +170,24 @@ public class CrListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) 
 			{
-		    	Intent intent = new Intent (v.getContext(), InfoActivity.class);
-	        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, product.reference);        	
-	        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);  
-	    		if ( (product.itemMode==NavisionTool.LOADER_PRODUCT_BOM_QUICK) 
-	    				|| (product.itemMode==NavisionTool.LOADER_PRODUCT_IN_USE_QUICK) 
-	    				|| (product.itemMode==NavisionTool.LOADER_PRODUCT_SEARCH_QUICK))
-	    			intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_BOM_QUICK);
+				Intent intent;				
+	    		if ( (product.itemMode==NavisionTool.LOADER_PRODUCT_SEARCH_BOM) 
+	    				|| (product.itemMode==NavisionTool.LOADER_PRODUCT_SEARCH_IN_USE) 
+	    				|| (product.itemMode==NavisionTool.LOADER_PRODUCT_SEARCH))
+	    		{
+			    	intent = new Intent (v.getContext(), SearchActivity.class);
+		        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, product.reference);        	
+		        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);  
+				    intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_SEARCH_BOM);
+	    		}
 	    		else
-	    			intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_BOM);	    			
-	        	v.getContext().startActivity(intent);	     
+	    		{
+			    	intent = new Intent (v.getContext(), InfoActivity.class);
+			    	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, product.reference);        	
+			    	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);  
+	    			intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_BOM);
+	    		}
+	        	v.getContext().startActivity(intent);	        	
 			}
 
 		});
