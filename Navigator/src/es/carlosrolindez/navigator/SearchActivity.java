@@ -71,6 +71,7 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 		        break;
 		    }	        
     	}
+
  	    
     }
 
@@ -120,6 +121,8 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 		        break;
 		    }	        
     	}
+    	else
+	      	getActionBar().setTitle("Navigator"); 
     }
 	
 	private void loadPreferences()

@@ -53,9 +53,9 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		    {
 		    case NavisionTool.INFO_MODE_FULL:
 		    default:  
-		    	inUseFragment = (InUseFragment)getSupportFragmentManager().getFragment(savedInstanceState, "inUseFragment");
-		    	infoFragment = (InfoFragment)getSupportFragmentManager().getFragment(savedInstanceState, "infoFragment");
-		    	bomFragment = (BOMFragment)getSupportFragmentManager().getFragment(savedInstanceState, "bomFragment");
+//		    	inUseFragment = (InUseFragment)getSupportFragmentManager().getFragment(savedInstanceState, "inUseFragment");
+//		    	infoFragment = (InfoFragment)getSupportFragmentManager().getFragment(savedInstanceState, "infoFragment");
+//		    	bomFragment = (BOMFragment)getSupportFragmentManager().getFragment(savedInstanceState, "bomFragment");
 		        setContentView(R.layout.simple_tabs);
 		        		        
 		        mAdapter = new InfoFragmentAdapter(getSupportFragmentManager(),inUseFragment,infoFragment,bomFragment);
@@ -72,19 +72,19 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 		        
 		    case NavisionTool.INFO_MODE_BOM:
 		    case NavisionTool.INFO_MODE_SEARCH_BOM:
-		    	bomFragment = (BOMFragment)getSupportFragmentManager().getFragment(savedInstanceState, "bomFragment");
+//		    	bomFragment = (BOMFragment)getSupportFragmentManager().getFragment(savedInstanceState, "bomFragment");
 		        setContentView(R.layout.single_frame_layout);	 
 		        
-		        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, bomFragment).commit(); 
+//		        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, bomFragment).commit(); 
 		      	getActionBar().setTitle("BOM " + reference);    
 		        break;
 		        
 		    case NavisionTool.INFO_MODE_IN_USE:
 		    case NavisionTool.INFO_MODE_SERACH_IN_USE:
-		    	inUseFragment = (InUseFragment)getSupportFragmentManager().getFragment(savedInstanceState, "inUseFragment");
+//		    	inUseFragment = (InUseFragment)getSupportFragmentManager().getFragment(savedInstanceState, "inUseFragment");
 		        setContentView(R.layout.single_frame_layout);	 
 		    	
-		        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, inUseFragment).commit();    
+//		        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, inUseFragment).commit();    
 		      	getActionBar().setTitle(reference + " used in:");    
 		        break;
 		    }
@@ -172,12 +172,12 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
     @Override
     public void onSaveInstanceState(Bundle savedState) 
     {
-    	if (inUseFragment!=null)
+ /*   	if (inUseFragment!=null)
     		getSupportFragmentManager().putFragment(savedState, "inUseFragment", inUseFragment);
     	if (infoFragment!=null)
     		getSupportFragmentManager().putFragment(savedState, "infoFragment", infoFragment);
     	if (bomFragment!=null)
-    		getSupportFragmentManager().putFragment(savedState, "bomFragment", bomFragment);
+    		getSupportFragmentManager().putFragment(savedState, "bomFragment", bomFragment);*/
     	
 	   	super.onSaveInstanceState(savedState);
 	}   
@@ -250,41 +250,5 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
         	bomFragment.showResultSet(null);*/
 	}
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.info_activity_actions, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
 
-	/**
-	 * On selecting action bar icons
-	 * */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		Intent intent;
-		// Take appropriate action for each action item click
-		switch (item.getItemId()) {
-		case R.id.action_in_use:
-	    	intent = new Intent (this, InfoActivity.class);
-        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference);        	
-        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, description);  
-    		intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_IN_USE);	    			
-        	startActivity(intent);	     
-
-			return true;
-		case R.id.action_bom:
-	    	intent = new Intent (this, InfoActivity.class);
-        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference);        	
-        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, description);  
-    		intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_BOM);	    			
-        	startActivity(intent);	     
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
-    
-
-	
 }

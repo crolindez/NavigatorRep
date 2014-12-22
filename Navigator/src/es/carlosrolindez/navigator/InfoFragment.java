@@ -47,17 +47,18 @@ public class InfoFragment extends Fragment
     }
 
     @Override    
-    public void onActivityCreated(Bundle savedInstanceState) {	
+    public void onActivityCreated(Bundle savedInstanceState) 
+    {	
     	super.onActivityCreated(savedInstanceState);
     	if (savedInstanceState != null) 
         	productList = savedInstanceState.getParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY);
-
-	    if (productList!=null) 
-       		showResultSet(productList);
 	    
 	    progressAllowed = true;
         if (progressPending) showProgress (true);
-      }    	
+ 
+	    if (productList!=null) 
+       		showResultSet(productList);
+    }    	
    
     @Override
     public void onSaveInstanceState(Bundle savedState) 
