@@ -29,7 +29,8 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 {
 	
 	private SearchFragment searchFragment;
-	LoaderManager lm;
+	private LoaderManager lm;
+	private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { 
@@ -37,13 +38,40 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     	super.onCreate(savedInstanceState);
  
     	loadPreferences();
+    	
     	lm = getSupportLoaderManager();  
+    	
 	    if (savedInstanceState == null)
 	    {
         	searchFragment = SearchFragment.newInstance();
     		if (searchFragment!=null)
     			getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchFragment).commit();
         }
+	    
+    	Intent intent = getIntent();
+    	
+    	if (Intent.ACTION_SEARCH.equals(intent.getAction())) 
+    	{
+	    	String query=intent.getStringExtra(SearchManager.QUERY);	    	
+	      	getActionBar().setTitle(query);   
+    	}
+    	else if (intent.getStringExtra(NavisionTool.LAUNCH_REFERENCE)!=null)
+    	{
+    		String reference = intent.getStringExtra(NavisionTool.LAUNCH_REFERENCE);	  	    
+    		int infoMode = intent.getIntExtra(NavisionTool.LAUNCH_INFO_MODE,NavisionTool.INFO_MODE_SEARCH_BOM);
+
+		    switch (infoMode)
+		    {
+		    case NavisionTool.INFO_MODE_SEARCH_BOM:
+		    	getActionBar().setTitle("BOM " + reference);   
+		        break;
+		        
+		    case NavisionTool.INFO_MODE_SERACH_IN_USE:
+		      	getActionBar().setTitle(reference + " used in:");  
+		        break;
+		    }	        
+    	}
+ 	    
     }
 
 	@Override
@@ -51,6 +79,7 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	{ 
     	loadPreferences();
     	setIntent(intent);
+	    searchView.setIconified(true);
     	if (Intent.ACTION_SEARCH.equals(intent.getAction())) 
     	{
 	    	searchFragment = SearchFragment.newInstance();
@@ -113,7 +142,6 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-    	SearchView searchView;
     	MenuItem searchMenuItem;
         getMenuInflater().inflate(R.menu.search, menu);
         
@@ -123,8 +151,48 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	    searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 	    searchView.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 	    searchView.setIconifiedByDefault(true); 
+	    searchView.setIconified(true);
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (!hasFocus) 
+                {
+                    if (searchView != null) 
+                    {
+                        searchView.setQuery("", false);
+
+                    }// end if
+                }// end if
+
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) 
+            {
+                /**
+                 * hides and then unhides search tab to make sure
+                 * keyboard disappears when query is submitted
+                 */
+                if (searchView != null) {
+                    searchView.setVisibility(View.INVISIBLE);
+                    searchView.setVisibility(View.VISIBLE);
+
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // TODO Auto-generated method stub
+                return false;
+            }
+        });
     
-     
 	    return super.onCreateOptionsMenu(menu);
     }
     
