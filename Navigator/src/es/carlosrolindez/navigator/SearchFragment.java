@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,28 +21,25 @@ public class SearchFragment extends Fragment
 	private ListView list;
 	private CrListAdapter listAdapter;
 	private ArrayList<Product> productList;
-//	private boolean progressAllowed;
-//	private boolean progressPending;
+	private boolean progressAllowed;
+	private boolean progressPending;
 	
 	public static SearchFragment newInstance() 
 	{
-    	Log.e("SearchFragment","newInstance");
 		SearchFragment  fragment = new SearchFragment();
-//		fragment.progressAllowed = false;
-//		fragment.progressPending = false;
+		fragment.progressAllowed = false;
+		fragment.progressPending = false;
 		return fragment;
 	}
 
 	 @Override
     public void onCreate(Bundle savedInstanceState) {
-	    	Log.e("SearchFragment","onCreate");
         super.onCreate(savedInstanceState);
     }
 	 	 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
     {
-    	Log.e("SearchFragment","onCreateView");
         return inflater.inflate(R.layout.list_layout, container, false);         
     }
 
@@ -54,12 +50,10 @@ public class SearchFragment extends Fragment
 
       	if (savedInstanceState != null) 
       	{
-        	Log.e("SearchFragment","onActivityCreated saved");
         	productList = savedInstanceState.getParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY);
       	}
       	else
       	{
-        	Log.e("SearchFragment","onActivityCreated new");
       		productList=null;
       	}
 		
@@ -68,14 +62,13 @@ public class SearchFragment extends Fragment
         list.setAdapter(listAdapter);
         list.setOnItemClickListener(onItemClickListener);  
 	    
- //       progressAllowed = true;
- //       if (progressPending) showProgress (true);
+        progressAllowed = true;
+        if (progressPending) showProgress (true);
         
 
         if (productList!=null) 
         {
        		showResultSet(productList);
-        	Log.e("SearchFragment","onActivityCreated showResultSet");
         }
     }
     
@@ -103,20 +96,19 @@ public class SearchFragment extends Fragment
 
     }  
    
-   // public void showProgress(boolean progress)
-	//{
-   // 	if (progressAllowed)
-    //	{
-    //    	if (progress)    getActivity().findViewById(R.id.loadingPanel_list).setVisibility(View.VISIBLE);
-    //    	else getActivity().findViewById(R.id.loadingPanel_list).setVisibility(View.GONE);
-     //   	progressPending = false;
-    //	}
-   // 	else progressPending = progress;
-	//}
+    public void showProgress(boolean progress)
+	{
+    	if (progressAllowed)
+    	{
+        	if (progress)    getActivity().findViewById(R.id.loadingPanel_list).setVisibility(View.VISIBLE);
+        	else getActivity().findViewById(R.id.loadingPanel_list).setVisibility(View.GONE);
+        	progressPending = false;
+    	}
+    	else progressPending = progress;
+	}
 
 	void showResultSet(ArrayList<Product> productListLoaded)
 	{
-    	Log.e("SearchFragment","showResultSet ");
 		if (productListLoaded == null) 
 			productList = null;
 		else

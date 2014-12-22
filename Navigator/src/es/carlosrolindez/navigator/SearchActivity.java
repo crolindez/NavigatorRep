@@ -13,16 +13,13 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MenuItem.OnActionExpandListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,93 +29,65 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 {
 	
 	private SearchFragment searchFragment;
-//	private SearchView searchView;
-//	private MenuItem searchMenuItem;
+	LoaderManager lm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { 
     	
     	super.onCreate(savedInstanceState);
  
-    	Log.e("SearchActivity","onCreate");
     	loadPreferences();
-		if (searchFragment!=null)
-		{
-	    	Log.e("SearchActivity","onCreate already saved");			
-		}
-	    if (savedInstanceState != null)
+    	lm = getSupportLoaderManager();  
+	    if (savedInstanceState == null)
 	    {
-	    	Log.e("SearchActivity","onCreate saved");
-    		searchFragment = (SearchFragment)getSupportFragmentManager().getFragment(savedInstanceState, "searchFragment");
+        	searchFragment = SearchFragment.newInstance();
     		if (searchFragment!=null)
     			getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchFragment).commit();
-     
         }
-        else
-        	handleIntent();
     }
 
 	@Override
 	protected void onNewIntent(Intent intent) 
 	{ 
-    	Log.e("SearchActivity","onNewIntent");
     	loadPreferences();
     	setIntent(intent);
-        handleIntent();
-	}
-	
-	private void handleIntent() 
-	{
-    	Intent intent = getIntent(); 	 
-    	Log.e("SearchActivity","handleIntent");
     	if (Intent.ACTION_SEARCH.equals(intent.getAction())) 
     	{
-        	Log.e("SearchActivity","handleIntent " + "Search");
 	    	searchFragment = SearchFragment.newInstance();
-	    	getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchFragment).commit();
+	    	getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, searchFragment).commit();
 	    	
 	    	String query=intent.getStringExtra(SearchManager.QUERY);	    	
 	      	getActionBar().setTitle(query);   
-	      	
-			LoaderManager lm = getSupportLoaderManager();  
+	      	 
 		    Bundle searchString = new Bundle();
 		    searchString.putString(NavisionTool.QUERY, query);  	
-        	Log.e("SearchActivity","handleIntent " + "Search " + query);
+
 		    lm.restartLoader(NavisionTool.LOADER_PRODUCT_SEARCH, searchString, this);	
-//		    searchFragment.showProgress(true);
+		    searchFragment.showProgress(true);
     	}
     	else if (intent.getStringExtra(NavisionTool.LAUNCH_REFERENCE)!=null)
     	{
-        	Log.e("SearchActivity","handleIntent " + "BOM_IN_USE");
 	    	searchFragment = SearchFragment.newInstance();
-	        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchFragment).commit(); 
+	        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, searchFragment).commit(); 
 	        
     		String reference = intent.getStringExtra(NavisionTool.LAUNCH_REFERENCE);	  	    
-    		String description = intent.getStringExtra(NavisionTool.LAUNCH_DESCRIPTION);	
     		int infoMode = intent.getIntExtra(NavisionTool.LAUNCH_INFO_MODE,NavisionTool.INFO_MODE_SEARCH_BOM);
-        	Log.e("SearchActivity","handleIntent " + reference);
-        	Log.e("SearchActivity","handleIntent " + description);
-        	Log.e("SearchActivity","handleIntent " + infoMode);
-        	
-        	
-	      	LoaderManager lm = getSupportLoaderManager();  
+
 	      	Bundle searchString = new Bundle();
        	    searchString.putString(NavisionTool.QUERY, reference);  	  
  
 		    switch (infoMode)
 		    {
 		    case NavisionTool.INFO_MODE_SEARCH_BOM:
-	        	Log.e("SearchActivity","handleIntent " + "LOADER_BOM");
 		    	getActionBar().setTitle("BOM " + reference);   
 	       	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_SEARCH_BOM, searchString, this);	
-//	       	    searchFragment.showProgress(true);
+	       	    searchFragment.showProgress(true);
 		        break;
 		        
 		    case NavisionTool.INFO_MODE_SERACH_IN_USE:
-	        	Log.e("SearchActivity","handleIntent " + "LOADER_IN_USE");
 		      	getActionBar().setTitle(reference + " used in:");  
 	       	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_SEARCH_IN_USE, searchString, this);	
-//	       	    searchFragment.showProgress(true);
+	       	    searchFragment.showProgress(true);
 		        break;
 		    }	        
     	}
@@ -146,7 +115,6 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     public boolean onCreateOptionsMenu(Menu menu) {
     	SearchView searchView;
     	MenuItem searchMenuItem;
-    	Log.e("SearchActivity","onCreateOptionsMenu");
         getMenuInflater().inflate(R.menu.search, menu);
         
 	    SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -176,11 +144,6 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     @Override
     public void onSaveInstanceState(Bundle savedState) 
     {
-    	if (searchFragment!=null)
-    	{
-    		getSupportFragmentManager().putFragment(savedState, "searchFragment", searchFragment);
-        	Log.e("SearchActivity","onSaveInstanceState saved");
-    	}
 	   	super.onSaveInstanceState(savedState);
 	}   
 
@@ -188,15 +151,13 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	@Override
 	public Loader<ArrayList<Product>> onCreateLoader(int id, Bundle filter)
 	{
-    	Log.e("SearchActivity","onCreateLoader");
 		return new ProductListLoader(this,id,filter);
 	}
 	
 	@Override
 	public void onLoadFinished(Loader<ArrayList<Product>> loader,ArrayList<Product> productList)
 	{
-    	Log.e("SearchActivity","onLoadFinished");
-//	    searchFragment.showProgress(false);
+	    searchFragment.showProgress(false);
 	    if (productList==null)
 	    {	
 	   		LayoutInflater inflater = getLayoutInflater();

@@ -409,6 +409,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 	@Override
 	protected void onStartLoading()
 	{
+
 		if (productList != null)
 		{
 			deliverResult(productList);
