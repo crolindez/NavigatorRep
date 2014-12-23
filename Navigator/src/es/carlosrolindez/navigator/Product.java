@@ -86,7 +86,7 @@ public class Product implements Parcelable{
         this.usedInPlannedProduction = "";
         this.orderPoint = "";
         
-        this.consumeByMonth = null;
+        this.consumeByMonth = new String[NUMBER_OF_MONTHS];
     	
         this.itemMode = NavisionTool.LOADER_PRODUCT_SEARCH;
 	}

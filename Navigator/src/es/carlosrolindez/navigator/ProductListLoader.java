@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import android.content.Context;
@@ -372,16 +371,16 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				    	
 		    			product.itemMode = NavisionTool.LOADER_PRODUCT_INFO;
 
-		    			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		    			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss",Locale.US);
 					    Calendar calendar = Calendar.getInstance();
-					    calendar.add(Calendar.MONTH,-(product.NUMBER_OF_MONTHS + 1));
+					    calendar.add(Calendar.MONTH,-(Product.NUMBER_OF_MONTHS + 1));
 					    String fromDate;
 					    String toDate;
 					    
-					    for (int i=0;i<product.NUMBER_OF_MONTHS;i++)
+					    for (int i=0;i<Product.NUMBER_OF_MONTHS;i++)
 					    {
 					    	fromDate = dateFormat.format(calendar.getTime());
-						    calendar.add(Calendar.MONTH,-(product.NUMBER_OF_MONTHS + 1));
+						    calendar.add(Calendar.MONTH,-(Product.NUMBER_OF_MONTHS + 1));
 					    	toDate = dateFormat.format(calendar.getTime());
 					    	product.consumeByMonth[i] = NavisionTool.queryConsumeInPeriod(product.reference,fromDate,toDate);
 					    }

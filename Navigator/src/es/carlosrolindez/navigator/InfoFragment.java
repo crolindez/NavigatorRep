@@ -12,10 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jjoe64.graphview.BarGraphView;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.GraphViewData;
 import com.jjoe64.graphview.GraphViewSeries;
-import com.jjoe64.graphview.LineGraphView;
 
 
 public class InfoFragment extends Fragment
@@ -183,27 +183,26 @@ public class InfoFragment extends Fragment
 	        	    }
 
 	        	});
-	   				
-				
-				GraphViewSeries exampleSeries = new GraphViewSeries(new GraphViewData[] {
-				    new GraphViewData(1, 2.0d)
-				    , new GraphViewData(2, 1.5d)
-				    , new GraphViewData(3, 2.5d)
-				    , new GraphViewData(4, 1.0d)
-				});
-				 
-				graphView = new LineGraphView(
-				    getActivity()     // context
-				    , "Consume" // heading
-				);
-				graphView.addSeries(exampleSeries); // data
-				 
+
+	        	GraphViewData[] graphViewData = new GraphViewData[Product.NUMBER_OF_MONTHS];	        	
+	        	GraphViewData[] graphViewData2 = new GraphViewData[Product.NUMBER_OF_MONTHS];
+
+				for (int i=0; i < Product.NUMBER_OF_MONTHS; i++)
+				{	
+					graphViewData[i] = new GraphViewData(i+1,Double.parseDouble(product.consumeByMonth[i]));
+					graphViewData2[i] = new GraphViewData(i+1,0.0d);
+				}
+				GraphViewSeries graph = new GraphViewSeries(graphViewData);
+				GraphViewSeries graph2 = new GraphViewSeries(graphViewData2);
+				graphView = new BarGraphView( getActivity() , "Consume");
+				graphView.addSeries(graph); 
+				graphView.addSeries(graph2); 
+					
+				graphView.getGraphViewStyle().setNumHorizontalLabels(Product.NUMBER_OF_MONTHS); 
 				LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.graph_view_layout);
 				layout.addView(graphView);
 				
 			}
-		
-
 		}
 	}
 	
