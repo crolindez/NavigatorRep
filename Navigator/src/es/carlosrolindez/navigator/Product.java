@@ -27,6 +27,11 @@ public class Product implements Parcelable{
 	public String usedInPlannedProduction;
 	public String orderPoint;
 	
+	public static final int NUMBER_OF_MONTHS = 24;
+	
+	public String[] consumeByMonth;
+	
+	
 	public int itemMode;
 	
 	
@@ -34,7 +39,7 @@ public class Product implements Parcelable{
 	
 	Product (String reference, String description, String quantity, String stock, String cost, String price, boolean[] boolArray,
 			String purchase, String inProduction, String inPlannedProduction, String sale, String usedInProduction,
-			String transfer, String usedInPlannedProduction, String ordenPoint,int itemMode)
+			String transfer, String usedInPlannedProduction, String ordenPoint, String[] consumeByMonth, int itemMode)
 	{
         this.reference = reference;
         this.description = description;
@@ -54,6 +59,9 @@ public class Product implements Parcelable{
         this.transfer = transfer;
         this.usedInPlannedProduction = usedInPlannedProduction;
         this.orderPoint = ordenPoint;
+        
+        System.arraycopy(consumeByMonth, 0, this.consumeByMonth, 0, NUMBER_OF_MONTHS);
+        
         
         this.itemMode = itemMode;
 	}
@@ -77,6 +85,8 @@ public class Product implements Parcelable{
         this.transfer = "";
         this.usedInPlannedProduction = "";
         this.orderPoint = "";
+        
+        this.consumeByMonth = null;
     	
         this.itemMode = NavisionTool.LOADER_PRODUCT_SEARCH;
 	}
@@ -108,6 +118,8 @@ public class Product implements Parcelable{
         parcel.writeString(transfer);
         parcel.writeString(usedInPlannedProduction);
         parcel.writeString(orderPoint);
+        
+        parcel.writeStringArray(consumeByMonth);
 
         parcel.writeInt(itemMode);
     }
@@ -134,12 +146,16 @@ public class Product implements Parcelable{
             String transfer = parcel.readString();
             String usedInPlannedProduction = parcel.readString();
             String orderPoint = parcel.readString();
+            
+            String[] consumeByMonth = new String[NUMBER_OF_MONTHS];
+            parcel.readStringArray(consumeByMonth);
+            
 
             int itemMode = parcel.readInt();           
             
             return new Product(reference, description, quantity, stock, cost, price, boolArray,
             		purchase, inProduction, inPlannedProduction, sale, usedInProduction,
-        			transfer, usedInPlannedProduction, orderPoint, itemMode);
+        			transfer, usedInPlannedProduction, orderPoint, consumeByMonth, itemMode);
         }
  
         @Override

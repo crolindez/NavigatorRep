@@ -36,6 +36,7 @@ public class NavisionTool
 	public static final int MODE_EMULATOR = 0;
 	public static final int MODE_REAL = 1;
 
+
 	public static final String PRODUCT_LIST_KEY = "ListKey";
 	
     private static String connString;
@@ -569,6 +570,38 @@ public class NavisionTool
 		return null;
 	}
 
+	static public String queryConsumeInPeriod(String filterString,String fromDate,String toDate)
+	{
+	    Statement stmt;
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+
+            String headSqlString = "SELECT Sum([Quantity]) FROM   EIS.dbo.[EIS$Item Ledger Entry] WHERE  ([Item No_] = '";
+    	    String tailSqlSring1 = "' ) AND ([Quantity]<'0') AND ([Location Code]='01') AND ([Posting Date]>={ts '";
+    	    String tailSqlSring2 = "'} AND [Posting Date]<={ts '"; 
+    	    String tailSqlSring3 = "'})";
+    	    
+	    
+		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring1 + fromDate + tailSqlSring2 + toDate + tailSqlSring3);
+		    if (result.isBeforeFirst())
+		    {
+		    	result.next();
+		    	if (result.getString(1)==null) 
+		    		return "0.0";
+		    	else
+		    		return (result.getString(1));
+		    }
+		    else
+		    {
+		    	return "0.0";
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	static public String queryRetailPrice(String filterString)
 	{
 	    Statement stmt;

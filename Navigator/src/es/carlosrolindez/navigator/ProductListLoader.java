@@ -3,7 +3,10 @@ package es.carlosrolindez.navigator;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import android.content.Context;
@@ -16,6 +19,8 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 	private ArrayList<Product> productList;
 	private String filterString;
 	private int loaderMode;
+
+	
 	
 
 	
@@ -23,7 +28,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 	{
 		super(ctx);
 		filterString = filter.getString(NavisionTool.QUERY,"").toUpperCase(Locale.US);
-		loaderMode = id;
+		loaderMode = id;		
 	}
 	
 	@Override
@@ -153,7 +158,36 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 		    	product.usedInProduction = "255";
 		    	product.orderPoint = "100";
 		    	
+		    	product.consumeByMonth[0] = "10.5";
+		    	product.consumeByMonth[1] = "8.5";
+		    	product.consumeByMonth[2] = "12.5";
+		    	product.consumeByMonth[3] = "20.5";
+		    	product.consumeByMonth[4] = "30.5";
+		    	product.consumeByMonth[5] = "15.5";
+		    	product.consumeByMonth[6] = "3.5";
+		    	product.consumeByMonth[7] = "0.5";
+		    	product.consumeByMonth[8] = "8.5";
+		    	product.consumeByMonth[9] = "10.5";
+		    	product.consumeByMonth[10] = "12.5";
+		    	product.consumeByMonth[11] = "12.5";
+		    	product.consumeByMonth[12] = "18.5";
+		    	product.consumeByMonth[13] = "18.5";
+		    	product.consumeByMonth[14] = "30.5";
+		    	product.consumeByMonth[15] = "35.5";
+		    	product.consumeByMonth[16] = "20.5";
+		    	product.consumeByMonth[17] = "20.5";
+		    	product.consumeByMonth[18] = "15.5";
+		    	product.consumeByMonth[19] = "15.5";
+		    	product.consumeByMonth[20] = "35.5";
+		    	product.consumeByMonth[21] = "30.5";
+		    	product.consumeByMonth[22] = "20.5";
+		    	product.consumeByMonth[23] = "10.5";
+		    	
+		    	
     			product.itemMode = loaderMode;
+    			
+    			
+    			
     			productList.add(product);
 
     			product = new Product(); 	
@@ -337,7 +371,22 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				    	product.orderPoint = NavisionTool.queryOrderPoint(filterString);
 				    	
 		    			product.itemMode = NavisionTool.LOADER_PRODUCT_INFO;
-				    	
+
+		    			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+					    Calendar calendar = Calendar.getInstance();
+					    calendar.add(Calendar.MONTH,-(product.NUMBER_OF_MONTHS + 1));
+					    String fromDate;
+					    String toDate;
+					    
+					    for (int i=0;i<product.NUMBER_OF_MONTHS;i++)
+					    {
+					    	fromDate = dateFormat.format(calendar.getTime());
+						    calendar.add(Calendar.MONTH,-(product.NUMBER_OF_MONTHS + 1));
+					    	toDate = dateFormat.format(calendar.getTime());
+					    	product.consumeByMonth[i] = NavisionTool.queryConsumeInPeriod(product.reference,fromDate,toDate);
+					    }
+
+
 						productList.add(product);
 						
 						result = NavisionTool.queryListInBOM(filterString);
@@ -381,7 +430,10 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 			    			product.itemMode = NavisionTool.LOADER_PRODUCT_BOM;
 					    	productList.add(product);
 						}	    					    
-					    break;
+					    
+					    
+					 	break;
+					        
 				    }		    		     	
 				} catch (SQLException e) {
 					e.printStackTrace();
