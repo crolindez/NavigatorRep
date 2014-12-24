@@ -11,6 +11,7 @@ import java.util.Locale;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
+import android.util.Log;
 
 
 
@@ -371,18 +372,22 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				    	
 		    			product.itemMode = NavisionTool.LOADER_PRODUCT_INFO;
 
-		    			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss",Locale.US);
+		    			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd 00:00:00.000",Locale.US);
 					    Calendar calendar = Calendar.getInstance();
-					    calendar.add(Calendar.MONTH,-(Product.NUMBER_OF_MONTHS + 1));
+					    calendar.add(Calendar.MONTH,-Product.NUMBER_OF_MONTHS);
 					    String fromDate;
 					    String toDate;
 					    
 					    for (int i=0;i<Product.NUMBER_OF_MONTHS;i++)
 					    {
 					    	fromDate = dateFormat.format(calendar.getTime());
-						    calendar.add(Calendar.MONTH,-(Product.NUMBER_OF_MONTHS + 1));
+						    calendar.add(Calendar.MONTH,1);
 					    	toDate = dateFormat.format(calendar.getTime());
 					    	product.consumeByMonth[i] = NavisionTool.queryConsumeInPeriod(product.reference,fromDate,toDate);
+					    	Log.e("fromDate",fromDate);
+					    	Log.e("toDate",toDate);
+					    	Log.e("consume",product.consumeByMonth[i]);
+					    	
 					    }
 
 

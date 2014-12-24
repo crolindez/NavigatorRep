@@ -122,7 +122,7 @@ public class InfoFragment extends Fragment
 				TextView cost = (TextView)getActivity().findViewById(R.id.general_info_cost);
 				costValue = Float.parseFloat(product.cost);
 				if ( (costValue>0) && ( priceValue>0) )
-					cost.setText(String.format("%.2f € (%.2f%%)",costValue,(costValue/priceValue)));
+					cost.setText(String.format("%.2f € (%.2f%%)",100*costValue,(costValue/priceValue)));
 				else
 					cost.setText(String.format("%.2f €",costValue));
 
@@ -189,7 +189,7 @@ public class InfoFragment extends Fragment
 
 				for (int i=0; i < Product.NUMBER_OF_MONTHS; i++)
 				{	
-					graphViewData[i] = new GraphViewData(i+1,Double.parseDouble(product.consumeByMonth[i]));
+					graphViewData[i] = new GraphViewData(i+1,-Double.parseDouble(product.consumeByMonth[i]));
 					graphViewData2[i] = new GraphViewData(i+1,0.0d);
 				}
 				GraphViewSeries graph = new GraphViewSeries(graphViewData);

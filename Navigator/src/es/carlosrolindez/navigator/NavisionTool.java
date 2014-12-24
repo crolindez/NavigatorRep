@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Locale;
 
 
 
@@ -317,7 +318,7 @@ public class NavisionTool
 				    	else
 				    	{
 				    		duration = Float.parseFloat(result.getString(1));
-				    		return (String.format("%,6.2f €",0.318667*duration/quantity));
+				    		return (String.format(Locale.US,"%,6.2f €",0.318667*duration/quantity));
 				    	}
 				    }
 				    else
@@ -578,12 +579,11 @@ public class NavisionTool
 			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 
             String headSqlString = "SELECT Sum([Quantity]) FROM   EIS.dbo.[EIS$Item Ledger Entry] WHERE  ([Item No_] = '";
-    	    String tailSqlSring1 = "' ) AND ([Quantity]<'0') AND ([Location Code]='01') AND ([Posting Date]>={ts '";
-    	    String tailSqlSring2 = "'} AND [Posting Date]<={ts '"; 
-    	    String tailSqlSring3 = "'})";
+    	    String tailSqlString1 = "' ) AND ([Quantity]<'0') AND ([Location Code]='01') AND ([Posting Date]>={ts '";
+    	    String tailSqlString2 = "'} AND [Posting Date]<={ts '"; 
+    	    String tailSqlString3 = "'})";
     	    
-	    
-		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring1 + fromDate + tailSqlSring2 + toDate + tailSqlSring3);
+		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlString1 + fromDate + tailSqlString2 + toDate + tailSqlString3);
 		    if (result.isBeforeFirst())
 		    {
 		    	result.next();
