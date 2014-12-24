@@ -122,7 +122,7 @@ public class InfoFragment extends Fragment
 				TextView cost = (TextView)getActivity().findViewById(R.id.general_info_cost);
 				costValue = Float.parseFloat(product.cost);
 				if ( (costValue>0) && ( priceValue>0) )
-					cost.setText(String.format("%.2f € (%.2f%%)",100*costValue,(costValue/priceValue)));
+					cost.setText(String.format("%.2f € (%.2f%%)",costValue,100*(costValue/priceValue)));
 				else
 					cost.setText(String.format("%.2f €",costValue));
 

@@ -11,7 +11,6 @@ import java.util.Locale;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
 
 
 
@@ -384,10 +383,6 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 						    calendar.add(Calendar.MONTH,1);
 					    	toDate = dateFormat.format(calendar.getTime());
 					    	product.consumeByMonth[i] = NavisionTool.queryConsumeInPeriod(product.reference,fromDate,toDate);
-					    	Log.e("fromDate",fromDate);
-					    	Log.e("toDate",toDate);
-					    	Log.e("consume",product.consumeByMonth[i]);
-					    	
 					    }
 
 
