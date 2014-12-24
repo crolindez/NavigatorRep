@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <ListPreference
-        android:key="server"
-        android:defaultValue="Emulator"
-        android:title="@string/select_server"
-        android:dialogTitle="@string/select_server"
-        android:entries="@array/server_list"
-        android:entryValues="@array/server_names" />
+	<CheckBoxPreference
+		android:key="emulator_mode"
+		android:title="Activate emulator"
+		android:summary="Activate emulator mode for debugging"
+		android:defaultValue="true" 
+		android:disableDependentsState="true"
+	/>
+	 
+	<EditTextPreference
+		android:key="welcome_message"
+		android:title="Welcome Message"
+		android:summary="Define the Welcome message to be shown"
+		android:dialogTitle="Welcome Message"
+		android:dialogMessage="Provide a message"   
+		android:defaultValue="Default welcome message" 
+		android:dependency="emulator_mode"
+	/>
 </PreferenceScreen>

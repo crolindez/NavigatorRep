@@ -131,14 +131,14 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
         setContentView(R.layout.search_layout);
         
     	SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-    	String  server = sharedPref.getString("server", "");
-    	if (server.matches("Navision"))
+    	boolean emulator =  sharedPref.getBoolean("emulator_mode", true);
+    	if (emulator)
     	{
-    		NavisionTool.changeMode(NavisionTool.MODE_REAL);
+    		NavisionTool.changeMode(NavisionTool.MODE_EMULATOR);  	
     	}
     	else
     	{
-    		NavisionTool.changeMode(NavisionTool.MODE_EMULATOR);  		
+    		NavisionTool.changeMode(NavisionTool.MODE_REAL);
     	}		
 	}
 	
