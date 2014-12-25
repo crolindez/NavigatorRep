@@ -14,12 +14,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class CrListAdapter extends BaseAdapter {
+public class ProductListAdapter extends BaseAdapter {
 //	private Activity activity;
 	private LayoutInflater inflater;
 	private ArrayList<Product> mProductList;
 	
-	public CrListAdapter(Activity activity,ArrayList<Product> productList)
+	public ProductListAdapter(Activity activity,ArrayList<Product> productList)
 	{
 		mProductList = productList;
 		inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -16,7 +16,7 @@ public class BOMFragment extends Fragment
 {
 	private ArrayList<Product> productList;
 	private ListView list;
-	private CrListAdapter listAdapter;
+	private ProductListAdapter listAdapter;
 	private boolean progressAllowed;
 	private boolean progressPending;
 	
@@ -49,7 +49,7 @@ public class BOMFragment extends Fragment
    	
  	    list=(ListView)getActivity().findViewById(R.id.bom_list);    
 
-	    listAdapter = new CrListAdapter(getActivity(),productList);
+	    listAdapter = new ProductListAdapter(getActivity(),productList);
 
 	    list.setAdapter(listAdapter);
 	    list.setOnItemClickListener(onItemClickListener);   

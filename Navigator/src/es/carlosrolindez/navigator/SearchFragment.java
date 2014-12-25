@@ -19,7 +19,7 @@ import android.widget.ListView;
 public class SearchFragment extends Fragment 
 {
 	private ListView list;
-	private CrListAdapter listAdapter;
+	private ProductListAdapter listAdapter;
 	private ArrayList<Product> productList;
 	private boolean progressAllowed;
 	private boolean progressPending;
@@ -58,7 +58,7 @@ public class SearchFragment extends Fragment
       	}
 		
     	list=(ListView)getActivity().findViewById(R.id.list);  
-    	listAdapter = new CrListAdapter(getActivity(),productList);
+    	listAdapter = new ProductListAdapter(getActivity(),productList);
         list.setAdapter(listAdapter);
         list.setOnItemClickListener(onItemClickListener);  
 	    

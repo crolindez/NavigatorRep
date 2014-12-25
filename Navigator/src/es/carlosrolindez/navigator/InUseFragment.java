@@ -17,7 +17,7 @@ public class InUseFragment extends Fragment
 {
 	private ArrayList<Product> productList;
 	private ListView list;
-	private CrListAdapter listAdapter;
+	private ProductListAdapter listAdapter;
 	private boolean progressAllowed;
 	private boolean progressPending;	
 	
@@ -47,7 +47,7 @@ public class InUseFragment extends Fragment
         	productList = savedInstanceState.getParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY);
 
   	    list=(ListView)getActivity().findViewById(R.id.in_use_list);    	
-	    listAdapter = new CrListAdapter(getActivity(),productList);
+	    listAdapter = new ProductListAdapter(getActivity(),productList);
 	    list.setAdapter(listAdapter);
 	    list.setOnItemClickListener(onItemClickListener);  
 	    
