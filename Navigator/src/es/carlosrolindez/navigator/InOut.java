@@ -10,24 +10,28 @@ public class InOut implements Parcelable{
 	public String date;
 	public String quantity;
 	public String source;
-	public boolean programmed;
+	public boolean programmed;	
+	public boolean inMode;
 
 	
 	InOut (String document, String date, String quantity, String source, boolean[] boolArray)
-	{
+	{    
         this.document = document;
         this.date = date;
         this.quantity = quantity;
         this.source = source;
         this.programmed = boolArray[0];
+        this.inMode = boolArray[1];
 	}
 	
-	public InOut() {
+	public InOut() 
+	{	 
         this.document = "";
         this.date = "";
         this.quantity = "";
         this.source = "";
         this.programmed = false;
+        this.inMode = false;
 }
 
 	@Override
@@ -38,7 +42,7 @@ public class InOut implements Parcelable{
     @Override
     public void writeToParcel(Parcel parcel, int arg1) 
     {
-    	boolean[] boolArray={programmed};
+    	boolean[] boolArray={programmed, inMode};
 	
         parcel.writeString(document);
         parcel.writeString(date);

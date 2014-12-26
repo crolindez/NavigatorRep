@@ -5,13 +5,10 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class InOutListAdapter extends BaseAdapter {
@@ -79,9 +76,10 @@ public class InOutListAdapter extends BaseAdapter {
 		document.setText(inOut.document);
 		date.setText(inOut.date);		
 		source.setText(inOut.source);
+		quantity.setText(inOut.quantity);
 		
-		quantityValue = Float.parseFloat(inOut.quantity);
-		quantity.setText(String.format("x%.1 un.",quantityValue));
+//		quantityValue = Float.parseFloat(inOut.quantity);
+//		quantity.setText(String.format("x%.1 un.",quantityValue));
 
 
 	

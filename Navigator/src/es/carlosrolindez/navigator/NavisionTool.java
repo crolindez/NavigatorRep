@@ -20,17 +20,21 @@ public class NavisionTool
 	public static final int LOADER_PRODUCT_BOM = 2;
 	public static final int LOADER_PRODUCT_INFO = 1;
 	public static final int LOADER_PRODUCT_SEARCH_IN_USE = 4;
-	public static final int LOADER_PRODUCT_SEARCH_BOM = 5;
+	public static final int LOADER_PRODUCT_SEARCH_BOM = 5;	
+	public static final int LOADER_PRODUCT_IN_OUT = 6;
 	
 	public static final String LAUNCH_REFERENCE = "es.carlosrolindez.navisiontool.LAUNCH_REFERENCE";	
 	public static final String LAUNCH_DESCRIPTION = "es.carlosrolindez.navisiontool.LAUNCH_DESCRIPTION";
-	public static final String LAUNCH_INFO_MODE = "es.carlosrolindez.navisiontool.LAUNCH_INFO_MODE";
+	public static final String LAUNCH_INFO_MODE = "es.carlosrolindez.navisiontool.LAUNCH_INFO_MODE";	
+	public static final String LAUNCH_IN_OUT_MODE = "es.carlosrolindez.navisiontool.LAUNCH_IN_OUT_MODE";
 	
 	public static final int INFO_MODE_IN_USE = 0;
 	public static final int INFO_MODE_FULL = 1;
 	public static final int INFO_MODE_BOM = 2;		
 	public static final int INFO_MODE_SERACH_IN_USE = 3;
 	public static final int INFO_MODE_SEARCH_BOM = 4;	
+	public static final int IN_OUT_MODE_IN = 5;
+	public static final int IN_OUT_MODE_OUT = 6;
 	
 	public static final String QUERY = "QUERY";
 	
@@ -38,7 +42,8 @@ public class NavisionTool
 	public static final int MODE_REAL = 1;
 
 
-	public static final String PRODUCT_LIST_KEY = "ListKey";
+	public static final String PRODUCT_LIST_KEY = "ProductListKey";
+	public static final String IN_OUT_LIST_KEY = "InOutListKey";
 	
     private static String connString;
     private static String username;
@@ -630,5 +635,41 @@ public class NavisionTool
 		}
 		return null;
 	}
+	
+	static public ResultSet queryListPurchase(String filterString)
+	{
+		return null;
+	}
+	
+	static public ResultSet queryListFabrication(String filterString)
+	{
+		return null;
+	}
+
+	static public ResultSet queryListPlannedFabrication(String filterString)
+	{
+		return null;
+	}	
+	
+	static public ResultSet queryListSales(String filterString)
+	{
+		return null;
+	}
+
+	static public ResultSet queryListTransfer(String filterString)
+	{
+		return null;
+	}	
+	
+	static public ResultSet queryListInFabrication(String filterString)
+	{
+		return null;
+	}
+
+	static public ResultSet queryListInPlannedFabrication(String filterString)
+	{
+		return null;
+	}
+
 
 }

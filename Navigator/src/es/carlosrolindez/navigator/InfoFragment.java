@@ -2,6 +2,7 @@ package es.carlosrolindez.navigator;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -158,32 +159,44 @@ public class InfoFragment extends Fragment
 				orderPointValue = Float.parseFloat(product.orderPoint);
 				
 				if ( (stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
-					getActivity().findViewById(R.id.stock_relative_layout).setBackground(getResources().getDrawable(R.drawable.consume_bg));
+					getActivity().findViewById(R.id.stock_layout).setBackground(getResources().getDrawable(R.drawable.consume_bg));
 				else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
-					getActivity().findViewById(R.id.stock_relative_layout).setBackground(getResources().getDrawable(R.drawable.stock_bg));
+					getActivity().findViewById(R.id.stock_layout).setBackground(getResources().getDrawable(R.drawable.stock_bg));
 				else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue + orderPointValue))
-					getActivity().findViewById(R.id.stock_relative_layout).setBackground(getResources().getDrawable(R.drawable.danger_bg));
+					getActivity().findViewById(R.id.stock_layout).setBackground(getResources().getDrawable(R.drawable.danger_bg));
+			
+
+				final String reference = product.reference;
+				final String description = product.description;		
 				
-	        	View stockLayout = getActivity().findViewById(R.id.stock_relative_layout);
-	        	stockLayout.setOnClickListener(new View.OnClickListener() {      
+	        	View inLayout = getActivity().findViewById(R.id.in_layout);
+	        	inLayout.setOnClickListener(new View.OnClickListener() {      
 	        	    @Override
 	        	    public void onClick(View v) 
 	        	    {
-	        	   		LayoutInflater inflater = getActivity().getLayoutInflater();
-	        	    	View layout = inflater.inflate(R.layout.toast_layout,(ViewGroup) getActivity().findViewById(R.id.toast_layout_root));
-
-	        	    	TextView text = (TextView) layout.findViewById(R.id.text_layout);
-	        	    	text.setText("Stock Pressed");
-
-	        	    	Toast toast = new Toast(getActivity().getApplicationContext());
-	        	    	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-	        	    	toast.setDuration(Toast.LENGTH_SHORT);
-	        	    	toast.setView(layout);
-	        	    	toast.show();		
-	        	    }
+	        	    	Intent intent = new Intent (v.getContext(), InOutActivity.class);
+	                	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference);        	
+	                	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, description);  
+	                	intent.putExtra(NavisionTool.LAUNCH_IN_OUT_MODE, NavisionTool.IN_OUT_MODE_IN);
+	                	startActivity(intent);
+	}
 
 	        	});
 
+	        	View outLayout = getActivity().findViewById(R.id.out_layout);
+	        	outLayout.setOnClickListener(new View.OnClickListener() {      
+	        	    @Override
+	        	    public void onClick(View v) 
+	        	    {
+	        	    	Intent intent = new Intent (v.getContext(), InOutActivity.class);
+	                	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference);        	
+	                	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, description);  
+	                	intent.putExtra(NavisionTool.LAUNCH_IN_OUT_MODE, NavisionTool.IN_OUT_MODE_OUT);
+	                	startActivity(intent);
+	        	    }
+
+	        	});
+	        	
 	        	GraphViewData[] graphViewData = new GraphViewData[Product.NUMBER_OF_MONTHS];	        	
 	        	GraphViewData[] graphViewData2 = new GraphViewData[Product.NUMBER_OF_MONTHS];
 

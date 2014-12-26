@@ -38,6 +38,11 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name=".InOutActivity"
+            android:parentActivityName=".InfoActivity" 
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name=".SettingsActivity"
             android:parentActivityName=".SearchActivity" 
             android:label="@string/action_settings" >
