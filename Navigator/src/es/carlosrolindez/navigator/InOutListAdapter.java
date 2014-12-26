@@ -76,10 +76,9 @@ public class InOutListAdapter extends BaseAdapter {
 		document.setText(inOut.document);
 		date.setText(inOut.date);		
 		source.setText(inOut.source);
-		quantity.setText(inOut.quantity);
-		
-//		quantityValue = Float.parseFloat(inOut.quantity);
-//		quantity.setText(String.format("x%.1 un.",quantityValue));
+
+		quantityValue = Float.parseFloat(inOut.quantity);
+		quantity.setText(String.format("%.1f un.",quantityValue));
 
 
 	

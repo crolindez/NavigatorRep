@@ -43,7 +43,7 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
     			inOut = new InOut(); 	
     			inOut.document = "OC-142035";
     			inOut.source = "High Hit";
-    			inOut.quantity = "1500";
+    			inOut.quantity = "1500.0";
     			inOut.date = "02/01/2015";		    	
 		    	inOut.programmed = false;
 		    	inOut.inMode = true; // purchase
@@ -52,7 +52,7 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 		    	inOut = new InOut(); 	
     			inOut.document = "141988";
     			inOut.source = "50302";
-    			inOut.quantity = "100";
+    			inOut.quantity = "100.0";
     			inOut.date = "02/12/2014";		    	
 		    	inOut.programmed = false;
 		    	inOut.inMode = true; // fabrication
@@ -61,7 +61,7 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 		    	inOut = new InOut(); 	
     			inOut.document = "140036";
     			inOut.source = "50302";
-    			inOut.quantity = "100";
+    			inOut.quantity = "100.0";
     			inOut.date = "02/02/2015";		    	
 		    	inOut.programmed = true;
 		    	inOut.inMode = true; // planned fabrication
@@ -71,7 +71,7 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 		    	inOut = new InOut(); 	
     			inOut.document = "PO-142563";
     			inOut.source = "Music in Every";
-    			inOut.quantity = "100";
+    			inOut.quantity = "100.0";
     			inOut.date = "12/12/2014";		    	
 		    	inOut.programmed = false;
 		    	inOut.inMode = false; // sale
@@ -80,7 +80,7 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 		    	inOut = new InOut(); 	
     			inOut.document = "transfer";
     			inOut.source = "50302";
-    			inOut.quantity = "5";
+    			inOut.quantity = "5.0";
     			inOut.date = "02/12/2014";		    	
 		    	inOut.programmed = false; // transfer
 		    	inOutList.add(inOut);	
@@ -88,7 +88,7 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 		    	inOut = new InOut(); 	
     			inOut.document = "142222";
     			inOut.source = "DIS49";
-    			inOut.quantity = "5";
+    			inOut.quantity = "5.0";
     			inOut.date = "05/12/2014";		    	
 		    	inOut.programmed = false;
 		    	inOut.inMode = false; // in fabrication
@@ -97,7 +97,7 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 		    	inOut = new InOut(); 	
     			inOut.document = "140048";
     			inOut.source = "DIS49";
-    			inOut.quantity = "5";
+    			inOut.quantity = "5.0";
     			inOut.date = "05/02/2015";		    	
 		    	inOut.programmed = true;
 		    	inOut.inMode = false; // in planned fabrication		    	

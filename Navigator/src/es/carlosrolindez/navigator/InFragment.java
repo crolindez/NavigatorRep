@@ -42,7 +42,7 @@ public class InFragment extends Fragment
     	super.onActivityCreated(savedInstanceState);
 
     	if (savedInstanceState != null) 
-    		inOutList = savedInstanceState.getParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY);
+    		inOutList = savedInstanceState.getParcelableArrayList(NavisionTool.IN_OUT_LIST_KEY);
    	
  	    list=(ListView)getActivity().findViewById(R.id.in_list);    
 

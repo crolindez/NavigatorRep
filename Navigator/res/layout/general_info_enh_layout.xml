@@ -126,7 +126,7 @@
 	       android:layout_width="match_parent"
 	       android:layout_height="wrap_content"
 	       android:layout_margin="3dp"
-	       android:background="@drawable/consume_bg"
+	       android:background="@drawable/consume_selector"
 	       android:orientation="vertical" 
 	       android:clickable="true" >
 	
@@ -241,7 +241,7 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_margin="3dp"
-	        android:background="@drawable/income_bg"
+	        android:background="@drawable/income_selector"
 	        android:orientation="vertical"  
 			android:clickable="true" >
 	
