@@ -635,41 +635,180 @@ public class NavisionTool
 		}
 		return null;
 	}
+
+	static public String queryProviderName(String filterString)
+	{
+	    Statement stmt;
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+
+            String headSqlString = "SELECT [Name] FROM  [EIS$Vendor] WHERE  ([No_] = '";
+    	    String tailSqlSring = "' ) ";
+		    
+		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
+		    if (result.isBeforeFirst())
+		    {
+		    	result.next();
+		    	if (result.getString(1)==null) 
+		    		return "provider";
+		    	else
+		    		return (result.getString(1));
+		    }
+		    else
+		    {
+		    	return "provider";
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
+	static public String queryTargetFabrication(String filterString)
+	{
+	    Statement stmt;
+
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+
+            String headSqlString = "SELECT [Item No_] FROM  [EIS$Prod_ Order Line] WHERE  ([Prod_ Order No_] = '";
+    	    String tailSqlSring = "' ) ";
+		    
+		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
+		    if (result.isBeforeFirst())
+		    {
+		    	result.next();
+		    	if (result.getString(1)==null) 
+		    		return "production";
+		    	else
+		    		return (result.getString(1));
+		    }
+		    else
+		    {
+		    	return "production";
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+
 	static public ResultSet queryListPurchase(String filterString)
 	{
+	    Statement stmt;
+
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+	
+		    String headSqlString1 = "SELECT[Expected Receipt Date],[Document No_],[Buy-from Vendor No_],";
+		    String headSqlString2 = "[Outstanding Quantity] FROM [EIS$Purchase Line] ";
+		    String headSqlString3 = "WHERE ([No_] = '";
+
+		    String tailSqlString = "' ) AND ([Document Type]='1') AND ([Outstanding Quantity]>'0') ORDER BY [Expected Receipt Date]";
+		    
+		    
+		    ResultSet result = stmt.executeQuery(headSqlString1 + headSqlString2 + headSqlString3 + filterString + tailSqlString);
+		    return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	                
+	
 		return null;
 	}
 	
 	static public ResultSet queryListFabrication(String filterString)
 	{
+	    Statement stmt;
+
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+	
+		    String headSqlString1 = "SELECT [Starting Date], [No_], [Status], [Quantity] FROM [EIS$Production Order] ";
+		    String headSqlString2 = "WHERE  ([Source No_] = '";
+		    String tailSqlString = "' ) AND ( ([Status] = '2') OR ([Status] = '3'))  ORDER BY [Starting Date]";
+		    
+		    
+		    ResultSet result = stmt.executeQuery(headSqlString1 + headSqlString2 + filterString + tailSqlString);
+		    return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	                
 		return null;
+
 	}
 
-	static public ResultSet queryListPlannedFabrication(String filterString)
-	{
-		return null;
-	}	
-	
 	static public ResultSet queryListSales(String filterString)
 	{
+	    Statement stmt;
+
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+	
+		    String headSqlString1 = "SELECT [EIS$Sales Header].[Order Date],[EIS$Sales Header].[No_],[EIS$Sales Header].[Bill-to Name],";
+		    String headSqlString2 = "[EIS$Sales Line].[Outstanding Quantity] FROM [EIS$Sales Line], [EIS$Sales Header] ";
+		    String headSqlString3 = "WHERE  ([EIS$Sales Line].[Document No_] = [EIS$Sales Header].[No_]) AND ([EIS$Sales Line].[No_] = '";
+
+		    String tailSqlString = "' ) AND ([EIS$Sales Line].[Outstanding Quantity] > 0) AND ([EIS$Sales Line].[Document Type]='1') ORDER BY [EIS$Sales Header].[Order Date]";
+		    
+		    
+		    ResultSet result = stmt.executeQuery(headSqlString1 + headSqlString2 + headSqlString3 + filterString + tailSqlString);
+		    return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	                
 		return null;
 	}
 
 	static public ResultSet queryListTransfer(String filterString)
 	{
-		return null;
+	    Statement stmt;
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+	
+		    String headSqlString1 = "SELECT [EIS$Transfer Header].[Posting Date],[EIS$Transfer Header].[No_],";
+		    String headSqlString2 = "[EIS$Transfer Line].[Quantity] FROM [EIS$Transfer Line], [EIS$Transfer Header] ";
+		    String headSqlString3 = "WHERE  ([EIS$Transfer Line].[Document No_] = [EIS$Transfer Header].[No_]) AND ([EIS$Transfer Line].[Item No_] = '";
+
+		    String tailSqlString = "' ) AND ([EIS$Transfer Header].[Status] = 0) ORDER BY [EIS$Transfer Header].[Posting Date]";
+		    
+		    
+		    ResultSet result = stmt.executeQuery(headSqlString1 + headSqlString2 + headSqlString3 + filterString + tailSqlString);
+		    return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	                
+	return null;
 	}	
 	
 	static public ResultSet queryListInFabrication(String filterString)
 	{
-		return null;
-	}
 
-	static public ResultSet queryListInPlannedFabrication(String filterString)
-	{
-		return null;
-	}
+	    Statement stmt;
 
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+	
+		    String headSqlString1 = "SELECT [Due Date], [Prod_ Order No_], [Status], [Remaining Quantity] FROM [EIS$Prod_ Order Component] ";
+		    String headSqlString2 = "WHERE  ([Item No_]  = '";
+		    String tailSqlString = "' ) AND ( ([Status] = '2') OR ([Status] = '3'))  ORDER BY [Due Date]";
+		    
+		    
+		    ResultSet result = stmt.executeQuery(headSqlString1 + headSqlString2 + filterString + tailSqlString);
+		    return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	                
+		return null;
+
+
+	}
 
 }

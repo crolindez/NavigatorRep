@@ -3,6 +3,7 @@ package es.carlosrolindez.navigator;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -129,58 +130,61 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 					    while(result.next())
 					    {
 					    	inOut = new InOut(); 	
-					    	inOut.document = result.getString(1);	
-					    	inOut.quantity = result.getString(2);
+					    	inOut.date = result.getString(1);
+					    	inOut.document = result.getString(2);						    	
+					    	inOut.source = NavisionTool.queryProviderName(result.getString(3));	
+					    	inOut.quantity = result.getString(4);		
 					    	inOutList.add(inOut);	
 					    }
 		    			result = NavisionTool.queryListFabrication(filterString);
 					    while(result.next())
 					    {
 					    	inOut = new InOut(); 	
-					    	inOut.document = result.getString(1);	
-					    	inOut.quantity = result.getString(2);	
+					    	inOut.date = result.getString(1);
+					    	inOut.document = result.getString(2);	
+					    	inOut.source = filterString;
+					    	if (result.getString(3).contains("2"))
+					    		inOut.programmed = true;
+					    	else
+					    		inOut.programmed = false; 	
+					    	inOut.quantity = result.getString(4);		
 					    	inOutList.add(inOut);	
 					    }
-		    			result = NavisionTool.queryListPlannedFabrication(filterString);
-					    while(result.next())
-					    {
-					    	inOut = new InOut(); 	
-					    	inOut.document = result.getString(1);	
-					    	inOut.quantity = result.getString(2);	
-					    	inOutList.add(inOut);	
-					    }
+
 		    			result = NavisionTool.queryListSales(filterString);
 					    while(result.next())
 					    {
 					    	inOut = new InOut(); 	
-					    	inOut.document = result.getString(1);	
-					    	inOut.quantity = result.getString(2);		
+					    	inOut.date = result.getString(1);
+					    	inOut.document = result.getString(2);						    	
+					    	inOut.source = result.getString(3);	
+					    	inOut.quantity = result.getString(4);		
 					    	inOutList.add(inOut);	
 					    }
 		    			result = NavisionTool.queryListTransfer(filterString);
 					    while(result.next())
 					    {
 					    	inOut = new InOut(); 	
-					    	inOut.document = result.getString(1);	
-					    	inOut.quantity = result.getString(2);
+					    	inOut.date = result.getString(1);
+					    	inOut.document = result.getString(2);						    	
+					    	inOut.source = "transferencia";	
+					    	inOut.quantity = result.getString(3);		
 					    	inOutList.add(inOut);	
-					    }
+						    }
 		    			result = NavisionTool.queryListInFabrication(filterString);
 					    while(result.next())
 					    {
 					    	inOut = new InOut(); 	
-					    	inOut.document = result.getString(1);	
-					    	inOut.quantity = result.getString(2);		
+					    	inOut.date = result.getString(1);
+					    	inOut.document = result.getString(2);	
+					    	inOut.source = NavisionTool.queryTargetFabrication(inOut.document);
+					    	if (result.getString(3).contains("2"))
+					    		inOut.programmed = true;
+					    	else
+					    		inOut.programmed = false; 	
+					    	inOut.quantity = result.getString(4);		
 					    	inOutList.add(inOut);	
-					    }
-		    			result = NavisionTool.queryListInPlannedFabrication(filterString);
-					    while(result.next())
-					    {
-					    	inOut = new InOut(); 	
-					    	inOut.document = result.getString(1);	
-					    	inOut.quantity = result.getString(2);
-					    	inOutList.add(inOut);	
-					    }
+						}
 					 	break;
 					        
 				    }		    		     	
