@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Locale;
 
+import android.util.Log;
+
 
 
 
@@ -45,18 +47,37 @@ public class NavisionTool
 	public static final String PRODUCT_LIST_KEY = "ProductListKey";
 	public static final String IN_OUT_LIST_KEY = "InOutListKey";
 	
+    private static int mode;
+    
     private static String connString;
+    private static String server;
+    private static String port;
+    private static String ipaddress;
+    private static String domain;
     private static String username;
     private static String password;
+    
     private static Connection conn;
-    private static int mode;
+
+
+
 
 	static {
 		conn = null;
-		mode = MODE_REAL;
-		connString = "jdbc:jtds:sqlserver://192.0.0.102:1855/EIS";
+/*		mode = MODE_REAL;
+		connString = "jdbc:jtds:sqlserver://192.0.0.102:1855/EIS;domain=Eissa";
 		username = "sa";
 		password = "Advising,2007";
+		domain = "Eissa";*/
+		mode = MODE_REAL;
+		
+		connString = "jdbc:jtds:sqlserver://";
+		server = "";
+		port = "";
+		ipaddress = "";
+		domain = "";
+		username = "";
+		password = "";
 	}
 	
 	static public int readMode()
@@ -67,9 +88,17 @@ public class NavisionTool
 	static public void changeMode(int newMode)
 	{
 		mode = newMode;
-
 	}
 	
+	static public void setServerConnection(String server, String port, String ipaddress, String domain, String username, String password)
+	{
+		NavisionTool.server = server;
+		NavisionTool.port = port;
+		NavisionTool.ipaddress = ipaddress;
+		NavisionTool.domain = domain;
+		NavisionTool.username = username;
+		NavisionTool.password = password;
+	}
 	
 	static public Connection openConnection()
 	{
@@ -91,7 +120,12 @@ public class NavisionTool
 		    String driver = "net.sourceforge.jtds.jdbc.Driver";
 		    Class.forName(driver).newInstance();
 		    DriverManager.setLoginTimeout(15);
-		    conn = DriverManager.getConnection(NavisionTool.connString,NavisionTool.username,NavisionTool.password);
+		    Log.e("openConnection",NavisionTool.connString + NavisionTool.ipaddress + ":" + NavisionTool.port + "/" + NavisionTool.server+ ";domain=" + NavisionTool.domain);
+		    Log.e("openConnection",NavisionTool.username);
+		    Log.e("openConnection",NavisionTool.password);		
+		    
+		    conn = DriverManager.getConnection(NavisionTool.connString + NavisionTool.ipaddress + ":" + NavisionTool.port + "/" + NavisionTool.server + ";domain=" + NavisionTool.domain,
+		    		NavisionTool.username,NavisionTool.password);
 		    return conn;		    
 	    } 
 	    catch (SQLException e)
