@@ -9,12 +9,65 @@
 	/>
 	 
 	<EditTextPreference
-		android:key="welcome_message"
-		android:title="Welcome Message"
-		android:summary="Define the Welcome message to be shown"
-		android:dialogTitle="Welcome Message"
-		android:dialogMessage="Provide a message"   
-		android:defaultValue="Default welcome message" 
+		android:key="server_name"
+		android:title="Server name"
+		android:summary="Server name to connnect to"
+		android:dialogTitle="Server Name"
+		android:dialogMessage="Provide server name"   
+		android:defaultValue="SERVER" 
 		android:dependency="emulator_mode"
 	/>
+
+	<EditTextPreference
+		android:key="ip_address"
+		android:title="IP Address"
+		android:summary="server IP address"
+		android:dialogTitle="IP Address"
+		android:dialogMessage="Provide IP address of server"   
+		android:defaultValue="192.0.0.102" 
+		android:dependency="emulator_mode"
+	/>
+
+		<EditTextPreference
+		android:key="port_number"
+		android:title="Port Number"
+		android:summary="Port number for connection to server"
+		android:dialogTitle="Port Number"
+		android:dialogMessage="Provide port number"   
+		android:defaultValue="1433" 
+		android:dependency="emulator_mode"
+	/>
+
+	<EditTextPreference
+		android:key="domain_name"
+		android:title="Domain Name"
+		android:summary="Domain where the server is working"
+		android:dialogTitle="Domain Name"
+		android:dialogMessage="Provide domain name"   
+		android:defaultValue="" 
+		android:dependency="emulator_mode"
+	/>
+
+	<EditTextPreference
+		android:key="user_name"
+		android:title="User Name"
+		android:summary="Your user name"
+		android:dialogTitle="User Name"
+		android:dialogMessage="Provide user name"   
+		android:defaultValue="" 
+		android:dependency="emulator_mode"
+	/>
+
+	<EditTextPreference
+		android:key="password"
+		android:title="Password"
+		android:summary="Your password to access the server"
+		android:dialogTitle="Password"
+		android:dialogMessage="Type your password"   
+		android:defaultValue="" 
+		android:inputType="textPassword" 
+		android:dependency="emulator_mode"
+	/>
+
 </PreferenceScreen>
+

@@ -139,6 +139,12 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     	else
     	{
     		NavisionTool.changeMode(NavisionTool.MODE_REAL);
+    		NavisionTool.setServerConnection( sharedPref.getString("server_name", ""),
+    			sharedPref.getString("port_number", ""), 
+    			sharedPref.getString("ip_address", ""), 
+    			sharedPref.getString("domain_name", ""), 
+    			sharedPref.getString("user_name", ""), 
+    			sharedPref.getString("password", ""));
     	}		
 	}
 	
