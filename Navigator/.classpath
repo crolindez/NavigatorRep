@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Carlos/Documents/Android/jtds-1.2.5-dist/jtds-1.2.5.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Carlos/Documents/Android/GraphView/GraphView-3.1.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="E:/Android/jtds-1.2.5-dist/jtds-1.2.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="E:/Android/GraphView/GraphView-3.1.3.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>

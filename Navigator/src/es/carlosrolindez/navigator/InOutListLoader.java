@@ -3,7 +3,8 @@ package es.carlosrolindez.navigator;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -118,6 +119,9 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 		    Connection conn = NavisionTool.openConnection();
 		    if (conn!=null) 
 		    {
+    			SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd 00:00:00.0",Locale.US);
+    			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy",Locale.US);
+			    
 			    try 
 			    {
 			    	ResultSet result;
@@ -130,7 +134,7 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 					    while(result.next())
 					    {
 					    	inOut = new InOut(); 	
-					    	inOut.date = result.getString(1);
+					    	inOut.date = dateFormat.format(sourceFormat.parse(result.getString(1)));
 					    	inOut.document = result.getString(2);						    	
 					    	inOut.source = NavisionTool.queryProviderName(result.getString(3));	
 					    	inOut.quantity = result.getString(4);		
@@ -141,7 +145,7 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 					    while(result.next())
 					    {
 					    	inOut = new InOut(); 	
-					    	inOut.date = result.getString(1);
+					    	inOut.date = dateFormat.format(sourceFormat.parse(result.getString(1)));
 					    	inOut.document = result.getString(2);	
 					    	inOut.source = filterString;
 					    	if (result.getString(3).contains("2"))
@@ -157,7 +161,7 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 					    while(result.next())
 					    {
 					    	inOut = new InOut(); 	
-					    	inOut.date = result.getString(1);
+					    	inOut.date = dateFormat.format(sourceFormat.parse(result.getString(1)));
 					    	inOut.document = result.getString(2);						    	
 					    	inOut.source = result.getString(3);	
 					    	inOut.quantity = result.getString(4);	
@@ -168,7 +172,7 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 					    while(result.next())
 					    {
 					    	inOut = new InOut(); 	
-					    	inOut.date = result.getString(1);
+					    	inOut.date = dateFormat.format(sourceFormat.parse(result.getString(1)));
 					    	inOut.document = result.getString(2);						    	
 					    	inOut.source = "transferencia";	
 					    	inOut.quantity = result.getString(3);	
@@ -179,7 +183,7 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 					    while(result.next())
 					    {
 					    	inOut = new InOut(); 	
-					    	inOut.date = result.getString(1);
+					    	inOut.date = dateFormat.format(sourceFormat.parse(result.getString(1)));
 					    	inOut.document = result.getString(2);	
 					    	inOut.source = NavisionTool.queryTargetFabrication(inOut.document);
 					    	if (result.getString(3).contains("2"))
@@ -193,8 +197,11 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 					 	break;
 					        
 				    }		    		     	
+				} catch (ParseException e) {
+					e.printStackTrace();
 				} catch (SQLException e) {
 					e.printStackTrace();
+
 				}
 	
 			    NavisionTool.closeConnection();
