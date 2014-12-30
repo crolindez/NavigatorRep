@@ -10,8 +10,8 @@ public class SettingsActivity extends Activity
 	    protected void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 
-            this.overridePendingTransition(R.anim.right_to_left,
-                    R.anim.right_to_left);  
+            this.overridePendingTransition(R.anim.in_left,
+                    R.anim.out_right);  
 	        
 	        // Display the fragment as the main content.
 	        getFragmentManager().beginTransaction()
@@ -22,7 +22,7 @@ public class SettingsActivity extends Activity
 	  public void finish()
 	  {
 		  super.finish();
-          this.overridePendingTransition(R.anim.left_to_right,
-                  R.anim.left_to_right);  
+          this.overridePendingTransition(R.anim.in_right,
+                  R.anim.out_left);  
 	  }
 }
