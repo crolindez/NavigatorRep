@@ -134,6 +134,7 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 					    	inOut.document = result.getString(2);						    	
 					    	inOut.source = NavisionTool.queryProviderName(result.getString(3));	
 					    	inOut.quantity = result.getString(4);		
+					    	inOut.inMode = true; // purchase
 					    	inOutList.add(inOut);	
 					    }
 		    			result = NavisionTool.queryListFabrication(filterString);
@@ -147,7 +148,8 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 					    		inOut.programmed = true;
 					    	else
 					    		inOut.programmed = false; 	
-					    	inOut.quantity = result.getString(4);		
+					    	inOut.quantity = result.getString(4);	
+					    	inOut.inMode = true; // fabrication
 					    	inOutList.add(inOut);	
 					    }
 
@@ -158,7 +160,8 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 					    	inOut.date = result.getString(1);
 					    	inOut.document = result.getString(2);						    	
 					    	inOut.source = result.getString(3);	
-					    	inOut.quantity = result.getString(4);		
+					    	inOut.quantity = result.getString(4);	
+					    	inOut.inMode = false; // sales
 					    	inOutList.add(inOut);	
 					    }
 		    			result = NavisionTool.queryListTransfer(filterString);
@@ -168,7 +171,8 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 					    	inOut.date = result.getString(1);
 					    	inOut.document = result.getString(2);						    	
 					    	inOut.source = "transferencia";	
-					    	inOut.quantity = result.getString(3);		
+					    	inOut.quantity = result.getString(3);	
+					    	inOut.inMode = false; // transfer
 					    	inOutList.add(inOut);	
 						    }
 		    			result = NavisionTool.queryListInFabrication(filterString);
@@ -182,7 +186,8 @@ public class InOutListLoader extends AsyncTaskLoader<ArrayList<InOut>> {
 					    		inOut.programmed = true;
 					    	else
 					    		inOut.programmed = false; 	
-					    	inOut.quantity = result.getString(4);		
+					    	inOut.quantity = result.getString(4);
+					    	inOut.inMode = false; // In fabrication
 					    	inOutList.add(inOut);	
 						}
 					 	break;
