@@ -66,8 +66,7 @@ public class NavisionTool
 		conn = null;
 /*		mode = MODE_REAL;
 		connString = "jdbc:jtds:sqlserver://192.0.0.102:1855/EIS;domain=Eissa";
-		username = "sa";
-		password = "Advising,2007";
+
 		domain = "Eissa";*/
 		mode = MODE_REAL;
 		
