@@ -59,9 +59,6 @@ public class NavisionTool
     
     private static Connection conn;
 
-
-
-
 	static {
 		conn = null;
 /*		mode = MODE_REAL;
