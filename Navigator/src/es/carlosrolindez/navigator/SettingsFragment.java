@@ -15,6 +15,7 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
 
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preferences);
+        updateSummary();
     }
     @Override
     public void onResume() {
