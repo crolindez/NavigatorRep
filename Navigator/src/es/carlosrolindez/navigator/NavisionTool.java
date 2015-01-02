@@ -33,8 +33,8 @@ public class NavisionTool
 	public static final int INFO_MODE_IN_USE = 0;
 	public static final int INFO_MODE_FULL = 1;
 	public static final int INFO_MODE_BOM = 2;		
-	public static final int INFO_MODE_SERACH_IN_USE = 3;
-	public static final int INFO_MODE_SEARCH_BOM = 4;	
+	public static final int SEARCH_MODE_IN_USE = 3;
+	public static final int SEARCH_MODE_BOM = 4;	
 	public static final int IN_OUT_MODE_IN = 5;
 	public static final int IN_OUT_MODE_OUT = 6;
 	

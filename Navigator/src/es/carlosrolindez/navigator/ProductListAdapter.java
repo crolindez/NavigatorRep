@@ -152,7 +152,7 @@ public class ProductListAdapter extends BaseAdapter {
 			    	intent = new Intent (v.getContext(), SearchActivity.class);
 		        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, product.reference);        	
 		        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);  
-				    intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_SERACH_IN_USE);
+				    intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.SEARCH_MODE_IN_USE);
 	    		}
 	    		else
 	    		{
@@ -178,7 +178,7 @@ public class ProductListAdapter extends BaseAdapter {
 			    	intent = new Intent (v.getContext(), SearchActivity.class);
 		        	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, product.reference);        	
 		        	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, product.description);  
-				    intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_SEARCH_BOM);
+				    intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.SEARCH_MODE_BOM);
 	    		}
 	    		else
 	    		{

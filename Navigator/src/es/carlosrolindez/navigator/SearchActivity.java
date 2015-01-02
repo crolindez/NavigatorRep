@@ -58,15 +58,15 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     	else if (intent.getStringExtra(NavisionTool.LAUNCH_REFERENCE)!=null)
     	{
     		String reference = intent.getStringExtra(NavisionTool.LAUNCH_REFERENCE);	  	    
-    		int infoMode = intent.getIntExtra(NavisionTool.LAUNCH_INFO_MODE,NavisionTool.INFO_MODE_SEARCH_BOM);
+    		int infoMode = intent.getIntExtra(NavisionTool.LAUNCH_INFO_MODE,NavisionTool.SEARCH_MODE_BOM);
 
 		    switch (infoMode)
 		    {
-		    case NavisionTool.INFO_MODE_SEARCH_BOM:
+		    case NavisionTool.SEARCH_MODE_BOM:
 		    	getActionBar().setTitle("BOM " + reference);   
 		        break;
 		        
-		    case NavisionTool.INFO_MODE_SERACH_IN_USE:
+		    case NavisionTool.SEARCH_MODE_IN_USE:
 		      	getActionBar().setTitle(reference + " used in:");  
 		        break;
 		    }	        
@@ -101,20 +101,20 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, searchFragment).commit(); 
 	        
     		String reference = intent.getStringExtra(NavisionTool.LAUNCH_REFERENCE);	  	    
-    		int infoMode = intent.getIntExtra(NavisionTool.LAUNCH_INFO_MODE,NavisionTool.INFO_MODE_SEARCH_BOM);
+    		int infoMode = intent.getIntExtra(NavisionTool.LAUNCH_INFO_MODE,NavisionTool.SEARCH_MODE_BOM);
 
 	      	Bundle searchString = new Bundle();
        	    searchString.putString(NavisionTool.QUERY, reference);  	  
  
 		    switch (infoMode)
 		    {
-		    case NavisionTool.INFO_MODE_SEARCH_BOM:
+		    case NavisionTool.SEARCH_MODE_BOM:
 		    	getActionBar().setTitle("BOM " + reference);   
 	       	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_SEARCH_BOM, searchString, this);	
 	       	    searchFragment.showProgress(true);
 		        break;
 		        
-		    case NavisionTool.INFO_MODE_SERACH_IN_USE:
+		    case NavisionTool.SEARCH_MODE_IN_USE:
 		      	getActionBar().setTitle(reference + " used in:");  
 	       	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_SEARCH_IN_USE, searchString, this);	
 	       	    searchFragment.showProgress(true);
@@ -152,7 +152,7 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
     	MenuItem searchMenuItem;
-        getMenuInflater().inflate(R.menu.search, menu);
+        getMenuInflater().inflate(R.menu.search_menu, menu);
         
 	    SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 		searchMenuItem = menu.findItem(R.id.action_search);

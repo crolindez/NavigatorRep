@@ -8,25 +8,18 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.viewpagerindicator.TabPageIndicator;
-
 public class InfoActivity extends FragmentActivity implements LoaderCallbacks<ArrayList<Product>>
 {
-    private InfoFragmentAdapter mAdapter;
-    private ViewPager mPager;
-    private TabPageIndicator mIndicator;
-
-    InUseFragment inUseFragment;
-    InfoFragment infoFragment;
-    BOMFragment bomFragment;
+    private InfoFragment infoFragment;
     
     private String reference;    
     private String description;
@@ -35,147 +28,34 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
     protected void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
 
-//    	requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-//    	requestWindowFeature(Window.FEATURE_PROGRESS);
-
     	Intent myIntent = getIntent();
     	
 	    reference = myIntent.getStringExtra(NavisionTool.LAUNCH_REFERENCE);	  	    
 	    description = myIntent.getStringExtra(NavisionTool.LAUNCH_DESCRIPTION);	
 	    int infoMode = myIntent.getIntExtra(NavisionTool.LAUNCH_INFO_MODE,NavisionTool.INFO_MODE_FULL);
 	    
-	    if (savedInstanceState != null)
+	    if (savedInstanceState == null)
 	    {   
-		    switch (infoMode)
-		    {
-		    case NavisionTool.INFO_MODE_FULL:
-		    default:  
-//		    	inUseFragment = (InUseFragment)getSupportFragmentManager().getFragment(savedInstanceState, "inUseFragment");
-//		    	infoFragment = (InfoFragment)getSupportFragmentManager().getFragment(savedInstanceState, "infoFragment");
-//		    	bomFragment = (BOMFragment)getSupportFragmentManager().getFragment(savedInstanceState, "bomFragment");
-		        setContentView(R.layout.simple_tabs);
-		        		        
-		        mAdapter = new InfoFragmentAdapter(getSupportFragmentManager(),inUseFragment,infoFragment,bomFragment);
-		
-		        mPager = (ViewPager)findViewById(R.id.pager);
-		        mPager.setAdapter(mAdapter);
-		
-		        mIndicator = (TabPageIndicator)findViewById(R.id.indicator);
-		        mIndicator.setViewPager(mPager);	
-		        mIndicator.setCurrentItem(1);
-		        
-		      	getActionBar().setTitle(reference + " " + description);    
-		        break;
-		        
-		    case NavisionTool.INFO_MODE_BOM:
-		    case NavisionTool.INFO_MODE_SEARCH_BOM:
-//		    	bomFragment = (BOMFragment)getSupportFragmentManager().getFragment(savedInstanceState, "bomFragment");
-		        setContentView(R.layout.single_frame_layout);	 
-		        
-//		        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, bomFragment).commit(); 
-		      	getActionBar().setTitle("BOM " + reference);    
-		        break;
-		        
-		    case NavisionTool.INFO_MODE_IN_USE:
-		    case NavisionTool.INFO_MODE_SERACH_IN_USE:
-//		    	inUseFragment = (InUseFragment)getSupportFragmentManager().getFragment(savedInstanceState, "inUseFragment");
-		        setContentView(R.layout.single_frame_layout);	 
-		    	
-//		        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, inUseFragment).commit();    
-		      	getActionBar().setTitle(reference + " used in:");    
-		        break;
-		    }
-	    }
-	    else
-	    {
-//	    	setProgressBarIndeterminateVisibility(true);
-//		    setProgressBarVisibility(true);    
-       	    
 	      	LoaderManager lm = getSupportLoaderManager();  
 	      	Bundle searchString = new Bundle();
        	    searchString.putString(NavisionTool.QUERY, reference);  	  
-		    
-		    switch (infoMode)
-		    {
-		    case NavisionTool.INFO_MODE_FULL:
-		    default:
-		        setContentView(R.layout.simple_tabs);
-		        
-		        bomFragment = BOMFragment.newInstance();
-		        infoFragment = InfoFragment.newInstance();
-		        inUseFragment = InUseFragment.newInstance();
-		        
-		        mAdapter = new InfoFragmentAdapter(getSupportFragmentManager(),inUseFragment,infoFragment,bomFragment);
-		
-		        mPager = (ViewPager)findViewById(R.id.pager);
-		        mPager.setAdapter(mAdapter);
-		
-		        mIndicator = (TabPageIndicator)findViewById(R.id.indicator);
-		        mIndicator.setViewPager(mPager);	
-		        mIndicator.setCurrentItem(1);
-		        
-		      	getActionBar().setTitle(reference + " " + description);    
 
-	       	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_INFO, searchString, this);	     
+       	    infoFragment = InfoFragment.newInstance();  		
+	        if (infoFragment!=null)
+    			getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, infoFragment).commit();
+	        	        
+	      	getActionBar().setTitle(reference + " " + description);    
 
-	       	    bomFragment.showProgress(true);
-	       	    infoFragment.showProgress(true);
-	       	    inUseFragment.showProgress(true);
+       	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_INFO, searchString, this);	     
 
-		        break;
-		        
-		    case NavisionTool.INFO_MODE_BOM:
-		    case NavisionTool.INFO_MODE_SEARCH_BOM:
-		        setContentView(R.layout.single_frame_layout);	 
-		        bomFragment = BOMFragment.newInstance();
-		    	
-		        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, bomFragment).commit(); 
-		      	getActionBar().setTitle("BOM " + reference);   
-	    
-	       	    if (infoMode==NavisionTool.INFO_MODE_BOM)
-	       	    	lm.restartLoader(NavisionTool.LOADER_PRODUCT_BOM, searchString, this);	  
-	       	    else
-	       	    {
-	       	    	lm.restartLoader(NavisionTool.LOADER_PRODUCT_SEARCH_BOM, searchString, this);	
-	       	    }
-	       	    bomFragment.showProgress(true);
-
-		      	
-		        break;
-		        
-		    case NavisionTool.INFO_MODE_IN_USE:
-		    case NavisionTool.INFO_MODE_SERACH_IN_USE:
-		    	
-				setContentView(R.layout.single_frame_layout);	 
-		        
-		        inUseFragment = InUseFragment.newInstance();
-		    	
-		        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, inUseFragment).commit();    
-		      	getActionBar().setTitle(reference + " used in:");    
-    
-	       	    if (infoMode==NavisionTool.INFO_MODE_IN_USE)
-	       	    	lm.restartLoader(NavisionTool.LOADER_PRODUCT_IN_USE, searchString, this);	
-	       	    else
-	       	    	lm.restartLoader(NavisionTool.LOADER_PRODUCT_SEARCH_IN_USE, searchString, this);		       	    	
-
-	       	    inUseFragment.showProgress(true);
-		      	
-		        break;
-		    }	        
-	    
+       	    infoFragment.showProgress(true);
+   
 	    }
 	}
     
     @Override
     public void onSaveInstanceState(Bundle savedState) 
-    {
- /*   	if (inUseFragment!=null)
-    		getSupportFragmentManager().putFragment(savedState, "inUseFragment", inUseFragment);
-    	if (infoFragment!=null)
-    		getSupportFragmentManager().putFragment(savedState, "infoFragment", infoFragment);
-    	if (bomFragment!=null)
-    		getSupportFragmentManager().putFragment(savedState, "bomFragment", bomFragment);*/
-    	
+    {	
 	   	super.onSaveInstanceState(savedState);
 	}   
     
@@ -190,9 +70,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 	{   			
 //        setProgressBarIndeterminateVisibility(false);
 //        setProgressBarVisibility(false);
-		if (bomFragment!=null) bomFragment.showProgress(false);
    	    if (infoFragment!=null) infoFragment.showProgress(false);
-   	    if (inUseFragment!=null) inUseFragment.showProgress(false);
    	    
 	    if (productList==null)
 	    {	
@@ -210,42 +88,33 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 	    }
 	    else
 	    {
-	        switch(loader.getId())
-			{	
-				case NavisionTool.LOADER_PRODUCT_INFO:
-				    {
-				    	inUseFragment.showResultSet(productList);			    	
-				    	infoFragment.showResultSet(productList);
-				    	bomFragment.showResultSet(productList);
-				    }
-					break;
-					
-				case NavisionTool.LOADER_PRODUCT_BOM:				
-				case NavisionTool.LOADER_PRODUCT_SEARCH_BOM:
-				    {
-				    	bomFragment.showResultSet(productList);
-				    }
-				    break;
-				case NavisionTool.LOADER_PRODUCT_IN_USE:
-				case NavisionTool.LOADER_PRODUCT_SEARCH_IN_USE:
-					{
-				    	inUseFragment.showResultSet(productList);			
-				    }
-					break;
-			}
+	    	infoFragment.showResultSet(productList);
 	    }
 	}
 	
 	@Override 
 	public void onLoaderReset(Loader<ArrayList<Product>> loader)
 	{
-  /*  	if (inUseFragment!=null)
-    		inUseFragment.showResultSet(null);			    	
-    	if (infoFragment!=null)
-    	   	infoFragment.showResultSet(null);
-    	if (inUseFragment!=null)
-        	bomFragment.showResultSet(null);*/
+  /*  	if (infoFragment!=null)
+    	   	infoFragment.showResultSet(null);;*/
 	}
 	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.info_menu, menu);
+	    return super.onCreateOptionsMenu(menu);
+	}
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+//	    	    searchView.clearFocus();
+ 	    	Intent intent = new Intent (this, SettingsActivity.class);
+        	startActivity(intent);    
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
