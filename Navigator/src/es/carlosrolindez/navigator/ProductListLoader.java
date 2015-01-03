@@ -189,76 +189,6 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
     			
     			productList.add(product);
 
-    			product = new Product(); 	
-				product.reference = "50302";
-				product.description = "iSelect 2.5 pulgadas blanco";	
-				product.stock = "333";
-		    	product.inProduction = "150";
-		    	product.purchase = "500";		    	
-		    	product.transfer = "13";
-		    	product.sale = "25";
-		    	product.usedInProduction = "255";	
-		    	product.orderPoint = "100";
-				product.quantity = "1.8";
-				product.cost = "20.3";
-				product.hasBOM = true;
-    			product.inBOM = true;
-    			product.itemMode = NavisionTool.LOADER_PRODUCT_IN_USE;
-				productList.add(product);	 
-				
-				product = new Product(); 	 
-
-				product.reference = "50304";
-				product.description = "iSelect 5 pulgadas blanco";	
-				product.stock = "222";
-		    	product.inProduction = "150";
-		    	product.purchase = "500";		    	
-		    	product.transfer = "13";
-		    	product.sale = "25";
-		    	product.usedInProduction = "255";	  
-		    	product.orderPoint = "100";
-				product.cost = "40.3";
-				product.quantity = "2.5";
-				product.hasBOM = true;
-    			product.inBOM = true;
-    			product.itemMode = NavisionTool.LOADER_PRODUCT_IN_USE;    			
-				productList.add(product);	    				
-    			product = new Product(); 	
- 
-    			product.reference = "50342";
-				product.description = "iSelect 2.5 pulgadas cromo";	
-				product.stock = "333";
-		    	product.inProduction = "150";
-		    	product.purchase = "500";		    	
-		    	product.transfer = "13";
-		    	product.sale = "25";
-		    	product.usedInProduction = "255";	    					
-		    	product.orderPoint = "100";
-				product.cost = "20.3";
-				product.quantity = "3.0";
-				product.hasBOM = true;
-    			product.inBOM = true;
-    			product.itemMode = NavisionTool.LOADER_PRODUCT_BOM;    			
-				productList.add(product);	    				
-
-				product = new Product(); 	
-				product.reference = "50344";
-				product.description = "iSelect 5 pulgadas cromo";	
-		    	product.inProduction = "150";
-		    	product.purchase = "500";		    	
-		    	product.transfer = "13";
-		    	product.sale = "25";
-		    	product.usedInProduction = "255";	    					
-		    	product.orderPoint = "100";
-				product.stock = "222";
-				product.quantity = "2.2";
-				product.cost = "40.3";
-				product.hasBOM = true;
-    			product.inBOM = true;
-    			product.itemMode = NavisionTool.LOADER_PRODUCT_BOM;    						
-				productList.add(product);	    				
-		 		break;
-
 	    	}		    	
 
 	    	return productList;
@@ -386,51 +316,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 					    }
 
 
-						productList.add(product);
-						
-						result = NavisionTool.queryListInBOM(filterString);
-					    while(result.next())
-					    {
-					    	product = new Product(); 	
-					    	product.reference = result.getString(1);	
-					    	product.quantity = result.getString(2);		
-					    	product.description = NavisionTool.queryDescription(product.reference);	
-							product.stock = NavisionTool.queryStock(product.reference);
-					    	product.cost = NavisionTool.queryCost(product.reference);
-							product.orderPoint = NavisionTool.queryOrderPoint(product.reference);
-							product.inProduction = NavisionTool.queryInProduction(product.reference);
-					    	product.purchase = NavisionTool.queryPurchase(product.reference);
-					    	product.transfer = NavisionTool.queryTransfer(product.reference);
-					    	product.sale = NavisionTool.querySale(product.reference);
-					    	product.usedInProduction = NavisionTool.queryUsedInProduction(product.reference);
-					    	product.inBOM = NavisionTool.queryInBOM(product.reference);
-					    	product.hasBOM = true;
-			    			product.itemMode = NavisionTool.LOADER_PRODUCT_IN_USE;
-					    	productList.add(product);
-					    }
-
-					    result = NavisionTool.queryListBOM(filterString);
-		      			while(result.next())
-						{					
-					    	product = new Product(); 	
-					    	product.reference = result.getString(1);	
-					    	product.description = result.getString(2) + result.getString(4);	
-					    	product.quantity = result.getString(3);		
-							product.stock = NavisionTool.queryStock(product.reference);
-							product.cost = NavisionTool.queryCost(product.reference);
-							product.orderPoint = NavisionTool.queryOrderPoint(product.reference);
-							product.inProduction = NavisionTool.queryInProduction(product.reference);
-					    	product.purchase = NavisionTool.queryPurchase(product.reference);
-					    	product.transfer = NavisionTool.queryTransfer(product.reference);
-					    	product.sale = NavisionTool.querySale(product.reference);
-					    	product.usedInProduction = NavisionTool.queryUsedInProduction(product.reference);
-					    	product.inBOM = true;
-					    	product.hasBOM = NavisionTool.queryHasBOM(product.reference);
-			    			product.itemMode = NavisionTool.LOADER_PRODUCT_BOM;
-					    	productList.add(product);
-						}	    					    
-					    
-					    
+						productList.add(product);						
 					 	break;
 					        
 				    }		    		     	

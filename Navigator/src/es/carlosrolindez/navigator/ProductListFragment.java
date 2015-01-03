@@ -1,7 +1,5 @@
 package es.carlosrolindez.navigator;
 
-
-
 import java.util.ArrayList;
 
 import android.content.Intent;
@@ -14,9 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-
-
-public class SearchFragment extends Fragment 
+public class ProductListFragment extends Fragment 
 {
 	private ListView list;
 	private ProductListAdapter listAdapter;
@@ -24,9 +20,9 @@ public class SearchFragment extends Fragment
 	private boolean progressAllowed;
 	private boolean progressPending;
 	
-	public static SearchFragment newInstance() 
+	public static ProductListFragment newInstance() 
 	{
-		SearchFragment  fragment = new SearchFragment();
+		ProductListFragment  fragment = new ProductListFragment();
 		fragment.progressAllowed = false;
 		fragment.progressPending = false;
 		return fragment;
@@ -116,12 +112,10 @@ public class SearchFragment extends Fragment
 	   		productList = new ArrayList<Product>();
 			for (Product item : productListLoaded)
 			{
-				if ( 	(item.itemMode == NavisionTool.LOADER_PRODUCT_SEARCH) || 
-						(item.itemMode == NavisionTool.LOADER_PRODUCT_SEARCH_BOM) || 
-						(item.itemMode == NavisionTool.LOADER_PRODUCT_SEARCH_IN_USE) ) 
-					productList.add(item);
+				productList.add(item);
 			}
 		}
-		listAdapter.showResultSet(productList);
+		if (listAdapter!=null) 
+			listAdapter.showResultSet(productList);
 	}
 }

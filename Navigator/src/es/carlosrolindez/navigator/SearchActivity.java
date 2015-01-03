@@ -28,7 +28,7 @@ import android.widget.Toast;
 public class SearchActivity extends FragmentActivity implements LoaderCallbacks<ArrayList<Product>>
 {
 	
-	private SearchFragment searchFragment;
+	private ProductListFragment searchFragment;
 	private LoaderManager lm;
 	private SearchView searchView;
 
@@ -43,7 +43,7 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     	
 	    if (savedInstanceState == null)
 	    {
-        	searchFragment = SearchFragment.newInstance();
+        	searchFragment = ProductListFragment.newInstance();
     		if (searchFragment!=null)
     			getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, searchFragment).commit();
         }
@@ -83,7 +83,7 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	    searchView.setIconified(true);
     	if (Intent.ACTION_SEARCH.equals(intent.getAction())) 
     	{
-	    	searchFragment = SearchFragment.newInstance();
+	    	searchFragment = ProductListFragment.newInstance();
 	    	getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, searchFragment).commit();
 	    	
 	    	String query=intent.getStringExtra(SearchManager.QUERY);	    	
@@ -97,7 +97,7 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     	}
     	else if (intent.getStringExtra(NavisionTool.LAUNCH_REFERENCE)!=null)
     	{
-	    	searchFragment = SearchFragment.newInstance();
+	    	searchFragment = ProductListFragment.newInstance();
 	        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, searchFragment).commit(); 
 	        
     		String reference = intent.getStringExtra(NavisionTool.LAUNCH_REFERENCE);	  	    
