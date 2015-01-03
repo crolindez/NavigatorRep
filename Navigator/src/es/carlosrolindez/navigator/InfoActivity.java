@@ -33,7 +33,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
     	
 	    reference = myIntent.getStringExtra(NavisionTool.LAUNCH_REFERENCE);	  	    
 	    description = myIntent.getStringExtra(NavisionTool.LAUNCH_DESCRIPTION);	
-	    infoMode = myIntent.getIntExtra(NavisionTool.LAUNCH_INFO_MODE,NavisionTool.INFO_MODE_FULL);
+	    infoMode = myIntent.getIntExtra(NavisionTool.LAUNCH_INFO_MODE,NavisionTool.INFO_MODE_SUMMARY);
 
 
 
@@ -48,7 +48,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 
        	    switch (infoMode)
 		    {     
-		    case NavisionTool.INFO_MODE_FULL:
+		    case NavisionTool.INFO_MODE_SUMMARY:
 		    default: 
 	      	    infoFragment = InfoFragment.newInstance();  		
 		        if (infoFragment!=null)
@@ -72,7 +72,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
    	    }
 	    switch (infoMode)
 	    {     
-	    case NavisionTool.INFO_MODE_FULL:
+	    case NavisionTool.INFO_MODE_SUMMARY:
 	    default: 
 	      	getActionBar().setTitle(reference + " " + description);
 	      	break;
@@ -124,7 +124,11 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 			case NavisionTool.LOADER_PRODUCT_INFO:
 			default:
 				infoFragment.showResultSet(productList);
+				Product item = productList.iterator().next();
+				description = item.description;
+				getActionBar().setTitle(reference + " " + description);				
 				break;
+				
 			case NavisionTool.LOADER_PRODUCT_BOM:				
 			case NavisionTool.LOADER_PRODUCT_IN_USE:
 				productListFragment.showResultSet(productList);
@@ -144,12 +148,16 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 	    if ((infoMode==NavisionTool.INFO_MODE_BOM)||(infoMode==NavisionTool.INFO_MODE_IN_USE))
 	    {
 	    	MenuItem menuItem;
+	    	menuItem = menu.findItem(R.id.action_plus_one);
+	    	menuItem.setVisible(false);	 	    	
+	    	menuItem = menu.findItem(R.id.action_plus_ten);
+	    	menuItem.setVisible(false);	 
 	    	menuItem = menu.findItem(R.id.action_zoom_up);
 	    	menuItem.setVisible(false);
 	    	menuItem = menu.findItem(R.id.action_zoom_down);
 	    	menuItem.setVisible(false);	    	
-
 	    }
+	    
 	    return super.onCreateOptionsMenu(menu);
 	}
     
@@ -157,16 +165,42 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         Intent intent = new Intent (this, InfoActivity.class);
-    	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference);        	
-    	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, description);  
+        char character;
+
     	
         switch(id)
 		{	
+		case R.id.action_plus_one:
+			character = reference.charAt(reference.length()-1);
+			if ( (character>='0') && (character<'9'))
+			{
+				character++;
+		    	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference.substring(0, reference.length()-1) + character);   
+		    	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, "");  
+				intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_SUMMARY);
+				startActivity(intent);   
+			}
+            break;
+		case R.id.action_plus_ten:
+			character = reference.charAt(reference.length()-2);
+			if ( (character>='0') && (character<'9'))
+			{
+				character++;
+		    	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference.substring(0, reference.length()-2) + character + reference.charAt(reference.length()-1));   
+		    	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, "");  
+				intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_SUMMARY);
+				startActivity(intent);   
+			}
+            break;
 		case R.id.action_zoom_up:
+	    	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference);   
+	    	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, description); 
 			intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_IN_USE);
         	startActivity(intent);    
             break;
 		case R.id.action_zoom_down:
+	    	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference);   
+	    	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, description); 
 			intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_BOM);
         	startActivity(intent);    
             break;

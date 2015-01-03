@@ -159,6 +159,7 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	    searchView = (SearchView) searchMenuItem.getActionView();
 	    searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 	    searchView.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+//	    searchView.setInputType(InputType.TYPE_CLASS_NUMBER);
 	    searchView.setIconifiedByDefault(true); 
 	    searchView.setIconified(true);
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {

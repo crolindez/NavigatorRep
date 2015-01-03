@@ -110,9 +110,14 @@ public class InfoFragment extends Fragment
 			}
 			if (product != null && getActivity()!=null)
 			{
+
 				TextView stock = (TextView)getActivity().findViewById(R.id.general_info_stock);
 				stockValue = Float.parseFloat(product.stock);
 				stock.setText(String.format("%.1f un.",stockValue));
+				
+				TextView orderPoint = (TextView)getActivity().findViewById(R.id.general_info_order_point);
+				orderPointValue = Float.parseFloat(product.orderPoint);
+				orderPoint.setText(String.format("  (%.1f)",orderPointValue));
 
 				TextView price = (TextView)getActivity().findViewById(R.id.general_info_price);
 				priceValue = Float.parseFloat(product.price);
@@ -128,39 +133,58 @@ public class InfoFragment extends Fragment
 				
 				TextView purchase = (TextView)getActivity().findViewById(R.id.general_info_purchase);
 				purchaseValue = Float.parseFloat(product.purchase);
-				purchase.setText(String.format("%.1f un.",purchaseValue));
-
+				if (purchaseValue>0)
+					purchase.setText(String.format("%.1f un.",purchaseValue));
+				else
+					getActivity().findViewById(R.id.purchase_layout).setVisibility(View.GONE);
+				
 				TextView inProduction = (TextView)getActivity().findViewById(R.id.general_info_in_production);
 				inProductionValue = Float.parseFloat(product.inProduction);
-				inProduction.setText(String.format("%.1f un.",inProductionValue));
+				if (inProductionValue>0)
+					inProduction.setText(String.format("%.1f un.",inProductionValue));
+				else
+					getActivity().findViewById(R.id.production_layout).setVisibility(View.GONE);
 
-				TextView inPlannedProduction = (TextView)getActivity().findViewById(R.id.general_info_in_planned_produccions);
+				TextView inPlannedProduction = (TextView)getActivity().findViewById(R.id.general_info_in_planned_productions);
 				inPlannedProductionValue = Float.parseFloat(product.inPlannedProduction);
-				inPlannedProduction.setText(String.format("%.1f un.",inPlannedProductionValue));
+				if (inPlannedProductionValue>0)
+					inPlannedProduction.setText(String.format("%.1f un.",inPlannedProductionValue));
+				else
+					getActivity().findViewById(R.id.in_planned_productions_layout).setVisibility(View.GONE);
 
 				TextView sale = (TextView)getActivity().findViewById(R.id.general_info_sales);
 				saleValue = Float.parseFloat(product.sale);
-				sale.setText(String.format("%.1f un.",saleValue));
-
+				if (saleValue>0)
+					sale.setText(String.format("%.1f un.",saleValue));
+				else
+					getActivity().findViewById(R.id.sales_layout).setVisibility(View.GONE);
+				
 				TextView usedInProduction = (TextView)getActivity().findViewById(R.id.general_info_used_in_production);
 				usedInProductionValue = Float.parseFloat(product.usedInProduction);
-				usedInProduction.setText(String.format("%.1f un.",usedInProductionValue));
+				if (usedInProductionValue>0)
+					usedInProduction.setText(String.format("%.1f un.",usedInProductionValue));
+				else
+					getActivity().findViewById(R.id.used_in_production_layout).setVisibility(View.GONE);
 
 				TextView transfer = (TextView)getActivity().findViewById(R.id.general_info_transfer);
 				transferValue = Float.parseFloat(product.transfer);
-				transfer.setText(String.format("%.1f un.",transferValue));
+				if (transferValue>0)
+					transfer.setText(String.format("%.1f un.",transferValue));
+				else
+					getActivity().findViewById(R.id.transfer_layout).setVisibility(View.GONE);
 
-				TextView usedInPlannedProduction = (TextView)getActivity().findViewById(R.id.general_info_used_in_planned_produccions);
+				TextView usedInPlannedProduction = (TextView)getActivity().findViewById(R.id.general_info_used_in_planned_productions);
 				usedInPlannedProductionValue = Float.parseFloat(product.usedInPlannedProduction);
-				usedInPlannedProduction.setText(String.format("%.1f un.",usedInPlannedProductionValue));
-
-				orderPointValue = Float.parseFloat(product.orderPoint);
+				if (usedInPlannedProductionValue>0)
+					usedInPlannedProduction.setText(String.format("%.1f un.",usedInPlannedProductionValue));
+				else
+					getActivity().findViewById(R.id.used_in_planned_productions_layout).setVisibility(View.GONE);
 				
 				if ( (stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
 					getActivity().findViewById(R.id.stock_layout).setBackground(getResources().getDrawable(R.drawable.consume_bg));
 				else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
 					getActivity().findViewById(R.id.stock_layout).setBackground(getResources().getDrawable(R.drawable.stock_bg));
-				else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue + orderPointValue))
+				else if ( (stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue + orderPointValue))
 					getActivity().findViewById(R.id.stock_layout).setBackground(getResources().getDrawable(R.drawable.danger_bg));
 			
 

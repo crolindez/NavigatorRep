@@ -142,13 +142,14 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
     		default:
 		    	product = new Product(); 	
 		    	product.reference = filterString;
+				product.description = "Description of " + filterString;
 		    	
 				product.stock ="222";
 				product.cost = "40.3";
 				product.price = "120.2";
 		    	
 		    	product.inPlannedProduction = "200";
-		    	product.inProduction = "150";
+		    	product.inProduction = "0";
 		    	product.purchase = "500";
 		    	
 		    	product.transfer = "13";
@@ -287,6 +288,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				    	
 						product.stock = NavisionTool.queryStock(filterString);
 						product.cost = NavisionTool.queryCost(filterString);
+						product.description = NavisionTool.queryDescription(filterString);
 				    	
 				    	product.inPlannedProduction = NavisionTool.queryInPlannedProduction(filterString);
 				    	product.inProduction = NavisionTool.queryInProduction(filterString);
