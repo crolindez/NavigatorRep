@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Locale;
 
-import android.util.Log;
-
 
 
 
@@ -115,10 +113,7 @@ public class NavisionTool
 	    {
 		    String driver = "net.sourceforge.jtds.jdbc.Driver";
 		    Class.forName(driver).newInstance();
-		    DriverManager.setLoginTimeout(15);
-		    Log.e("openConnection",NavisionTool.connString + NavisionTool.ipaddress + ":" + NavisionTool.port + "/" + NavisionTool.server+ ";domain=" + NavisionTool.domain);
-		    Log.e("openConnection",NavisionTool.username);
-		    Log.e("openConnection",NavisionTool.password);		
+		    DriverManager.setLoginTimeout(15);	
 		    
 		    conn = DriverManager.getConnection(NavisionTool.connString + NavisionTool.ipaddress + ":" + NavisionTool.port + "/" + NavisionTool.server + ";domain=" + NavisionTool.domain,
 		    		NavisionTool.username,NavisionTool.password);

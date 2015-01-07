@@ -37,9 +37,11 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     	
     	super.onCreate(savedInstanceState);
  
-    	loadPreferences();
+        setContentView(R.layout.search_layout);
     	
-    	lm = getSupportLoaderManager();  
+        loadPreferences();
+    	
+//    	lm = getSupportLoaderManager();  
     	
 	    if (savedInstanceState == null)
 	    {
@@ -78,7 +80,8 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	@Override
 	protected void onNewIntent(Intent intent) 
 	{ 
-    	loadPreferences();
+        setContentView(R.layout.search_layout);
+        loadPreferences();
     	setIntent(intent);
 	    searchView.setIconified(true);
     	if (Intent.ACTION_SEARCH.equals(intent.getAction())) 
@@ -128,7 +131,6 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	private void loadPreferences()
 	{
 	    PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-        setContentView(R.layout.search_layout);
         
     	SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
     	boolean emulator =  sharedPref.getBoolean("emulator_mode", true);
