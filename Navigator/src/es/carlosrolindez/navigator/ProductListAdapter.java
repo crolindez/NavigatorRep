@@ -91,12 +91,13 @@ public class ProductListAdapter extends BaseAdapter {
 		reference.setText(product.reference);
 		description.setText(product.description);
 		quantity.setText("");
-			
+		
 		stockValue = Float.parseFloat(product.stock);
 		if (stock != null) 
 		{
 			stock.setText(String.format("%.1f un.",stockValue));
 		}	
+
 		costValue = Float.parseFloat(product.cost);
 		if (cost != null)
 		{
@@ -128,7 +129,6 @@ public class ProductListAdapter extends BaseAdapter {
 			usedInProductionValue =  Float.parseFloat(product.usedInProduction);
 			transferValue =  Float.parseFloat(product.transfer);
 			orderPointValue = Float.parseFloat(product.orderPoint);
-			
 			if ( (stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
 				localView.setBackground(localView.getResources().getDrawable(R.drawable.consume_bg));
 			else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
@@ -191,7 +191,6 @@ public class ProductListAdapter extends BaseAdapter {
 			}
 
 		});
-		
 		return localView;
 	}
 	

@@ -779,7 +779,7 @@ public class NavisionTool
 		    String headSqlString2 = "[EIS$Sales Line].[Outstanding Quantity] FROM [EIS$Sales Line], [EIS$Sales Header] ";
 		    String headSqlString3 = "WHERE  ([EIS$Sales Line].[Document No_] = [EIS$Sales Header].[No_]) AND ([EIS$Sales Line].[No_] = '";
 
-		    String tailSqlString = "' ) AND ([EIS$Sales Line].[Outstanding Quantity] > 0) AND ([EIS$Sales Line].[Document Type]='1') ORDER BY [EIS$Sales Header].[Order Date]";
+		    String tailSqlString = "' ) AND ([EIS$Sales Line].[Outstanding Quantity] > 0) AND ([EIS$Sales Line].[Document Type]='1') AND ([EIS$Sales Line].[Location Code]='01') ORDER BY [EIS$Sales Header].[Order Date]";
 		    
 		    
 		    ResultSet result = stmt.executeQuery(headSqlString1 + headSqlString2 + headSqlString3 + filterString + tailSqlString);

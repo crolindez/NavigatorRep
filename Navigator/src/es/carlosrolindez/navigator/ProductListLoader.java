@@ -199,9 +199,11 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 		{
 
 			/*  Connection */
+
 		    Connection conn = NavisionTool.openConnection();
+
 		    if (conn!=null) 
-		    {
+		    {    	
 			    try 
 			    {
 			    	ResultSet result;
@@ -267,7 +269,7 @@ public class ProductListLoader extends AsyncTaskLoader<ArrayList<Product>> {
 				 		break;
 	
 		    		case NavisionTool.LOADER_PRODUCT_SEARCH:
-	    				result = NavisionTool.queryList(filterString);	    			
+	    				result = NavisionTool.queryList(filterString);	    	    			
 		      			while(result.next())
 						{					
 					    	product = new Product(); 	

@@ -29,7 +29,7 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 {
 	
 	private ProductListFragment searchFragment;
-	private LoaderManager lm;
+//	private LoaderManager lm;
 	private SearchView searchView;
 
     @Override
@@ -41,7 +41,7 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     	
         loadPreferences();
     	
-//    	lm = getSupportLoaderManager();  
+
     	
 	    if (savedInstanceState == null)
 	    {
@@ -80,8 +80,11 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	@Override
 	protected void onNewIntent(Intent intent) 
 	{ 
-        setContentView(R.layout.search_layout);
+		LoaderManager lm;
+		
+        setContentView(R.layout.search_layout);       
         loadPreferences();
+    	lm = getSupportLoaderManager();  
     	setIntent(intent);
 	    searchView.setIconified(true);
     	if (Intent.ACTION_SEARCH.equals(intent.getAction())) 
