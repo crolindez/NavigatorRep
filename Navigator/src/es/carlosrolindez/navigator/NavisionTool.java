@@ -175,7 +175,7 @@ public class NavisionTool
 			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 	
 		    String headSqlString = "SELECT TOP 1000 [No_],[Description],[Quantity],[Description 2] FROM [EIS$Production BOM Line] WHERE [Production BOM No_] = '";	    
-		    String tailSqlSring = "' AND [Version Code]=''  ORDER BY [No_]";
+		    String tailSqlSring = "' AND [Version Code]='' AND ([Quantity]>0) ORDER BY [No_]";
 		    
 		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
 		    return result;
