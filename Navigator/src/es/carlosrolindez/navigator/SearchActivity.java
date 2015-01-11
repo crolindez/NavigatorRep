@@ -37,7 +37,7 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     	
     	super.onCreate(savedInstanceState);
  
-        setContentView(R.layout.search_layout);
+        setContentView(R.layout.frame_container_layout);
     	
         loadPreferences();
     	
@@ -82,7 +82,7 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	{ 
 		LoaderManager lm;
 		
-        setContentView(R.layout.search_layout);       
+        setContentView(R.layout.frame_container_layout);       
         loadPreferences();
     	lm = getSupportLoaderManager();  
     	setIntent(intent);
@@ -133,8 +133,7 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 	
 	private void loadPreferences()
 	{
-	    PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-        
+	    PreferenceManager.setDefaultValues(this, R.xml.preferences, false); 
     	SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
     	boolean emulator =  sharedPref.getBoolean("emulator_mode", true);
     	if (emulator)
@@ -144,13 +143,17 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
     	else
     	{
     		NavisionTool.changeMode(NavisionTool.MODE_REAL);
-    		NavisionTool.setServerConnection( sharedPref.getString("server_name", ""),
-    			sharedPref.getString("port_number", ""), 
-    			sharedPref.getString("ip_address", ""), 
+    		NavisionTool.setServerConnection( sharedPref.getString("db_name", ""),
+    			sharedPref.getString("db_port_number", ""), 
+    			sharedPref.getString("db_ip_address", ""), 
     			sharedPref.getString("domain_name", ""), 
     			sharedPref.getString("user_name", ""), 
     			sharedPref.getString("password", ""));
-    	}		
+    	}  
+		FileTool.setServerConnection(sharedPref.getString("server_address", ""), 
+    			sharedPref.getString("domain_name", ""), 
+    			sharedPref.getString("user_name", ""), 
+    			sharedPref.getString("password", ""));
 	}
 	
 

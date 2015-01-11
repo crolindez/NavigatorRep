@@ -38,7 +38,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 
 
 
-        setContentView(R.layout.single_frame_layout);	 
+        setContentView(R.layout.frame_container_layout);	 
         
 	    if (savedInstanceState == null)
 	    {   	        
@@ -150,7 +150,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 	    	MenuItem menuItem;
 	    	menuItem = menu.findItem(R.id.action_plus_one);
 	    	menuItem.setVisible(false);	 	    	
-	    	menuItem = menu.findItem(R.id.action_plus_ten);
+	    	menuItem = menu.findItem(R.id.action_docs);
 	    	menuItem.setVisible(false);	 
 	    	menuItem = menu.findItem(R.id.action_zoom_up);
 	    	menuItem.setVisible(false);
@@ -164,24 +164,32 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        Intent intent = new Intent (this, InfoActivity.class);
+        Intent intent;
         char character;
 
     	
         switch(id)
 		{	
+		case R.id.action_docs:
+			intent = new Intent (this, DocActivity.class);
+		    	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference);   
+		    	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, "");  
+				intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_SUMMARY);
+				startActivity(intent);   
+            break;
 		case R.id.action_plus_one:
+	        intent = new Intent (this, InfoActivity.class);
 			character = reference.charAt(reference.length()-1);
 			if ( (character>='0') && (character<'9'))
 			{
 				character++;
 		    	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference.substring(0, reference.length()-1) + character);   
 		    	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, "");  
-				intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_SUMMARY);
 				startActivity(intent);   
 			}
             break;
-		case R.id.action_plus_ten:
+/*		case R.id.action_plus_ten:
+	        intent = new Intent (this, InfoActivity.class);
 			character = reference.charAt(reference.length()-2);
 			if ( (character>='0') && (character<'9'))
 			{
@@ -191,14 +199,16 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 				intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_SUMMARY);
 				startActivity(intent);   
 			}
-            break;
+            break;*/
 		case R.id.action_zoom_up:
+	        intent = new Intent (this, InfoActivity.class);
 	    	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference);   
 	    	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, description); 
 			intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_IN_USE);
         	startActivity(intent);    
             break;
 		case R.id.action_zoom_down:
+	        intent = new Intent (this, InfoActivity.class);
 	    	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference);   
 	    	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, description); 
 			intent.putExtra(NavisionTool.LAUNCH_INFO_MODE, NavisionTool.INFO_MODE_BOM);

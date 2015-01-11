@@ -40,16 +40,19 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
     
     public void updateSummary()
     {
-        EditTextPreference preference = (EditTextPreference) getPreferenceScreen().findPreference("server_name");
+        EditTextPreference preference = (EditTextPreference) getPreferenceScreen().findPreference("db_name");
         if (preference!=null) preference.setSummary(preference.getText());
      
-        preference = (EditTextPreference) getPreferenceScreen().findPreference("ip_address");
+        preference = (EditTextPreference) getPreferenceScreen().findPreference("db_ip_address");
         preference.setSummary(preference.getText());
         
-        preference = (EditTextPreference) getPreferenceScreen().findPreference("port_number");
+        preference = (EditTextPreference) getPreferenceScreen().findPreference("db_port_number");
         preference.setSummary(preference.getText());
         
         preference = (EditTextPreference) getPreferenceScreen().findPreference("domain_name");
+        preference.setSummary(preference.getText());       
+        
+        preference = (EditTextPreference) getPreferenceScreen().findPreference("server_address");
         preference.setSummary(preference.getText());       
         
         preference = (EditTextPreference) getPreferenceScreen().findPreference("user_name");

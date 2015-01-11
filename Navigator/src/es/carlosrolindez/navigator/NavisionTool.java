@@ -22,6 +22,7 @@ public class NavisionTool
 	public static final int LOADER_PRODUCT_SEARCH_IN_USE = 4;
 	public static final int LOADER_PRODUCT_SEARCH_BOM = 5;	
 	public static final int LOADER_PRODUCT_IN_OUT = 6;
+	public static final int LOADER_PRODUCT_DOC = 7;
 	
 	public static final String LAUNCH_REFERENCE = "es.carlosrolindez.navisiontool.LAUNCH_REFERENCE";	
 	public static final String LAUNCH_DESCRIPTION = "es.carlosrolindez.navisiontool.LAUNCH_DESCRIPTION";
@@ -44,6 +45,7 @@ public class NavisionTool
 
 	public static final String PRODUCT_LIST_KEY = "ProductListKey";
 	public static final String IN_OUT_LIST_KEY = "InOutListKey";
+	public static final String DOC_LIST_KEY = "DocListKey";
 	
     private static int mode;
     
