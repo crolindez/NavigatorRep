@@ -1,5 +1,9 @@
 package es.carlosrolindez.navigator;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -14,14 +18,15 @@ import android.support.v4.content.AsyncTaskLoader;
 public class DocListLoader extends AsyncTaskLoader<ArrayList<FileDescription>> 
 {
 	private ArrayList<FileDescription> fileList;
-	private String path;
+	private String filterString;
 	private int loaderMode;
 
 	
 	public DocListLoader(Context ctx,int id, Bundle filter)
 	{
 		super(ctx);
-		path = filter.getString(FileTool.PATH_KEY,"").toUpperCase(Locale.US);	
+		filterString = filter.getString(NavisionTool.QUERY,"").toUpperCase(Locale.US);	
+		
 		loaderMode = id;
 	
 	}
@@ -29,9 +34,68 @@ public class DocListLoader extends AsyncTaskLoader<ArrayList<FileDescription>>
 	@Override
 	public ArrayList<FileDescription> loadInBackground()
 	{	
-		fileList = FileTool.readFolder(path);
-		return fileList;
+		FileDescription fileDescription; 	
+		fileList = new ArrayList<FileDescription>();
+		
+		if (NavisionTool.readMode()==NavisionTool.MODE_EMULATOR)
+		{
+	    	switch (loaderMode)
+	    	{
+    		case NavisionTool.LOADER_PRODUCT_DOC:   
+    		default:
+    			
+    			fileDescription = new FileDescription(); 
+    			fileDescription.fileName= "Hola";
+    			fileList.add(fileDescription);	
+ 
+    			fileDescription = new FileDescription(); 
+    			fileDescription.fileName= "Adios";
+    			fileList.add(fileDescription);			
 
+		 		break;
+
+	    	}		    	
+
+	    	return fileList;
+			
+		}
+		else
+		{
+
+			/*  Connection */
+		    Connection conn = NavisionTool.openConnection();
+		    if (conn!=null) 
+		    {
+
+			    
+			    try 
+			    {
+			    	ResultSet result;
+			    	switch (loaderMode)
+			    	{
+	
+		    		case NavisionTool.LOADER_PRODUCT_DOC:
+		    		default:
+		    			result = NavisionTool.queryDocs(filterString);
+					    while(result.next())
+					    {
+			    			fileDescription = new FileDescription(); 
+			      			fileDescription.fileName= result.getString(1);
+			    			fileList.add(fileDescription);	
+					    }
+					 	break;
+					        
+				    }		    		     	
+				} catch (SQLException e) {
+					e.printStackTrace();
+
+				}
+	
+			    NavisionTool.closeConnection();
+			    return fileList;
+		    } 
+		}
+	    return null;
  	}
 	
 	

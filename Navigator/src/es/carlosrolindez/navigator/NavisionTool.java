@@ -834,8 +834,26 @@ public class NavisionTool
 			e.printStackTrace();
 		}	                
 		return null;
+	}
 
+	static public ResultSet queryDocs(String filterString)
+	{
 
+	    Statement stmt;
+
+		try 
+		{
+			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+				
+		    String headSqlString = "SELECT [Documento] FROM [EIS$Documentos] WHERE  ([Nº documento]  = '";
+		    String tailSqlString = "' ) ";
+		    		    
+		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlString);
+		    return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	                
+		return null;
 	}
 
 }

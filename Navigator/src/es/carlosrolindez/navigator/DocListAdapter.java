@@ -70,10 +70,7 @@ public class DocListAdapter extends BaseAdapter {
 		file = mFileList.get(position);		
 		
 		filename.setText(file.fileName);
-		if (!(file.isFolder))
-			size.setText(Long.toString(file.size/1024)+" KB");
-		else
-			size.setText("");
+		size.setText("");
 		
 		return localView;
 	}
