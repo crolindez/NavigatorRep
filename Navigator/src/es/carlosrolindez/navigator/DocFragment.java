@@ -8,8 +8,6 @@ import java.util.ArrayList;
 
 import jcifs.smb.NtlmPasswordAuthentication;
 import jcifs.smb.SmbFile;
-
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -17,12 +15,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
 public class DocFragment extends Fragment
 {
@@ -154,8 +153,9 @@ public class DocFragment extends Fragment
 		        }
 		        try 
 		        {         
+		        	Log.e("path", "smb://" + strPCPath[1] + '/' + strPCPath[0] + "-03.pdf");
 
-					String url = "smb://" + strPCPath[1] + '/' + strPCPath[0] + "*.*";				
+					String url = "smb://" + strPCPath[1] + '/' + strPCPath[0] + "-03.pdf";				
 					NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication(strPCPath[2], strPCPath[3], strPCPath[4]);
 		            smbFileToDownload = new SmbFile(url , auth);
 		            String smbFileName = smbFileToDownload.getName();
