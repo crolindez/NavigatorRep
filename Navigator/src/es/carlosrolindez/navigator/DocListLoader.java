@@ -45,11 +45,13 @@ public class DocListLoader extends AsyncTaskLoader<ArrayList<FileDescription>>
     		default:
     			
     			fileDescription = new FileDescription(); 
-    			fileDescription.fileName= "Hola";
+    			fileDescription.fileName = "Hola";
+    			fileDescription.type = "";
     			fileList.add(fileDescription);	
  
     			fileDescription = new FileDescription(); 
-    			fileDescription.fileName= "Adios";
+    			fileDescription.fileName = "Adios";
+    			fileDescription.type = "";
     			fileList.add(fileDescription);			
 
 		 		break;
@@ -80,7 +82,8 @@ public class DocListLoader extends AsyncTaskLoader<ArrayList<FileDescription>>
 					    while(result.next())
 					    {
 			    			fileDescription = new FileDescription(); 
-			      			fileDescription.fileName= result.getString(1);
+			      			fileDescription.fileName = result.getString(1);
+			      			fileDescription.type = result.getString(2);
 			    			fileList.add(fileDescription);	
 					    }
 					 	break;

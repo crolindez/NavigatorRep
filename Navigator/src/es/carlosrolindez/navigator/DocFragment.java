@@ -73,7 +73,7 @@ public class DocFragment extends Fragment
 	   			FileDescription fileDescription = (FileDescription) parent.getItemAtPosition(position);
 
     			AsyncFileAccess copyAsyncTask = new AsyncFileAccess();
-    			copyAsyncTask.execute(fileDescription.fileName, FileTool.getAddress(), FileTool.getDomain(), FileTool.getUsername(), FileTool.getPassword());
+    			copyAsyncTask.execute(fileDescription.fileName, fileDescription.type, FileTool.getAddress(), FileTool.getDomain(), FileTool.getUsername(), FileTool.getPassword());
 	    	}
 		});
  
@@ -139,8 +139,8 @@ public class DocFragment extends Fragment
 		
 	    @Override 
 	    protected File doInBackground(String... strPCPath /* path, address, domain, username, password */) {
-	    	
-		    SmbFile smbFileToDownload = null;      
+	    	 
+		    SmbFile smbFolderToDownload = null;   
 		    
 		    try 
 		    {
@@ -153,11 +153,56 @@ public class DocFragment extends Fragment
 		        }
 		        try 
 		        {         
-		        	Log.e("path", "smb://" + strPCPath[1] + '/' + strPCPath[0] + "-03.pdf");
+		        	int index = 0;
+		        	for (String typeItem : FileDescription.typeList)
+		        	{
+		        		if (typeItem.equals(strPCPath[1]))
+		        			break;
+		        		index++;
+		        	}
+		        	
+					NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication(strPCPath[3], strPCPath[4], strPCPath[5]);
+		        	
+		        	Log.e("path", "smb://" + strPCPath[2] + '/' + FileDescription.pathList[index] + '/');
 
-					String url = "smb://" + strPCPath[1] + '/' + strPCPath[0] + "-03.pdf";				
-					NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication(strPCPath[2], strPCPath[3], strPCPath[4]);
-		            smbFileToDownload = new SmbFile(url , auth);
+					String urlPath =  "smb://" + strPCPath[2] + '/' + FileDescription.pathList[index] + '/';		
+					
+		            smbFolderToDownload = new SmbFile(urlPath , auth);
+		            
+					for(SmbFile smbFileToDownload : smbFolderToDownload.listFiles()) 
+					{
+			        	Log.e("filename", smbFileToDownload.getName());
+					    if(smbFileToDownload.getName().contains(strPCPath[0]))
+					    {
+				        	Log.e("copying", smbFileToDownload.getName());
+			                InputStream inputStream = smbFileToDownload.getInputStream();
+
+			                File localFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),"/Temporalfolder/"+smbFileToDownload.getName());
+			                long fileLength = smbFileToDownload.length();
+			                
+			                OutputStream out = new FileOutputStream(localFile);
+			                
+			                byte buf[] = new byte[16 * 1024];
+			                int len;
+			                int cicles = 0;
+			                while ((len = inputStream.read(buf)) > 0) 
+			                {
+			                    out.write(buf, 0, len);
+			                    cicles++;
+			                    int percentage = (100*cicles)/((int)(fileLength / (16*1024)) + 1);
+			                    publishProgress(percentage);
+			                }
+			                out.flush();
+			                out.close();
+			                inputStream.close();
+			                return localFile;
+
+					    }
+					
+					}
+					return null;
+
+		            /*smbFileToDownload = new SmbFile(url , auth);
 		            String smbFileName = smbFileToDownload.getName();
 	                InputStream inputStream = smbFileToDownload.getInputStream();
 
@@ -179,7 +224,7 @@ public class DocFragment extends Fragment
 	                out.flush();
 	                out.close();
 	                inputStream.close();
-	                return localFile;
+	                return localFile;*/
 		        }
 		        catch (Exception e) 
 		        {

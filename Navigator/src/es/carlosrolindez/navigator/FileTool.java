@@ -83,6 +83,7 @@ public class FileTool
 				fileDescription.fileName = item.getName();
 				fileDescription.isFolder = item.isDirectory();
 				fileDescription.size = item.length();
+				fileDescription.type = "";
 				
 				fileList.add(fileDescription);	
 			}

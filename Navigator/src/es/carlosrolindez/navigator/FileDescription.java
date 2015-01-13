@@ -9,13 +9,26 @@ public class FileDescription implements Parcelable{
 	public String fileName;
 	public boolean isFolder;
 	public long size;
+	public String type;
 	
-	FileDescription (String fileName, boolean[] boolArray, long size)
+	public static final String[] typeList = new String[] {"","CI","EE","ET","MA","MF","PM","H"};
+	public static final String[] pathList = new String[] {
+			"",
+			"Circuitos impresos",
+			"Esquemas electricos",
+			"Especificaciones tecnicas",
+			"Manuales",
+			"Montajes fabricacion",
+			"Planos mecanicos",
+			"Homologaciones",
+			""};
+	
+	FileDescription (String fileName, boolean[] boolArray, long size, String type)
 	{
         this.fileName = fileName;
         this.isFolder = boolArray[0];;
         this.size = size;
-        		
+        this.type = type;		
 
 	}
 	
@@ -23,6 +36,7 @@ public class FileDescription implements Parcelable{
         this.fileName = "";
         this.isFolder = false;
         this.size = 0;
+        this.type = "";
 	}
 
 	@Override
@@ -38,6 +52,7 @@ public class FileDescription implements Parcelable{
         parcel.writeString(fileName);
         parcel.writeBooleanArray(boolArray);
         parcel.writeLong(size);
+        parcel.writeString(type);
     }
      
     public static final Parcelable.Creator<FileDescription> CREATOR = new Creator<FileDescription>() {
@@ -50,8 +65,9 @@ public class FileDescription implements Parcelable{
             String fileName = parcel.readString();
             parcel.readBooleanArray(boolArray);
             long size = parcel.readLong();
+            String type = parcel.readString();
                 
-            return new FileDescription(fileName,boolArray,size);
+            return new FileDescription(fileName,boolArray,size,type);
         }
  
         @Override
