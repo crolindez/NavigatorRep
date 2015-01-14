@@ -642,7 +642,7 @@ public class NavisionTool
 			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 
             String headSqlString = "SELECT max([Unit Price]) FROM  [EIS$Sales Price] WHERE  ([Item No_] = '";
-    	    String tailSqlSring = "' ) ";
+    	    String tailSqlSring = "' ) AND ([Sales Code]='66')";
 		    
 		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
 		    if (result.isBeforeFirst())
