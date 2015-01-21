@@ -3,6 +3,7 @@ package es.carlosrolindez.navigator;
 
 import java.util.ArrayList;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -81,17 +82,27 @@ public class InOutListAdapter extends BaseAdapter {
 		quantity.setText(String.format("%.1f un.",quantityValue));
 
 
-	
-		if (inOut.programmed)
-		{	
-			localView.setBackground(localView.getResources().getDrawable(R.drawable.stock_bg));
-		}	
-		else
-			localView.setBackground(localView.getResources().getDrawable(R.drawable.cost_bg));					
-		
-		return localView;
+        if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            if (inOut.programmed)
+                localView.setBackgroundDrawable(localView.getResources().getDrawable(R.drawable.stock_bg));
+            else
+                localView.setBackgroundDrawable(localView.getResources().getDrawable(R.drawable.cost_bg));
+        }
+        else
+        {
+            if (inOut.programmed)
+                drawResourceInView(R.drawable.stock_bg,localView);
+            else
+                drawResourceInView(R.drawable.cost_bg,localView);
+        }
+            return localView;
 	}
-	
+
+    @TargetApi(16)
+    private void drawResourceInView(int resource, View viewer)
+    {
+        viewer.setBackground(viewer.getResources().getDrawable(resource));
+    }
 
 	public  void showResultSet(  ArrayList<InOut> inOutList)
 	{
