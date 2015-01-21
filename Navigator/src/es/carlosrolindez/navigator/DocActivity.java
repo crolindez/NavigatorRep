@@ -1,5 +1,6 @@
 package es.carlosrolindez.navigator;
 
+
 import java.util.ArrayList;
 
 import android.content.Intent;
@@ -7,33 +8,40 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.Loader;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 public class DocActivity extends FragmentActivity implements LoaderCallbacks<ArrayList<FileDescription>>
 {
 
-    DocFragment docFragment;
-    
-    private String reference;    
-    private String description;
+    private DocFragment docFragment;
+
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
 
-    	Intent myIntent = getIntent();
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        String reference;
+        String description;
+
+        Intent myIntent = getIntent();
     	
 	    reference = myIntent.getStringExtra(NavisionTool.LAUNCH_REFERENCE);	  	    
 	    description = myIntent.getStringExtra(NavisionTool.LAUNCH_DESCRIPTION);	
 	    
         setContentView(R.layout.frame_container_layout);
+        if (reference==null) reference = "";
+        if (description == null) description ="";
+
       	getActionBar().setTitle("Docs for " + reference + " " + description); 
         
         if (savedInstanceState == null)
@@ -42,7 +50,7 @@ public class DocActivity extends FragmentActivity implements LoaderCallbacks<Arr
     		if (docFragment!=null)
     			getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, docFragment).commit();
  
-	      	LoaderManager lm = getSupportLoaderManager();  
+	      	LoaderManager lm = getSupportLoaderManager();
 	      	Bundle searchString = new Bundle();
        	    searchString.putString(NavisionTool.QUERY, reference);  
        	    lm.restartLoader(NavisionTool.LOADER_PRODUCT_DOC, searchString, this);	
@@ -103,6 +111,20 @@ public class DocActivity extends FragmentActivity implements LoaderCallbacks<Arr
 	{
 
 	}
-	
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch(id)
+        {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
