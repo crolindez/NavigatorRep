@@ -24,6 +24,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+// TODO Improve position of progress Layout
+// TODO Access to purchase/sales order
+// TODO Publish?
+
 
 public class SearchActivity extends FragmentActivity implements LoaderCallbacks<ArrayList<Product>>
 {
@@ -206,7 +210,6 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // TODO Auto-generated method stub
                 return false;
             }
         });

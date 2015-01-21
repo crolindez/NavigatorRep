@@ -99,3 +99,4 @@ public class OutFragment extends Fragment
 	}
 }
     
+
