@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.Loader;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,6 +29,8 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
     @Override
     protected void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
     	Intent myIntent = getIntent();
     	
@@ -169,7 +172,11 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 
     	
         switch(id)
-		{	
+		{
+        // Respond to the action bar's Up/Home button
+        case android.R.id.home:
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
 		case R.id.action_docs:
 			intent = new Intent (this, DocActivity.class);
 		    	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference);   

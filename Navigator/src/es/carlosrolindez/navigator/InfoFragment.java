@@ -1,8 +1,9 @@
 package es.carlosrolindez.navigator;
 
-import java.util.ArrayList;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,18 +12,18 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jjoe64.graphview.BarGraphView;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GraphView.GraphViewData;
-import com.jjoe64.graphview.GraphViewSeries;
+import com.jjoe64.graphview.series.BarGraphSeries;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.util.ArrayList;
 
 public class InfoFragment extends Fragment
 {
 	private ArrayList<Product> productList;
 	private boolean progressAllowed;
 	private boolean progressPending;
-	private GraphView graphView; 
 	
 	public static InfoFragment newInstance() 
 	{
@@ -39,7 +40,7 @@ public class InfoFragment extends Fragment
 	}
 	 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, 
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
         Bundle savedInstanceState) 
     {
     	return inflater.inflate(R.layout.general_info_enh_layout, container, false);    
@@ -64,7 +65,13 @@ public class InfoFragment extends Fragment
 	{
 	    super.onSaveInstanceState(savedState);
 	    savedState.putParcelableArrayList(NavisionTool.PRODUCT_LIST_KEY, productList);
-	}   
+	}
+
+    @TargetApi(16)
+    private void drawResourceInView(int resource, int viewer)
+    {
+        getActivity().findViewById(viewer).setBackground(getResources().getDrawable(resource));
+    }
 
     public void showProgress(boolean progress)
 	{
@@ -179,14 +186,26 @@ public class InfoFragment extends Fragment
 					usedInPlannedProduction.setText(String.format("%.1f un.",usedInPlannedProductionValue));
 				else
 					getActivity().findViewById(R.id.used_in_planned_productions_layout).setVisibility(View.GONE);
-				
-				if ( (stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
-					getActivity().findViewById(R.id.stock_layout).setBackground(getResources().getDrawable(R.drawable.consume_bg));
-				else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
-					getActivity().findViewById(R.id.stock_layout).setBackground(getResources().getDrawable(R.drawable.stock_bg));
-				else if ( (stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue + orderPointValue))
-					getActivity().findViewById(R.id.stock_layout).setBackground(getResources().getDrawable(R.drawable.danger_bg));
-			
+
+                if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    if ( (stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
+                        getActivity().findViewById(R.id.stock_layout).setBackgroundDrawable(getResources().getDrawable(R.drawable.consume_bg));
+                    else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
+                        getActivity().findViewById(R.id.stock_layout).setBackgroundDrawable(getResources().getDrawable(R.drawable.stock_bg));
+                    else if ( (stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue + orderPointValue))
+                        getActivity().findViewById(R.id.stock_layout).setBackgroundDrawable(getResources().getDrawable(R.drawable.danger_bg));
+
+                } else {
+                    if ( (stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
+                        drawResourceInView(R.drawable.consume_bg, R.id.stock_layout);
+                    else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
+                        drawResourceInView(R.drawable.stock_bg, R.id.stock_layout);
+                    else if ( (stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue + orderPointValue))
+                        drawResourceInView(R.drawable.danger_bg, R.id.stock_layout);
+
+                }
+
+
 
 				final String reference = product.reference;
 				final String description = product.description;		
@@ -201,40 +220,122 @@ public class InfoFragment extends Fragment
 	                	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, description);  
 	                	intent.putExtra(NavisionTool.LAUNCH_IN_OUT_MODE, NavisionTool.IN_OUT_MODE_IN);
 	                	startActivity(intent);
-	}
+	                }
+
 
 	        	});
 
-	        	View outLayout = getActivity().findViewById(R.id.out_layout);
-	        	outLayout.setOnClickListener(new View.OnClickListener() {      
-	        	    @Override
-	        	    public void onClick(View v) 
-	        	    {
-	        	    	Intent intent = new Intent (v.getContext(), InOutActivity.class);
-	                	intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference);        	
-	                	intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, description);  
-	                	intent.putExtra(NavisionTool.LAUNCH_IN_OUT_MODE, NavisionTool.IN_OUT_MODE_OUT);
-	                	startActivity(intent);
-	        	    }
+                View outLayout = getActivity().findViewById(R.id.out_layout);
 
-	        	});
-	        	
-	        	GraphViewData[] graphViewData = new GraphViewData[Product.NUMBER_OF_MONTHS];	        	
-	        	GraphViewData[] graphViewData2 = new GraphViewData[Product.NUMBER_OF_MONTHS];
+                outLayout.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        Intent intent = new Intent (v.getContext(), InOutActivity.class);
+                        intent.putExtra(NavisionTool.LAUNCH_REFERENCE, reference);
+                        intent.putExtra(NavisionTool.LAUNCH_DESCRIPTION, description);
+                        intent.putExtra(NavisionTool.LAUNCH_IN_OUT_MODE, NavisionTool.IN_OUT_MODE_OUT);
+                        startActivity(intent);
+                    }
 
-				for (int i=0; i < Product.NUMBER_OF_MONTHS; i++)
-				{	
-					graphViewData[i] = new GraphViewData(i+1,-Double.parseDouble(product.consumeByMonth[i]));
-					graphViewData2[i] = new GraphViewData(i+1,0.0d);
+                });
+
+
+                GraphView graphView = new GraphView( getActivity());
+
+                DataPoint[] seriesData = new DataPoint[Product.NUMBER_OF_MONTHS];
+                DataPoint[] seriesData2Years = new DataPoint[Product.NUMBER_OF_MONTHS];
+                DataPoint[] seriesData1Year = new DataPoint[Product.NUMBER_OF_MONTHS];
+                DataPoint[] seriesData6Months = new DataPoint[Product.NUMBER_OF_MONTHS];
+                DataPoint[] seriesData3Months = new DataPoint[Product.NUMBER_OF_MONTHS];
+
+
+
+                double mean2Years=0.0d, mean1Year=0.0d, mean6Months=0.0d, mean3Months=0.0d;
+                int counter;
+
+				for (counter=0; counter < Product.NUMBER_OF_MONTHS; counter++)
+				{
+                    double monthValue = -Double.parseDouble(product.consumeByMonth[counter]);
+                    mean2Years += monthValue;
+                    seriesData[counter] = new DataPoint(counter+0.5d,monthValue);
+                    if (counter>=(Product.NUMBER_OF_MONTHS / 2))
+                    {
+                        mean1Year += monthValue;
+                        if (counter>= ((Product.NUMBER_OF_MONTHS / 2) + (Product.NUMBER_OF_MONTHS / 4)))
+                        {
+                            mean6Months += monthValue;
+                            if (counter>= ((Product.NUMBER_OF_MONTHS / 2) + (Product.NUMBER_OF_MONTHS / 4) + (Product.NUMBER_OF_MONTHS / 8)))
+                            {
+                                mean3Months += monthValue;
+                            }
+                        }
+                    }
 				}
-				GraphViewSeries graph = new GraphViewSeries(graphViewData);
-				GraphViewSeries graph2 = new GraphViewSeries(graphViewData2);
-				graphView = new BarGraphView( getActivity() , "Consume");
-				graphView.addSeries(graph); 
-				graphView.addSeries(graph2); 
-					
-				graphView.getGraphViewStyle().setNumHorizontalLabels(Product.NUMBER_OF_MONTHS); 
-				LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.graph_view_layout);
+
+                mean2Years /= Product.NUMBER_OF_MONTHS;
+                mean1Year /= (Product.NUMBER_OF_MONTHS/2);
+                mean6Months /= (Product.NUMBER_OF_MONTHS/4);
+                mean3Months /= (Product.NUMBER_OF_MONTHS/8);
+
+                for (counter=0; counter < Product.NUMBER_OF_MONTHS; counter++)
+                {
+                    seriesData2Years[counter] = new DataPoint(counter+0.5d,mean2Years);
+                    if (counter>=(Product.NUMBER_OF_MONTHS / 2))
+                    {
+                        seriesData1Year[counter] = new DataPoint(counter+0.5d,mean1Year);
+                        if (counter>= ((Product.NUMBER_OF_MONTHS / 2) + (Product.NUMBER_OF_MONTHS / 4)))
+                        {
+                            seriesData6Months[counter] = new DataPoint(counter+0.5d,mean6Months);
+                            if (counter>= ((Product.NUMBER_OF_MONTHS / 2) + (Product.NUMBER_OF_MONTHS / 4) + (Product.NUMBER_OF_MONTHS / 8)))
+                            {
+                                seriesData3Months[counter] = new DataPoint(counter+0.5d,mean3Months);
+                            }
+                            else
+                            {
+                                seriesData3Months[counter] = new DataPoint(counter + 0.5d, 0);
+                            }
+                        }
+                        else
+                        {
+                            seriesData6Months[counter] = new DataPoint(counter + 0.5d, 0);
+                            seriesData3Months[counter] = new DataPoint(counter + 0.5d, 0);
+                        }
+                    }
+                    else
+                    {
+                        seriesData1Year[counter] = new DataPoint(counter + 0.5d, 0);
+                        seriesData6Months[counter] = new DataPoint(counter + 0.5d, 0);
+                        seriesData3Months[counter] = new DataPoint(counter + 0.5d, 0);
+                    }
+
+
+                }
+
+                LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(seriesData);
+                BarGraphSeries<DataPoint> mean2YearSeries = new BarGraphSeries<DataPoint>(seriesData2Years);
+                BarGraphSeries<DataPoint> mean1YearSeries = new BarGraphSeries<DataPoint>(seriesData1Year);
+                BarGraphSeries<DataPoint> mean6MonthsSeries = new BarGraphSeries<DataPoint>(seriesData6Months);
+                BarGraphSeries<DataPoint> mean3MonthsSeries = new BarGraphSeries<DataPoint>(seriesData3Months);
+
+                series.setColor(Color.BLACK);
+                mean2YearSeries.setColor(Color.BLUE);
+                mean1YearSeries.setColor(Color.GREEN);
+                mean6MonthsSeries.setColor(Color.GRAY);
+                mean3MonthsSeries.setColor(Color.MAGENTA);
+
+                graphView.addSeries(mean2YearSeries);
+                graphView.addSeries(mean1YearSeries);
+                graphView.addSeries(mean6MonthsSeries);
+                graphView.addSeries(mean3MonthsSeries);
+                graphView.addSeries(series);
+
+                graphView.setTitle("Consumo");
+                graphView.getViewport().setXAxisBoundsManual(true);
+                graphView.getViewport().setMinX(0);
+                graphView.getViewport().setMaxX(24);
+	            LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.graph_view_layout);
 				layout.addView(graphView);
 				
 			}
