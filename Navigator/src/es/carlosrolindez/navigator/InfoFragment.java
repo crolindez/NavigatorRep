@@ -1,15 +1,16 @@
 package es.carlosrolindez.navigator;
 
+import java.util.ArrayList;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
@@ -17,7 +18,11 @@ import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import java.util.ArrayList;
+
+
+
+
+
 
 public class InfoFragment extends Fragment
 {
@@ -241,16 +246,18 @@ public class InfoFragment extends Fragment
 
                 });
 
+                Log.e("before graph","view");
 
-                GraphView graphView = new GraphView( getActivity());
+                GraphView graphView = (GraphView) getActivity().findViewById(R.id.graph_view_layout);
 
+				
                 DataPoint[] seriesData = new DataPoint[Product.NUMBER_OF_MONTHS];
                 DataPoint[] seriesData2Years = new DataPoint[Product.NUMBER_OF_MONTHS];
                 DataPoint[] seriesData1Year = new DataPoint[Product.NUMBER_OF_MONTHS];
                 DataPoint[] seriesData6Months = new DataPoint[Product.NUMBER_OF_MONTHS];
                 DataPoint[] seriesData3Months = new DataPoint[Product.NUMBER_OF_MONTHS];
 
-
+                Log.e("in graph","dataPoints defined");
 
                 double mean2Years=0.0d, mean1Year=0.0d, mean6Months=0.0d, mean3Months=0.0d;
                 int counter;
@@ -331,13 +338,15 @@ public class InfoFragment extends Fragment
                 graphView.addSeries(mean3MonthsSeries);
                 graphView.addSeries(series);
 
+                Log.e("in graph","almost finished ");
+                
                 graphView.setTitle("Consumo");
                 graphView.getViewport().setXAxisBoundsManual(true);
                 graphView.getViewport().setMinX(0);
                 graphView.getViewport().setMaxX(24);
-	            LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.graph_view_layout);
-				layout.addView(graphView);
-				
+                Log.e("in graph","after layout ");
+
+                Log.e("graph","finished ");
 			}
 		}
 	}

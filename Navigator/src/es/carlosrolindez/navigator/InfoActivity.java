@@ -9,6 +9,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,6 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
+
 
 public class InfoActivity extends FragmentActivity implements LoaderCallbacks<ArrayList<Product>>
 {
@@ -38,8 +42,7 @@ public class InfoActivity extends FragmentActivity implements LoaderCallbacks<Ar
 	    description = myIntent.getStringExtra(NavisionTool.LAUNCH_DESCRIPTION);	
 	    infoMode = myIntent.getIntExtra(NavisionTool.LAUNCH_INFO_MODE,NavisionTool.INFO_MODE_SUMMARY);
 
-
-
+        Log.e("InfoActivity","onCreate");
 
         setContentView(R.layout.frame_container_layout);	 
         

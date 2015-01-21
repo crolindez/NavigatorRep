@@ -84,9 +84,9 @@ public class InOutListAdapter extends BaseAdapter {
 
         if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             if (inOut.programmed)
-                localView.setBackgroundDrawable(localView.getResources().getDrawable(R.drawable.stock_bg));
+            	drawResourceInViewApi15(R.drawable.stock_bg,localView);
             else
-                localView.setBackgroundDrawable(localView.getResources().getDrawable(R.drawable.cost_bg));
+            	drawResourceInViewApi15(R.drawable.cost_bg,localView);
         }
         else
         {
@@ -95,7 +95,7 @@ public class InOutListAdapter extends BaseAdapter {
             else
                 drawResourceInView(R.drawable.cost_bg,localView);
         }
-            return localView;
+        return localView;
 	}
 
     @TargetApi(16)
@@ -104,6 +104,12 @@ public class InOutListAdapter extends BaseAdapter {
         viewer.setBackground(viewer.getResources().getDrawable(resource));
     }
 
+    @TargetApi(15)
+    private void drawResourceInViewApi15(int resource, View viewer)
+    {
+        viewer.setBackgroundDrawable(viewer.getResources().getDrawable(resource));
+    }
+    
 	public  void showResultSet(  ArrayList<InOut> inOutList)
 	{
 		mInOutList = inOutList;

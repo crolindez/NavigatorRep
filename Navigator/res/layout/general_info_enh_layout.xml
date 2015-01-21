@@ -310,13 +310,12 @@
 			        android:textSize="16sp" />
 		    </RelativeLayout>			        
 		</LinearLayout>	   
-	   <LinearLayout
-	        android:id="@+id/graph_view_layout"
+		
+		<com.jjoe64.graphview.GraphView
 	        android:layout_width="match_parent"
-			android:layout_height="400dp"
-			android:layout_margin="5dp"
-	        android:orientation="vertical" >
-		</LinearLayout>	   
+	        android:layout_height="400dp"
+	        android:id="@+id/graph_view_layout" />
+	    
 	    	        	    		
 	</LinearLayout>
      	
