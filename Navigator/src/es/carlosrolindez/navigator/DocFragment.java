@@ -1,13 +1,5 @@
 package es.carlosrolindez.navigator;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-
-import jcifs.smb.NtlmPasswordAuthentication;
-import jcifs.smb.SmbFile;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -22,6 +14,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+
+import jcifs.smb.NtlmPasswordAuthentication;
+import jcifs.smb.SmbFile;
 
 public class DocFragment extends Fragment
 {

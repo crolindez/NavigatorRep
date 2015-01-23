@@ -1,5 +1,9 @@
 package es.carlosrolindez.navigator;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.content.AsyncTaskLoader;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,10 +11,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
-
-import android.content.Context;
-import android.os.Bundle;
-import android.support.v4.content.AsyncTaskLoader;
 
 
 

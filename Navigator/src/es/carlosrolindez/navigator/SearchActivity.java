@@ -1,7 +1,5 @@
 package es.carlosrolindez.navigator;
 
-import java.util.ArrayList;
-
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +21,12 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+
+// TODO Improve position of progress Layout
+// TODO Access to purchase/sales order
+// TODO Publish?
 
 
 public class SearchActivity extends FragmentActivity implements LoaderCallbacks<ArrayList<Product>>
@@ -206,7 +210,6 @@ public class SearchActivity extends FragmentActivity implements LoaderCallbacks<
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // TODO Auto-generated method stub
                 return false;
             }
         });

@@ -1,8 +1,7 @@
 package es.carlosrolindez.navigator;
 
 
-import java.util.ArrayList;
-
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class ProductListAdapter extends BaseAdapter {
 //	private Activity activity;
@@ -53,7 +54,13 @@ public class ProductListAdapter extends BaseAdapter {
 	{
 		return mProductList;
 	}
-	
+
+    @TargetApi(16)
+    private void drawResourceInView(int resource, View viewer)
+    {
+        viewer.setBackground(viewer.getResources().getDrawable(resource));
+
+    }
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{	
@@ -129,14 +136,26 @@ public class ProductListAdapter extends BaseAdapter {
 			usedInProductionValue =  Float.parseFloat(product.usedInProduction);
 			transferValue =  Float.parseFloat(product.transfer);
 			orderPointValue = Float.parseFloat(product.orderPoint);
-			if ( (stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
-				localView.setBackground(localView.getResources().getDrawable(R.drawable.consume_bg));
-			else if ( (stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
-				localView.setBackground(localView.getResources().getDrawable(R.drawable.stock_bg));			
-			else if ( (stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue + orderPointValue))
-				localView.setBackground(localView.getResources().getDrawable(R.drawable.danger_bg));	
-			else
-				localView.setBackground(localView.getResources().getDrawable(R.drawable.cost_bg));				
+            if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                if ((stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
+                    localView.setBackgroundDrawable(localView.getResources().getDrawable(R.drawable.consume_bg));
+                else if ((stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
+                    localView.setBackgroundDrawable(localView.getResources().getDrawable(R.drawable.stock_bg));
+                else if ((stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue + orderPointValue))
+                    localView.setBackgroundDrawable(localView.getResources().getDrawable(R.drawable.danger_bg));
+                else
+                    localView.setBackgroundDrawable(localView.getResources().getDrawable(R.drawable.cost_bg));
+            }
+            else {
+                if ((stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
+                    drawResourceInView(R.drawable.consume_bg,localView);
+                else if ((stockValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue))
+                    drawResourceInView(R.drawable.stock_bg,localView);
+                else if ((stockValue + purchaseValue + inProductionValue) < (saleValue + transferValue + usedInProductionValue + orderPointValue))
+                    drawResourceInView(R.drawable.danger_bg,localView);
+                else
+                    drawResourceInView(R.drawable.cost_bg,localView);
+            }
 		}				
 		
 		inBoom.setOnClickListener(new OnClickListener() 

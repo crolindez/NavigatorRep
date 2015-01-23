@@ -8,11 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Locale;
 
-
-
-
-
-public class NavisionTool 
+public class NavisionTool
 {
 	
 	public static final int LOADER_PRODUCT_SEARCH = 3;
@@ -115,7 +111,7 @@ public class NavisionTool
 	    {
 		    String driver = "net.sourceforge.jtds.jdbc.Driver";
 		    Class.forName(driver).newInstance();
-		    DriverManager.setLoginTimeout(15);	
+		    DriverManager.setLoginTimeout(15);
 		    
 		    conn = DriverManager.getConnection(NavisionTool.connString + NavisionTool.ipaddress + ":" + NavisionTool.port + "/" + NavisionTool.server + ";domain=" + NavisionTool.domain,
 		    		NavisionTool.username,NavisionTool.password);
@@ -642,7 +638,7 @@ public class NavisionTool
 			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 
             String headSqlString = "SELECT max([Unit Price]) FROM  [EIS$Sales Price] WHERE  ([Item No_] = '";
-    	    String tailSqlSring = "' ) AND ([Sales Code]='66')";
+    	    String tailSqlSring = "' ) ";
 		    
 		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlSring);
 		    if (result.isBeforeFirst())
@@ -844,8 +840,8 @@ public class NavisionTool
 		try 
 		{
 			stmt = conn.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-				
-		    String headSqlString = "SELECT [Documento], [Tipo documento] FROM [EIS$Documentos] WHERE  ([Nº documento]  = '";
+
+            String headSqlString = "SELECT [Documento], [Tipo documento] FROM [EIS$Documentos] WHERE  ([Nº documento]  = '";
 		    String tailSqlString = "' ) ";
 		    		    
 		    ResultSet result = stmt.executeQuery(headSqlString + filterString + tailSqlString);

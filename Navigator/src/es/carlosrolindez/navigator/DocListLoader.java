@@ -3,7 +3,6 @@ package es.carlosrolindez.navigator;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -13,9 +12,7 @@ import android.support.v4.content.AsyncTaskLoader;
 
 
 
-
-
-public class DocListLoader extends AsyncTaskLoader<ArrayList<FileDescription>> 
+public class DocListLoader extends AsyncTaskLoader<ArrayList<FileDescription>>
 {
 	private ArrayList<FileDescription> fileList;
 	private String filterString;

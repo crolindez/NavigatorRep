@@ -1,5 +1,7 @@
 package es.carlosrolindez.navigator;
 
+import android.os.Environment;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -8,7 +10,6 @@ import java.util.ArrayList;
 
 import jcifs.smb.NtlmPasswordAuthentication;
 import jcifs.smb.SmbFile;
-import android.os.Environment;
 
 
 public class FileTool 

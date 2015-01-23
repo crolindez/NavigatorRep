@@ -1,22 +1,24 @@
 package es.carlosrolindez.navigator;
 
-import java.util.ArrayList;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.viewpagerindicator.TabPageIndicator;
+
+import java.util.ArrayList;
 
 public class InOutActivity extends FragmentActivity implements LoaderCallbacks<ArrayList<InOut>>
 {
@@ -33,6 +35,8 @@ public class InOutActivity extends FragmentActivity implements LoaderCallbacks<A
     @Override
     protected void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
     	Intent myIntent = getIntent();
     	
@@ -135,6 +139,20 @@ public class InOutActivity extends FragmentActivity implements LoaderCallbacks<A
 	{
 
 	}
-	
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch(id)
+        {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
