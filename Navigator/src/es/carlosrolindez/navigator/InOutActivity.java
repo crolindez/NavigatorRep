@@ -1,5 +1,7 @@
 package es.carlosrolindez.navigator;
 
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -18,7 +20,9 @@ import android.widget.Toast;
 
 import com.viewpagerindicator.TabPageIndicator;
 
-import java.util.ArrayList;
+
+
+
 
 public class InOutActivity extends FragmentActivity implements LoaderCallbacks<ArrayList<InOut>>
 {

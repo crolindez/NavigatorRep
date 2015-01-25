@@ -245,10 +245,10 @@ public class InfoFragment extends Fragment
                 GraphView graphView = new GraphView( getActivity());
 
                 DataPoint[] seriesData = new DataPoint[Product.NUMBER_OF_MONTHS];
-   /*             DataPoint[] seriesData2Years = new DataPoint[Product.NUMBER_OF_MONTHS];
+                DataPoint[] seriesData2Years = new DataPoint[Product.NUMBER_OF_MONTHS];
                 DataPoint[] seriesData1Year = new DataPoint[Product.NUMBER_OF_MONTHS];
                 DataPoint[] seriesData6Months = new DataPoint[Product.NUMBER_OF_MONTHS];
-                DataPoint[] seriesData3Months = new DataPoint[Product.NUMBER_OF_MONTHS];*/
+                DataPoint[] seriesData3Months = new DataPoint[Product.NUMBER_OF_MONTHS];
 
 
 
@@ -274,7 +274,7 @@ public class InfoFragment extends Fragment
                     }
 				}
 
-  /*              mean2Years /= Product.NUMBER_OF_MONTHS;
+                mean2Years /= Product.NUMBER_OF_MONTHS;
                 mean1Year /= (Product.NUMBER_OF_MONTHS/2);
                 mean6Months /= (Product.NUMBER_OF_MONTHS/4);
                 mean3Months /= (Product.NUMBER_OF_MONTHS/8);
@@ -311,30 +311,30 @@ public class InfoFragment extends Fragment
                     }
 
 
-                }*/
+                }
 
                 LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(seriesData);
- /*               BarGraphSeries<DataPoint> mean2YearSeries = new BarGraphSeries<DataPoint>(seriesData2Years);
+                BarGraphSeries<DataPoint> mean2YearSeries = new BarGraphSeries<DataPoint>(seriesData2Years);
                 BarGraphSeries<DataPoint> mean1YearSeries = new BarGraphSeries<DataPoint>(seriesData1Year);
                 BarGraphSeries<DataPoint> mean6MonthsSeries = new BarGraphSeries<DataPoint>(seriesData6Months);
-                BarGraphSeries<DataPoint> mean3MonthsSeries = new BarGraphSeries<DataPoint>(seriesData3Months);*/
+                BarGraphSeries<DataPoint> mean3MonthsSeries = new BarGraphSeries<DataPoint>(seriesData3Months);
 
                 series.setColor(Color.BLACK);
-      /*          mean2YearSeries.setColor(Color.BLUE);
+                mean2YearSeries.setColor(Color.BLUE);
                 mean1YearSeries.setColor(Color.GREEN);
                 mean6MonthsSeries.setColor(Color.GRAY);
-                mean3MonthsSeries.setColor(Color.MAGENTA);*/
+                mean3MonthsSeries.setColor(Color.MAGENTA);
 
-               /* graphView.addSeries(mean2YearSeries);
+                graphView.addSeries(mean2YearSeries);
                 graphView.addSeries(mean1YearSeries);
                 graphView.addSeries(mean6MonthsSeries);
-                graphView.addSeries(mean3MonthsSeries);*/
+                graphView.addSeries(mean3MonthsSeries);
                 graphView.addSeries(series);
 
-     /*           graphView.setTitle("Consumo");
+                graphView.setTitle("Consumo");
                 graphView.getViewport().setXAxisBoundsManual(true);
                 graphView.getViewport().setMinX(0);
-                graphView.getViewport().setMaxX(24);*/
+                graphView.getViewport().setMaxX(24);
 	            LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.graph_view_layout);
 				layout.addView(graphView);
 				

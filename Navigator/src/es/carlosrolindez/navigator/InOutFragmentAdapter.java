@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 
+
+
 class InOutFragmentAdapter extends FragmentPagerAdapter {
 
     private int mCount;
